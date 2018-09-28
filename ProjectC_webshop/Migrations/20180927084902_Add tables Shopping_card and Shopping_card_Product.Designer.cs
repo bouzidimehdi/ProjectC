@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Model;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC_webshop.Migrations
 {
     [DbContext(typeof(WebshopContext))]
-    partial class WebshopContextModelSnapshot : ModelSnapshot
+    [Migration("20180927084902_Add tables Shopping_card and Shopping_card_Product")]
+    partial class AddtablesShopping_cardandShopping_card_Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,55 +48,6 @@ namespace ProjectC_webshop.Migrations
                     b.ToTable("Builder_Product");
                 });
 
-            modelBuilder.Entity("Model.Factuur", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Building_nummer");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("E_mail");
-
-                    b.Property<string>("Name");
-
-                    b.Property<bool>("Payed");
-
-                    b.Property<string>("Streetname");
-
-                    b.Property<string>("Surname");
-
-                    b.Property<string>("Zip_Code");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Factuur");
-                });
-
-            modelBuilder.Entity("Model.Factuur_Producten", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Factuur_ID");
-
-                    b.Property<int>("Key_ID");
-
-                    b.Property<string>("Name");
-
-                    b.Property<float>("Price");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Factuur_ID");
-
-                    b.HasIndex("Key_ID")
-                        .IsUnique();
-
-                    b.ToTable("Factuur_Producten");
-                });
-
             modelBuilder.Entity("Model.Key", b =>
                 {
                     b.Property<int>("ID")
@@ -111,43 +64,6 @@ namespace ProjectC_webshop.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("Key");
-                });
-
-            modelBuilder.Entity("Model.Order", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Factuur_ID");
-
-                    b.Property<int>("User_ID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Factuur_ID")
-                        .IsUnique();
-
-                    b.HasIndex("User_ID");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Model.Orderd_Product", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Key_ID");
-
-                    b.Property<int>("Order_ID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Key_ID");
-
-                    b.HasIndex("Order_ID");
-
-                    b.ToTable("Orderd_Product");
                 });
 
             modelBuilder.Entity("Model.Product", b =>
@@ -202,7 +118,7 @@ namespace ProjectC_webshop.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Shopping_Card_Products");
+                    b.ToTable("Shopping_card_Product");
                 });
 
             modelBuilder.Entity("Model.User_wishlist", b =>
@@ -263,50 +179,11 @@ namespace ProjectC_webshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Model.Factuur_Producten", b =>
-                {
-                    b.HasOne("Model.Factuur", "Factuur")
-                        .WithMany("FactuurProductens")
-                        .HasForeignKey("Factuur_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Model.Key", "Key")
-                        .WithOne("FactuurProducten")
-                        .HasForeignKey("Model.Factuur_Producten", "Key_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Model.Key", b =>
                 {
                     b.HasOne("Model.Product", "Products")
                         .WithMany("Keys")
                         .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Model.Order", b =>
-                {
-                    b.HasOne("Model.Factuur", "Factuur")
-                        .WithOne("Order")
-                        .HasForeignKey("Model.Order", "Factuur_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Model.Users", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("User_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Model.Orderd_Product", b =>
-                {
-                    b.HasOne("Model.Key", "Key")
-                        .WithMany("OrderdProducts")
-                        .HasForeignKey("Key_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Model.Order", "Order")
-                        .WithMany("OrderdProducts")
-                        .HasForeignKey("Order_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

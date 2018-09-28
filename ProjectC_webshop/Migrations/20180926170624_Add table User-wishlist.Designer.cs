@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC_webshop.Migrations
 {
     [DbContext(typeof(WebshopContext))]
-    [Migration("20180925131809_InitialCreateWebshopContext")]
-    partial class InitialCreateWebshopContext
+    [Migration("20180926170624_Add table User-wishlist")]
+    partial class AddtableUserwishlist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,38 @@ namespace ProjectC_webshop.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("Model.Key", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("License");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<bool>("Sold");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Key");
+                });
+
+            modelBuilder.Entity("Model.Product", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<float>("Price");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Product");
+                });
 
             modelBuilder.Entity("Model.Role", b =>
                 {
@@ -29,6 +61,19 @@ namespace ProjectC_webshop.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Role");
+                });
+
+            modelBuilder.Entity("Model.User_wishlist", b =>
+                {
+                    b.Property<int>("User_ID");
+
+                    b.Property<int>("Product_ID");
+
+                    b.HasKey("User_ID", "Product_ID");
+
+                    b.HasIndex("Product_ID");
+
+                    b.ToTable("User_wishlist");
                 });
 
             modelBuilder.Entity("Model.Users", b =>
@@ -63,11 +108,32 @@ namespace ProjectC_webshop.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Model.Key", b =>
+                {
+                    b.HasOne("Model.Product", "Products")
+                        .WithMany("Keys")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Model.Role", b =>
                 {
                     b.HasOne("Model.Users", "User")
                         .WithOne("Roles")
                         .HasForeignKey("Model.Role", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Model.User_wishlist", b =>
+                {
+                    b.HasOne("Model.Product", "Product")
+                        .WithMany("Wishlists")
+                        .HasForeignKey("Product_ID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Model.Users", "User")
+                        .WithMany("Wishlists")
+                        .HasForeignKey("User_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
