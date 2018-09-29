@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Model;
+using Npgsql;
 
 namespace ProjectC_webshop
 {
@@ -21,6 +24,9 @@ namespace ProjectC_webshop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Start de database verbinding.
+            services.AddDbContext<WebshopContext>(opt => opt.UseNpgsql(@"Host=localhost;Database=WebshopDB;Username=postgres;Password=Rotterdam1997"));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
