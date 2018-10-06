@@ -1,0 +1,20 @@
+﻿@page
+@model AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("Admin"))
+    {
+        <h2>@ViewData["Title"]</h2>
+        <h3>@Model.Message</h3>
+        <p>Use this area to provide additional information.</p>
+    }
+}
+else
+{
+    <p>Trying to sneak in?</p>
+}
+
