@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Data;
 using WebApplication1.Services;
@@ -31,6 +33,7 @@ namespace WebApplication1.Pages.Account
             _emailSender = emailSender;
         }
 
+        
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -38,11 +41,52 @@ namespace WebApplication1.Pages.Account
 
         public class InputModel
         {
+
             [Required]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
             [Display(Name = "Name")]
+            [RegularExpression(@"^[A-Za-zÀ-ÿ]+$", ErrorMessage = "Please only enter letters")]
             public string Name { get; set; }
+
+            [Required]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            [RegularExpression(@"^[A-Za-zÀ-ÿ]+$", ErrorMessage = "Please only enter letters")]
+            public string LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+
+            [Required]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [DataType(DataType.Text)]
+            [Display(Name = "City")]
+            [RegularExpression(@"^[A-Za-zÀ-ÿ]+$", ErrorMessage = "Please only enter letters")]
+            public string City { get; set; }
+
+            [Required]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Street")]
+            [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            public string Street { get; set; }
+
+            [StringLength(8, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Zip code")]
+            //[RegularExpression(@"[0-9]{4} [A-Z]{2}", ErrorMessage = "Please enter a valid zip for this country")]
+            public string Zip { get; set; }
+
+            [Required]
+            [StringLength(4, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [DataType(DataType.Text)]
+            [Display(Name = "House number")]
+            [RegularExpression(@"^[0-9]+$", ErrorMessage = "Please enter a valid house number")]
+            public string HouseNumber { get; set; }
 
             [Required]
             [EmailAddress]
@@ -76,9 +120,17 @@ namespace WebApplication1.Pages.Account
             ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
+                var user = new ApplicationUser {
+                    UserName = Input.Email,
+                    Email = Input.Email,
                     Name = Input.Name,
-                    DOB = Input.DOB
+                    LastName = Input.LastName,
+                    Country = Input.Country,
+                    City = Input.City,
+                    Street = Input.Street,
+                    Zip = Input.Zip,
+                    HouseNumber = Input.HouseNumber,
+                    DOB = Input.DOB,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

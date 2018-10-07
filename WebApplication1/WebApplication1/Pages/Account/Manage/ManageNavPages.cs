@@ -14,6 +14,8 @@ namespace WebApplication1.Pages.Account.Manage
 
         public static string ExternalLogins => "ExternalLogins";
 
+        public static string Admin => "Admin";
+
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
@@ -21,6 +23,8 @@ namespace WebApplication1.Pages.Account.Manage
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
 
         public static string ExternalLoginsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ExternalLogins);
+
+        public static string AdminNavClass(ViewContext viewContext) => PageNavClass(viewContext, Admin);
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
