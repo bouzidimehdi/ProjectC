@@ -18,10 +18,15 @@ namespace Model {
         public DbSet<Factuur> Factuur { get; set; }
         public DbSet<Orderd_Product> Orderd_Product { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        public WebshopContext(DbContextOptions<WebshopContext> options) : base(options)
+        {
+        }
+
+        /* Start de oude database verbinding.
+          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             //here we define the name of our database
             optionsBuilder.UseNpgsql("User ID=postgres;Password=Rotterdam1997;Host=localhost;Port=5432;Database=WebshopDB;Pooling=true;");
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             // Make Define Primari key for Role
