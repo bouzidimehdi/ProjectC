@@ -24,3 +24,5 @@ export class Home extends Component {
     );
   }
 }
+
+

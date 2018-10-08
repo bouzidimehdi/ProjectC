@@ -18,5 +18,10 @@ namespace WebApplication1.Data
         public string Zip { get; set; }
         public string HouseNumber { get; set; }
         public DateTime DOB { get; set; }
+
+        public Role Roles { get; set; }
+        public List<User_Wishlist> Wishlists { get; set; }
+        public Shopping_card ShoppingCard { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }
