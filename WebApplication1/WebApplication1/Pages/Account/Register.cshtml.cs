@@ -39,7 +39,7 @@ namespace WebApplication1.Pages.Account
 
         public string ReturnUrl { get; set; }
 
-        public class InputModel
+        public class InputModel : IValidatableObject
         {
 
             [Required]
@@ -106,9 +106,31 @@ namespace WebApplication1.Pages.Account
 
             [Required]
             [Display(Name = "Birth Date")]
-            [DataType(DataType.Date)]
+            [DataType(DataType.Date, ErrorMessage = "Invalid Date")]
             public DateTime DOB { get; set; }
+
+            IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+            {
+                List<ValidationResult> res = new List<ValidationResult>();
+                string dateInputMinimum = "Jan 1, 2002";
+                string dateInputMaximum = "Jan 1, 1900";
+                DateTime parsedDateMinimum = DateTime.Parse(dateInputMinimum);
+                DateTime parsedDateMaximum = DateTime.Parse(dateInputMaximum);
+                if (DOB > parsedDateMinimum)                        // DateTime.Today
+                {
+                    ValidationResult mss = new ValidationResult("You have to be older than 16 in order to create an account");
+                    res.Add(mss);
+                }
+                else if (DOB < parsedDateMaximum)
+                {
+                    ValidationResult mss = new ValidationResult("There is no way you are that old, please fill in valid age");
+                    res.Add(mss);
+                }
+                return res;
+            }
         }
+
+
 
         public void OnGet(string returnUrl = null)
         {
