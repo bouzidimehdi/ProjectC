@@ -104,10 +104,10 @@ namespace WebApplication1.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            [Display(Name = "Birth Date")]
-            [DataType(DataType.Date)]
-            public DateTime DOB { get; set; }
+            //[Required]
+            //[Display(Name = "Birth Date")]
+            //[DataType(DataType.Date)]
+            //public DateTime DOB { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -129,8 +129,8 @@ namespace WebApplication1.Pages.Account
                     City = Input.City,
                     Street = Input.Street,
                     Zip = Input.Zip,
-                    HouseNumber = Input.HouseNumber,
-                    DOB = Input.DOB,
+                    HouseNumber = Input.HouseNumber
+                    //DOB = Input.DOB,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
