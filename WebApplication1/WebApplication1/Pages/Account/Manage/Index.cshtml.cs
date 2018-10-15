@@ -96,10 +96,10 @@ namespace WebApplication1.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
-            [Required]
-            [Display(Name = "Birth Date")]
-            [DataType(DataType.Date)]
-            public DateTime DOB { get; set; }
+            //[Required]
+            //[Display(Name = "Birth Date")]
+            //[DataType(DataType.Date)]
+            //public DateTime DOB { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -121,7 +121,7 @@ namespace WebApplication1.Pages.Account.Manage
                 Street = user.Street,
                 Zip = user.Zip,
                 HouseNumber = user.HouseNumber,
-                DOB = user.DOB,
+                //DOB = user.DOB,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber
             };
@@ -184,10 +184,10 @@ namespace WebApplication1.Pages.Account.Manage
                 user.HouseNumber = Input.HouseNumber;
             }
 
-            if (Input.DOB != user.DOB)
-            {
-                user.DOB = Input.DOB;
-            }
+            //if (Input.DOB != user.DOB)
+            //{
+            //    user.DOB = Input.DOB;
+            //}
 
             if (Input.Email != user.Email)
             {

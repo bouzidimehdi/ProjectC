@@ -39,39 +39,39 @@ namespace WebApplication1.Pages.Account
 
         public string ReturnUrl { get; set; }
 
-        public class InputModel : IValidatableObject
+        public class InputModel
         {
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
-            [Display(Name = "Name")]
+            [Display(Name = "Name *")]
             [RegularExpression(@"^[A-Za-zÀ-ÿ]+$", ErrorMessage = "Please only enter letters")]
             public string Name { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
-            [Display(Name = "Last name")]
+            [Display(Name = "Last name *")]
             [RegularExpression(@"^[A-Za-zÀ-ÿ]+$", ErrorMessage = "Please only enter letters")]
             public string LastName { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Country")]
+            [Display(Name = "Country *")]
             public string Country { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
-            [Display(Name = "City")]
+            [Display(Name = "City *")]
             [RegularExpression(@"^[A-Za-zÀ-ÿ]+$", ErrorMessage = "Please only enter letters")]
             public string City { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
-            [Display(Name = "Street")]
+            [Display(Name = "Street *")]
             [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
             public string Street { get; set; }
 
@@ -84,50 +84,52 @@ namespace WebApplication1.Pages.Account
             [Required]
             [StringLength(4, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
             [DataType(DataType.Text)]
-            [Display(Name = "House number")]
+            [Display(Name = "House number *")]
             [RegularExpression(@"^[0-9]+$", ErrorMessage = "Please enter a valid house number")]
             public string HouseNumber { get; set; }
 
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Email *")]
             public string Email { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Password *")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Confirm password *")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            [Display(Name = "Birth Date")]
-            [DataType(DataType.Date, ErrorMessage = "Invalid Date")]
-            public DateTime DOB { get; set; }
 
-            IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-            {
-                List<ValidationResult> res = new List<ValidationResult>();
-                string dateInputMinimum = "Jan 1, 2002";
-                string dateInputMaximum = "Jan 1, 1900";
-                DateTime parsedDateMinimum = DateTime.Parse(dateInputMinimum);
-                DateTime parsedDateMaximum = DateTime.Parse(dateInputMaximum);
-                if (DOB > parsedDateMinimum)                        // DateTime.Today
-                {
-                    ValidationResult mss = new ValidationResult("You have to be older than 16 in order to create an account");
-                    res.Add(mss);
-                }
-                else if (DOB < parsedDateMaximum)
-                {
-                    ValidationResult mss = new ValidationResult("There is no way you are that old, please fill in valid age");
-                    res.Add(mss);
-                }
-                return res;
-            }
+            //[Required]
+            //[Display(Name = "Birth Date")]
+            //[DataType(DataType.Date, ErrorMessage = "Invalid Date")]
+            //[Compare("Password  ", ErrorMessage = "The password and confirmation password do not match.")]
+            //public DateTime DOB { get; set; }
+            //IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+            //{
+            //    List<ValidationResult> res = new List<ValidationResult>();
+            //    string dateInputMinimum = "Jan 1, 2002";
+            //    string dateInputMaximum = "Jan 1, 1900";
+            //    DateTime parsedDateMinimum = DateTime.Parse(dateInputMinimum);
+            //    DateTime parsedDateMaximum = DateTime.Parse(dateInputMaximum);
+            //    if (DOB > parsedDateMinimum)                        // DateTime.Today
+            //    {
+            //        ValidationResult mss = new ValidationResult("You have to be older than 16 in order to create an account");
+            //        res.Add(mss);
+            //    }
+            //    else if (DOB < parsedDateMaximum)
+            //    {
+            //        ValidationResult mss = new ValidationResult("There is no way you are that old, please fill in valid age");
+            //        res.Add(mss);
+            //    }
+            //    return res;
+            //}
+
         }
 
 
@@ -151,8 +153,8 @@ namespace WebApplication1.Pages.Account
                     City = Input.City,
                     Street = Input.Street,
                     Zip = Input.Zip,
-                    HouseNumber = Input.HouseNumber,
-                    DOB = Input.DOB,
+                    HouseNumber = Input.HouseNumber
+                    //DOB = Input.DOB
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
