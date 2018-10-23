@@ -6,35 +6,48 @@
 }
 <h2>@ViewData["Title"]</h2>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.employee[0].ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.employee[0].QueryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.employee[0].HeaderImage)
-            </th>
-        </tr>
-        </thead>
 
-<tbody>
-    @foreach (var item in Model.employee)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QueryName)
-        </td>
-        <td>
-            <img src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width:100px; height:auto;"/>
-        </td>
-    </tr>
+    <tbody>
+    @{
+        int i_products = 0;
+        while (i_products < Model.Products.data.Items.Length)
+        {
+            <tr>
+                @for (int i = 0; i < 4; i++)
+                {
+                    i_products++;
+                    if (i_products < Model.Products.data.Items.Length)
+                    {
+                        Product item = Model.Products.data.Items[i_products];
+                        <td>
+                            <img src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100px; height: auto;"/><br/>
+                            <p style="font-size: 18px"><b>@Html.DisplayFor(modelItem => item.QueryName)</b></p>
+                        </td>
+                    }
+                }    
+            </tr>
+        }
     }
     </tbody>
 </table>
+
+<nav aria-label="...">
+    <ul class="pagination">
+        @{
+            for (int i = 4; i > -4; i--)
+            {
+                int page_index = Model.Products.data.Index - i;
+
+                if (page_index > -1 && page_index <= Model.Products.data.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="About?handler=page&page_index=@page_index&page_size=50">
+                            @page_index
+                        </a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</nav>
 
