@@ -17,7 +17,7 @@ namespace WebApplication1.Data
         public string Street { get; set; }
         public string Zip { get; set; }
         public string HouseNumber { get; set; }
-        public DateTime DOB { get; set; }
+        //public DateTime DOB { get; set; }
 
         public Role Roles { get; set; }
         public List<User_Wishlist> Wishlists { get; set; }
