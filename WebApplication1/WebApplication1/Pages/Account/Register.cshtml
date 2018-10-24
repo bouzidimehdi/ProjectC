@@ -21,6 +21,12 @@
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
+            <div>
+                <h5>Requirements for a valid password:</h5>
+                <ol>
+                    <li>Password must be 6-50 characters long</li>
+                </ol>
+            </div>
             <div class="form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
