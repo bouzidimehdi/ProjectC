@@ -6,7 +6,8 @@
 }
 <h2>@ViewData["Title"]</h2>
 <form method="post" asp-page-handler="search">
-    <input asp-for="Search" name="Search" type="text" /> 
+    <label for="Search">Search:</label><br/>
+    <input asp-for="Search" name="Search" type="text"/>
     <input type="submit" value="Search"/><br>
 </form>
 <table class="table">
