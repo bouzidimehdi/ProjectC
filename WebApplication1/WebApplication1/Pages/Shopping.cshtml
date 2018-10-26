@@ -1,0 +1,65 @@
+﻿@page
+@using WebApplication1.Searchengine
+@model ShoppingModel
+@{
+    ViewData["Title"] = "Shopping";
+
+}
+<h2>@ViewData["Title"]</h2>
+<form method="post" asp-page-handler="search">
+    <label for="Search">Search:</label><br/>
+    <input asp-for="Search" name="Search" type="text"/>
+    <input type="submit" value="Search"/><br>
+</form>
+<table class="table">
+
+    <tbody>
+    @{
+        int i_products = 0;
+        while (i_products < Model.Products.Length)
+        {
+            <tr>
+                @for (int i = 0; i < 4; i++)
+                {
+                    if (i_products < Model.Products.Length)
+                    {
+                        Product item = Model.Products[i_products];
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100px; height: auto;" /><br />
+                    <p style="font-size: 18px"><b>@Html.DisplayFor(modelItem => item.QueryName)</b></p>
+                </td>
+                    }
+                    i_products++;
+                }    
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+<nav aria-label="...">
+    <ul class="pagination">
+        @{
+            if (Model.Products_page != null || Model.show_Pagination != false)
+            {
+                if (Model.Products_page.empty != false)
+                {
+                    for (int i = 4; i > -4; i--)
+                    {
+                        int page_index = Model.Products_page.data.Index - i;
+
+                        if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50">
+                                    @page_index
+                                </a>
+                            </li>
+                        }
+                    }
+                }
+            }
+        }
+    </ul>
+</nav>
+
