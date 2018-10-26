@@ -5,6 +5,7 @@ using WebApplication1.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace WebApplication1.Searchengine
 {
@@ -23,7 +24,7 @@ namespace WebApplication1.Searchengine
         }
         private string[] stringsplitter(string searchquery) => searchquery.Split(' ');
 
-        public Product[] search(string searchquery)
+        public Product_search[] search(string searchquery)
         {
             // Maak de zoek item tekst kleiner.
             searchquery = searchquery.ToLower();
@@ -69,31 +70,31 @@ namespace WebApplication1.Searchengine
             {
                 Product_search final_result = new Product_search(result);
                 final_result.points = 5;;
+                string[] queryname = this.stringsplitter(final_result.QueryName);
 
-                int recommendationpoints = 0;
+                // Controleert hoevaak een wordt voorkomt in een zin.
+                var matchQuery = from word in words
+                    from name in queryname
+                    where name == word
+                    select word;
 
-                for (int i = 0; i < result.RecommendationCount; i=+ 100)
-                {
-                    if (i > result.RecommendationCount) final_result.points = +recommendationpoints;
-                    else
-                    {
-                        recommendationpoints = +10;
-                    }
-                }
+                // Bepaalt het aantal punten opbasis van het aantal overeenkomende worden.
+                final_result.points = final_result.points + matchQuery.Count() * 3000;
 
-                if (result.PlatformLinux) final_result.points = +15;
-                if (result.PlatformMac) final_result.points = +15;
-                if (result.PlatformWindows) final_result.points = +50;
+                // Bepaalt het aantal punten op basis van het aantal recommendations.
+                final_result.points = final_result.points + result.RecommendationCount / 1000;
+
+                if (result.PlatformLinux) final_result.points = final_result.points + 15;
+                if (result.PlatformMac) final_result.points = final_result.points + 15;
+                if (result.PlatformWindows) final_result.points = final_result.points + 50;
 
                 results.Add(final_result);
             }
 
             // Zet de producten op volgorde van 
-            Product_search[] array_results = results.OrderBy(p => p.points).ToArray();
+            Product_search[] array_results = results.OrderByDescending(p => p.points).ToArray();
 
-            Product[] array_products = array_results;
-
-            return array_products;
+            return array_results;
 
         }
 

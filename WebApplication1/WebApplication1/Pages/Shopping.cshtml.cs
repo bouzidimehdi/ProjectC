@@ -25,6 +25,7 @@ namespace WebApplication1.Pages
         
         // Variablen
         public Product[] Products { get; set; }
+        public Product_search[] Products_search { get; set; }
         public Option<Page<Product>> Products_page { get; set; }
         public bool show_Pagination { get; set; }
 
@@ -53,7 +54,8 @@ namespace WebApplication1.Pages
             Searchbar Searchbar = new Searchbar(_context);
 
 
-            Products = Searchbar.search_simple(Search);
+            Products_search = Searchbar.search(Search);
+            Products = Products_search;
             Products = Products.Skip(0).Take(50).ToArray();
             Products_page = null;
         }
