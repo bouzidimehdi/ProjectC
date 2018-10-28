@@ -29,9 +29,9 @@ namespace WebApplication1
                 //create the roles and seed them to the database
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
             }
-            //Assign Admin role to the main User here we have given our newly registered 
+            //Assign Admin role to the main User here we have given our newly registered
             //login id for Admin management
-            ApplicationUser user = await UserManager.FindByEmailAsync("mehdiiseenbaas@gmail.com");
+            ApplicationUser user = await UserManager.FindByEmailAsync("dion4306@gmail.com");
             var User = new ApplicationUser();
             await UserManager.AddToRoleAsync(user, "Admin");
         }
