@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>Create a new account.</h4><br /><p>All fields labelled with a * are mandatory.</p>
             <hr />
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
@@ -20,6 +20,16 @@
                 <label asp-for="Input.Password"></label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div>
+                <h5>Requirements for a valid password:</h5>
+                <ol>
+                    <li>Password must be 6-50 characters long</li>
+                    <li>Password must have atleast one upper case letter (A-Z)</li>
+                    <li>Password must have atleast one lower case letter (a-z)</li>
+                    <li>Password must have atleast one number (0-9)</li>
+                    <li>Password must have atleast one special character (example: #,$,^,+,=,!,*,(,),%,&)</li>
+                </ol>
             </div>
             <div class="form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
@@ -310,12 +320,12 @@
                 <input asp-for="Input.HouseNumber" class="form-control" />
                 <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Input.DOB"></label>
                 <input asp-for="Input.DOB" class="form-control" />
                 <span asp-validation-for="Input.DOB" class="text-danger"></span>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            </div>
+            </div>*@
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
