@@ -30,34 +30,48 @@ namespace WebApplication1.Searchengine
             searchquery = searchquery.ToLower();
 
             // Split de zoek term op in woorden.
-            string[] words = this.stringsplitter(searchquery);
+            string[] words_count = this.stringsplitter(searchquery);
+            SearchQuery[] words = new SearchQuery[words_count.Length];
+
+            for (int i = 0; i < words_count.Length; i++)
+            {
+                words[i] = new SearchQuery();
+                words[i].search_query = words_count[i];
+            }
+
 
             // Filteren van de stop woorden.
             int k = 0;
-            foreach (var word in words)
+            foreach (SearchQuery word in words)
             {
+                // Filter alle nummers als niet querable.
+                double num;
+                if (double.TryParse(word.search_query, out num)) words[k].queryable = false;
 
-                if (word == "the") words[k] = "";
-                if (word == "of") words[k] = "";
-                if (word == "de") words[k] = "";
-                if (word == "een") words[k] = "";
-                if (word == "het") words[k] = "";
-                if (word == "a") words[k] = "";
-                if (word == "an") words[k] = "";
-                if (word == "by") words[k] = "";
-                if (word == "to") words[k] = "";
-                if (word == "on") words[k] = "";
+                if (word.search_query == "the") words[k].search_query = "";
+                if (word.search_query == "of") words[k].search_query = "";
+                if (word.search_query == "de") words[k].search_query = "";
+                if (word.search_query == "een") words[k].search_query = "";
+                if (word.search_query == "het") words[k].search_query = "";
+                if (word.search_query == "a") words[k].search_query = "";
+                if (word.search_query == "an") words[k].search_query = "";
+                if (word.search_query == "by") words[k].search_query = "";
+                if (word.search_query == "to") words[k].search_query = "";
+                if (word.search_query == "on") words[k].search_query = "";
                 k++;
             }
 
+            var isNumeric = int.TryParse("123", out int n);
+
             // Zoek alle producten op die in een word bevat dat in de title staat.
             Product[] results_query = new Product[] { };
-            foreach(string word in words)
+            foreach(SearchQuery word in words)
             {
-                if (word != "")
+                // Als de word veld niet leeg is of queryable is dan wordt er gezocht op dat word.
+                if (word.search_query != "" && word.queryable)
                 {
                     var query = from p in _context.Product
-                        where p.QueryName.Contains(word)
+                        where p.QueryName.Contains(word.search_query)
                                 select p;
 
                     results_query = query.ToArray();
@@ -75,7 +89,7 @@ namespace WebApplication1.Searchengine
                 // Controleert hoevaak een wordt voorkomt in een zin.
                 var matchQuery = from word in words
                     from name in queryname
-                    where name == word
+                    where name == word.search_query
                     select word;
 
                 // Bepaalt het aantal punten opbasis van het aantal overeenkomende worden.
@@ -141,6 +155,19 @@ namespace WebApplication1.Searchengine
             return results_query;
 
         }
+    }
+
+    /// <summary>
+    /// Class die de zoek worden bijhoud en bijhoud of deze opgezocht mogen worden of niet.
+    /// </summary>
+    public class SearchQuery
+    {
+        public SearchQuery()
+        {
+            queryable = true;
+        }
+        public string search_query { get; set; }
+        public bool queryable { get; set; }
     }
 
     /// <summary>

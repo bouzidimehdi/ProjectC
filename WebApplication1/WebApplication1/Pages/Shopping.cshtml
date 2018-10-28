@@ -1,5 +1,5 @@
 ﻿@page
-@using WebApplication1.Searchengine
+@using Microsoft.CodeAnalysis.Host
 @model ShoppingModel
 @{
     ViewData["Title"] = "Shopping";
@@ -26,7 +26,8 @@
                         Product item = Model.Products[i_products];
                 <td>
                     <img src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100px; height: auto;" /><br />
-                    <p style="font-size: 18px"><b>@Html.DisplayFor(modelItem => item.QueryName)</b></p>
+                    <p style="font-size: 18px"><b>@Html.DisplayFor(modelItem => item.ResponseName)</b></p>
+                    <a href="Productinfo?id=@Model.Products[i_products].ID" class="btn btn-primary">Product info</a>
                 </td>
                     }
                     i_products++;
@@ -40,9 +41,9 @@
 <nav aria-label="...">
     <ul class="pagination">
         @{
-            if (Model.Products_page != null || Model.show_Pagination != false)
+            if (Model.Products_page != null && Model.show_Pagination == false)
             {
-                if (Model.Products_page.empty != false)
+                if (Model.Products_page.empty == false)
                 {
                     for (int i = 4; i > -4; i--)
                     {

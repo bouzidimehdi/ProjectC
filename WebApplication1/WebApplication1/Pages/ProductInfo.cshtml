@@ -1,0 +1,23 @@
+﻿@page
+@model WebApplication1.Pages.ProductInfoModel
+@{
+    ViewData["Title"] = "ProductInfo";
+    string SupportWindows;
+}
+
+<h2>@Model.product.ResponseName</h2>
+
+<img src="@Model.product.HeaderImage" /><br />
+
+<p>@Model.product.AboutText</p>
+
+<table>
+    <tr>
+        <th>Price: </th>
+        <th>€ @Model.product.PriceFinal</th>
+    </tr>
+    <tr>
+        <th>Recomendations: </th>
+        <th> @Model.product.RecommendationCount</th>
+    </tr>
+</table>
