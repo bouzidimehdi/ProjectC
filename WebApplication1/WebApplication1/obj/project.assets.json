@@ -13327,5 +13327,13 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\WebApplication1.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
