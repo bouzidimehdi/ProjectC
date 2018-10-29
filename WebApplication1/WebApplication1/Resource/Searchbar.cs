@@ -22,6 +22,7 @@ namespace WebApplication1.Searchengine
         {
             this._context = context;
         }
+
         private string[] stringsplitter(string searchquery) => searchquery.Split(' ');
 
         public Product_search[] search(string searchquery)
@@ -64,17 +65,27 @@ namespace WebApplication1.Searchengine
             var isNumeric = int.TryParse("123", out int n);
 
             // Zoek alle producten op die in een word bevat dat in de title staat.
-            Product[] results_query = new Product[] { };
-            foreach(SearchQuery word in words)
+            List<IQueryable> result_query_list = new List<IQueryable>();
+            List<Product> results_query = new List<Product> { };
+            foreach (SearchQuery word in words)
             {
                 // Als de word veld niet leeg is of queryable is dan wordt er gezocht op dat word.
                 if (word.search_query != "" && word.queryable)
                 {
                     var query = from p in _context.Product
                         where p.QueryName.Contains(word.search_query)
-                                select p;
+                        select p;
 
-                    results_query = query.ToArray();
+                    result_query_list.Add(query);
+                }
+            }
+
+            // IQueryable to list
+            foreach (IQueryable query in result_query_list)
+            {
+                foreach (Product item in query)
+                {
+                    results_query.Add(item);
                 }
             }
 
@@ -83,7 +94,8 @@ namespace WebApplication1.Searchengine
             foreach (Product result in results_query)
             {
                 Product_search final_result = new Product_search(result);
-                final_result.points = 5;;
+                final_result.points = 5;
+                ;
                 string[] queryname = this.stringsplitter(final_result.QueryName);
 
                 // Controleert hoevaak een wordt voorkomt in een zin.
@@ -109,50 +121,6 @@ namespace WebApplication1.Searchengine
             Product_search[] array_results = results.OrderByDescending(p => p.points).ToArray();
 
             return array_results;
-
-        }
-
-        public Product[] search_simple(string searchquery)
-        {
-            // Maak de zoek item tekst kleiner.
-            searchquery = searchquery.ToLower();
-
-            // Split de zoek term op in woorden.
-            string[] words = this.stringsplitter(searchquery);
-
-            // Filteren van de stop woorden.
-            int k = 0;
-            foreach (var word in words)
-            {
-
-                if (word == "the") words[k] = "";
-                if (word == "of") words[k] = "";
-                if (word == "de") words[k] = "";
-                if (word == "een") words[k] = "";
-                if (word == "het") words[k] = "";
-                if (word == "a") words[k] = "";
-                if (word == "an") words[k] = "";
-                if (word == "by") words[k] = "";
-                if (word == "to") words[k] = "";
-                if (word == "on") words[k] = "";
-                k++;
-            }
-
-            // Zoek alle producten op die in een word bevat dat in de title staat.
-            Product[] results_query = new Product[] { };
-            foreach(string word in words)
-            {
-                if (word != "")
-                {
-                    var query = from p in _context.Product
-                        where p.QueryName.Contains(word)
-                        select p;
-
-                    results_query = query.ToArray();
-                }
-            }
-
-            return results_query;
 
         }
     }
