@@ -14,13 +14,15 @@ namespace WebApplication1.Pages.Account
 {
     public class LoginModel : PageModel
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -68,9 +70,36 @@ namespace WebApplication1.Pages.Account
 
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(Input.Email);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return Page();
+                }
+                //Add this to check if the email was confirmed.
+                else if (!await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    ModelState.AddModelError("", "You need to confirm your email before you can login.");
+                    return Page();
+                }
+                else if (await _userManager.IsLockedOutAsync(user))
+                {
+                    return RedirectToPage("./Lockout");
+                }
+                else if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(Url.GetLocalUrl(returnUrl));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Lockedout");
+                    return Page();
+                }
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                /*var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -89,7 +118,10 @@ namespace WebApplication1.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
-                }
+                }*/
+
+
+
             }
 
             // If we got this far, something failed, redisplay form
