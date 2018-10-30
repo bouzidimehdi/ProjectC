@@ -31,7 +31,7 @@ namespace WebApplication1
             }
             //Assign Admin role to the main User here we have given our newly registered
             //login id for Admin management
-            ApplicationUser user = await UserManager.FindByEmailAsync("dion4306@gmail.com");
+            ApplicationUser user = await UserManager.FindByEmailAsync("0929381@hr.nl");
             var User = new ApplicationUser();
             await UserManager.AddToRoleAsync(user, "Admin");
         }

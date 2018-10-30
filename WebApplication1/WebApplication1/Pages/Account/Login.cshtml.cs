@@ -78,49 +78,20 @@ namespace WebApplication1.Pages.Account
                     return Page();
                 }
                 //Add this to check if the email was confirmed.
-                else if (!await _userManager.IsEmailConfirmedAsync(user))
+                if (!await _userManager.IsEmailConfirmedAsync(user))
                 {
                     ModelState.AddModelError("", "You need to confirm your email before you can login.");
                     return Page();
                 }
-                else if (await _userManager.IsLockedOutAsync(user))
-                {
-                    return RedirectToPage("./Lockout");
-                }
-                else if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(Url.GetLocalUrl(returnUrl));
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Lockedout");
-                    return Page();
-                }
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                /*var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(Url.GetLocalUrl(returnUrl));
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }*/
 
 
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return LocalRedirect(Url.GetLocalUrl(returnUrl));
+                    }
+
+               
 
             }
 
