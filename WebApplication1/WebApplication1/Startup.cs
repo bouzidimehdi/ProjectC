@@ -94,7 +94,7 @@ namespace WebApplication1
 
             app.UseMvc();
 
-            CreateUserRoles(services).Wait();
+            CreateUserRoles(services).Wait(100);
         }
     }
 }

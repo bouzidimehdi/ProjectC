@@ -21,6 +21,8 @@ namespace WebApplication1.Pages
             _context = context;
         }
 
+        public Product[] Products { get; set; }
+
         // OnGet inintialsise the page.
         public void OnGet(int id)
         {
