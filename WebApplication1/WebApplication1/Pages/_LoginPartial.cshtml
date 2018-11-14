@@ -6,32 +6,55 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <div class="dropdown">
-                <button style="background-color:#222222; color:white; border: none; vertical-align:bottom; margin-top:10px;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fas fa-search"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="relocate_home()"><i class="fas fa-shopping-cart"></i></button>
+            <button type="button" class="btn btn-secondary href="#"><i class="fas fa-heart"></i></button>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a asp-page="/Account/Manage/Index" title="Manage">My profile</a></li>
-                    <li role="separator" class="divider"></li>
-                    <button style="background-color: #fff; color:black;" type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-                </ul>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="text-align: center;">
+                    <a asp-page="/Account/Manage/Index" class="dropdown-item">Profile</a><hr />
+                    <button class="btn btn-danger" type="submit"> Logout</button>
+                </div>
             </div>
-        </ul>
-</form>
+        </div>
+
+    </form>
 }
 else
 {
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-secondary" onclick="relocate_home()"><i class="fas fa-shopping-cart"></i></button>
+        <button type="button" class="btn btn-secondary href="#"><i class="fas fa-heart"></i></button>
 
-    <ul class="nav navbar-nav navbar-right">
-        <div class="dropdown">
-            <button style="background-color:#222222; color:white; border: none; vertical-align:bottom; margin-top:10px;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a asp-page="/Account/Register">Sign Up</a></li>
-                <li><a asp-page="/Account/Login">Login</a></li>
-            </ul>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a asp-page="/Account/Login" class="dropdown-item">Login</a>
+                <a asp-page="/Account/Register" class="dropdown-item">Register</a>
+            </div>
         </div>
-    </ul>
+    </div>
+
+    <script>
+        function relocate_home() {
+            location.href = "Shopping";
+        }
+    </script>
 }
+
+<style>
+
+    a {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+</style>
+
+

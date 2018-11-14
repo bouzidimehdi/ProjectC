@@ -86,6 +86,7 @@ namespace WebApplication1.Data
         public List<Key> Keys { get; set; }
         public List<User_Wishlist> Wishlists { get; set; }
         public List<Builder_Product> BuilderProducts { get; set; }
-        public List<Shopping_card_Product> ShoppingCardProducts { get; set; }
+        //public List<Shopping_card_Product> ShoppingCardProducts { get; set; }
+        public List<Shopping_card> ShoppingCart { get; set; }
     }
 }

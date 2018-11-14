@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
+using WebApplication1.Resource.Pagination;
 
 namespace WebApplication1.Searchengine
 {
@@ -25,7 +26,32 @@ namespace WebApplication1.Searchengine
 
         private string[] stringsplitter(string searchquery) => searchquery.Split(' ');
 
-        public Product_search[] search(string searchquery)
+        // Deze functie haalt alle duplicate response name uit de lijst die getoond word.
+        private bool FilterDuplicates(List<Product_search> results, Product result)
+        {
+            bool check_item_exists = false;
+            List<bool> check_items_exists = new List<bool>();
+            if (results.Count != 0)
+            {
+                foreach (Product_search item in results)
+                {
+                    check_items_exists.Add(item.ResponseName == result.ResponseName);
+                }
+
+                if (!check_items_exists.Contains(true))
+                {
+                    check_item_exists = true;
+                }
+            }
+            else
+            {
+                check_item_exists = true;
+            }
+
+            return check_item_exists;
+        }
+
+        public Search_Page<Product_search> search(string searchquery, int page_size, int Page_index)
         {
             // Maak de zoek item tekst kleiner.
             searchquery = searchquery.ToLower();
@@ -93,34 +119,46 @@ namespace WebApplication1.Searchengine
             List<Product_search> results = new List<Product_search>();
             foreach (Product result in results_query)
             {
-                Product_search final_result = new Product_search(result);
-                final_result.points = 5;
-                ;
-                string[] queryname = this.stringsplitter(final_result.QueryName);
+                if (FilterDuplicates(results, result))
+                {
 
-                // Controleert hoevaak een wordt voorkomt in een zin.
-                var matchQuery = from word in words
-                    from name in queryname
-                    where name == word.search_query
-                    select word;
+                    Product_search final_result = new Product_search(result);
+                    final_result.points = 5;
+                    string[] queryname = this.stringsplitter(final_result.QueryName);
 
-                // Bepaalt het aantal punten opbasis van het aantal overeenkomende worden.
-                final_result.points = final_result.points + matchQuery.Count() * 3000;
+                    // Controleert hoevaak een wordt voorkomt in een zin.
+                    var matchQuery = from word in words
+                        from name in queryname
+                        where name == word.search_query
+                        select word;
 
-                // Bepaalt het aantal punten op basis van het aantal recommendations.
-                final_result.points = final_result.points + result.RecommendationCount / 1000;
+                    // Bepaalt het aantal punten opbasis van het aantal overeenkomende worden.
+                    final_result.points = final_result.points + matchQuery.Count() * 3000;
 
-                if (result.PlatformLinux) final_result.points = final_result.points + 15;
-                if (result.PlatformMac) final_result.points = final_result.points + 15;
-                if (result.PlatformWindows) final_result.points = final_result.points + 50;
+                    // Bepaalt het aantal punten op basis van het aantal recommendations.
+                    final_result.points = final_result.points + result.RecommendationCount / 1000;
 
-                results.Add(final_result);
+                    if (result.PlatformLinux) final_result.points = final_result.points + 15;
+                    if (result.PlatformMac) final_result.points = final_result.points + 15;
+                    if (result.PlatformWindows) final_result.points = final_result.points + 50;
+
+                    results.Add(final_result);
+                }
             }
 
             // Zet de producten op volgorde van 
-            Product_search[] array_results = results.OrderByDescending(p => p.points).ToArray();
+            Product_search[] array_results = results
+                                                .Skip(Page_index * page_size)
+                                                .Take(page_size)
+                                                .OrderByDescending(p => p.points)
+                                                .ToArray();
 
-            return array_results;
+            var tot_items = results.Count();
+            var tot_pages = tot_items / page_size;
+
+
+            // Return een pagina met een array van product_search
+            return new Search_Page<Product_search>() { Index = Page_index, Items = array_results, TotalPages = tot_pages, SearchQuery = searchquery};
 
         }
     }
@@ -136,6 +174,16 @@ namespace WebApplication1.Searchengine
         }
         public string search_query { get; set; }
         public bool queryable { get; set; }
+    }
+
+    /// <summary>
+    /// Class die extends van page
+    /// Deze onthoud ook nog de searchquery die is gebruikt om tot deze pagina te komen.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Search_Page<T> : Page<T>
+    {
+        public string SearchQuery { get; set; }
     }
 
     /// <summary>
@@ -227,6 +275,7 @@ namespace WebApplication1.Searchengine
             MacMinReqsText = product.MacMinReqsText;
         }
 
+        // Bewaart het aantal punten van de producten
         public int points;
     }
 }

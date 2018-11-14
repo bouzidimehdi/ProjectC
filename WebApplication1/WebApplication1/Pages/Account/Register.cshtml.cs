@@ -98,7 +98,7 @@ namespace WebApplication1.Pages.Account
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password *")]
-            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[#$^+=!*()@%&]).{6,50}$", ErrorMessage = "Check 'Requirements for a valid password' below")]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#$^+=!*()@%&]).{6,50}$", ErrorMessage = "Check 'Requirements for a valid password' below")]
              public string Password { get; set; }
 
             [DataType(DataType.Password)]
@@ -145,7 +145,7 @@ namespace WebApplication1.Pages.Account
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(Input.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(Url.GetLocalUrl(returnUrl));
                 }
                 foreach (var error in result.Errors)
