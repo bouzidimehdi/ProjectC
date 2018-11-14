@@ -59,7 +59,9 @@ namespace WebApplication1.Pages
         public void OnPostSearch(string Search)
         {
             Searchbar Searchbar = new Searchbar(_context);
-            Products_search = Searchbar.search(Search);
+
+            Page<Product_search> Products_page = Searchbar.search(Search, 50, 0);
+            Products_search = Products_page.Items;
             Products = Products_search;
             Products = Products.Skip(0).Take(50).ToArray();
             Products_page = null;

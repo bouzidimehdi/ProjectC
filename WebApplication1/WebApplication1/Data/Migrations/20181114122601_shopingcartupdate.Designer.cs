@@ -11,9 +11,10 @@ using WebApplication1.Data;
 namespace WebApplication1.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181114122601_shopingcartupdate")]
+    partial class shopingcartupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -528,8 +529,6 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("Product_ID");
 
                     b.Property<int?>("ProductID");
-
-                    b.Property<int>("quantity");
 
                     b.HasKey("Shopping_card_ID", "Product_ID");
 

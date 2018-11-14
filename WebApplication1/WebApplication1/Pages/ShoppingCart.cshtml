@@ -1,0 +1,11 @@
+﻿@page
+@model WebApplication1.Pages.ShoppingCartModel
+@{
+    ViewData["Title"] = "ShoppingCart";
+}
+
+<h2>ShoppingCart</h2>
+@foreach (var item in Model.Products)
+{
+    @item.ResponseName<br/>
+}
