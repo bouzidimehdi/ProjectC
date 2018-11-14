@@ -142,8 +142,6 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("Country");
 
-                    b.Property<DateTime>("DOB");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -508,9 +506,13 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ProductID");
+
                     b.Property<string>("User_ID");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
 
                     b.HasIndex("User_ID")
                         .IsUnique()
@@ -526,6 +528,8 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("Product_ID");
 
                     b.Property<int?>("ProductID");
+
+                    b.Property<int>("quantity");
 
                     b.HasKey("Shopping_card_ID", "Product_ID");
 
@@ -661,6 +665,10 @@ namespace WebApplication1.Data.Migrations
 
             modelBuilder.Entity("WebApplication1.Data.Shopping_card", b =>
                 {
+                    b.HasOne("WebApplication1.Data.Product")
+                        .WithMany("ShoppingCart")
+                        .HasForeignKey("ProductID");
+
                     b.HasOne("WebApplication1.Data.ApplicationUser", "User")
                         .WithOne("ShoppingCard")
                         .HasForeignKey("WebApplication1.Data.Shopping_card", "User_ID");
@@ -669,7 +677,7 @@ namespace WebApplication1.Data.Migrations
             modelBuilder.Entity("WebApplication1.Data.Shopping_card_Product", b =>
                 {
                     b.HasOne("WebApplication1.Data.Product", "Product")
-                        .WithMany("ShoppingCardProducts")
+                        .WithMany()
                         .HasForeignKey("ProductID");
 
                     b.HasOne("WebApplication1.Data.Shopping_card", "ShoppingCard")
