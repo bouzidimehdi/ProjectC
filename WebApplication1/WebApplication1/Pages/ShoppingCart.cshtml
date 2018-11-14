@@ -5,7 +5,44 @@
 }
 
 <h2>ShoppingCart</h2>
+
+@if (Model.YourCart == null)
+{
+    <br />
+    <h6>Oops! Your Cart is empty!</h6>
+    return;
+}
+
+<table class="table">
+       <thead>
+           <tr>
+           <th>Name</th>
+            <th>Price</th>
+               </tr>
+       </thead>
+    <tbody>
 @foreach (var item in Model.Products)
 {
-    @item.ResponseName<br/>
+    
+    
+    <tr>
+        <td>@item.ResponseName</td>
+        <td>@item.PriceFinal</td>
+        
+        <td>
+            <form asp-page="deleteproduct" method="post">
+                <input type="hidden" name="id" value="@item.ID" />
+                <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                <input type="submit" value="delete the product" />
+            </form>
+        </td>
+        
+
+    </tr>
+
+
 }
+</tbody>
+    </table>
+<a asp-page="./Shopping">Continue Shopping</a>
+

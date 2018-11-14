@@ -30,8 +30,8 @@ namespace WebApplication1.Controllers
                 string id = _userManager.GetUserId(User);
 
                 var query = from shop in _context.Shopping_card
-                    where shop.User_ID == id
-                    select shop;
+                            where shop.User_ID == id
+                            select shop;
 
                 Shopping_card shoping_check = query.FirstOrDefault();
                 if (shoping_check == null)
@@ -63,5 +63,12 @@ namespace WebApplication1.Controllers
 
             }
         }
-    }
-}
+
+
+            }
+        }
+    
+
+        
+
+            
