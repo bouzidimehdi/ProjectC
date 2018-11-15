@@ -10,20 +10,26 @@
 <table class="table">
     <tbody>
         <tr>
-        @{
-            foreach (var item in Model.Wishlistitems)
-            {
-                
+            @{
+                foreach (var item in Model.Wishlistitems)
+                {
+
                     <td>@item.Product_ID</td>
-                
+                    <td>
+                        <form asp-page="DeleteItemWishList" method="post">
+                            <input type="hidden" name="wish" value="@item.Product_ID" />
+                            <input type="hidden" name="id" value="@item.User_ID" />
+                            <input type="submit" value="delete from favorites" />
+                        </form>
+                    </td>
+                }
             }
-        }   
-            </tr>
+        </tr>
    <tr>
         @{ foreach (var product in Model.productitems)
             {
                 <td>@product.ResponseName</td>
-                <td>button here</td>
+               
             }
         }
     </tr>
