@@ -21,8 +21,9 @@ namespace WebApplication1.Pages
             _userManager = userManager;
             _logger = logger;
         }
-        public List<Product> Products;
-        //public List<Shopping_card_Product> hopping_Card_Products { get; set; }
+
+        public List<ResponseShopingCart> Products;
+
         public Shopping_card YourCart { get; set; }
         public void OnGet()
         {
@@ -33,18 +34,46 @@ namespace WebApplication1.Pages
             YourCart = query2.FirstOrDefault();
 
             var query = from shopping in _context.Shopping_card
-                        where shopping.User_ID == id
-                        let shoppingProducts = (
-                                from shoppingProdutstable in _context.Shopping_Card_Products
-                                from Products in _context.Product
-                                where shoppingProdutstable.Shopping_card_ID == shopping.ID &&
-                                      shoppingProdutstable.Product_ID == Products.ID
-
-                                select Products
-                                ).ToList()
-                        select shoppingProducts;
+                where shopping.User_ID == id
+                let shoppingProducts = (
+                        from shoppingProdutstable in _context.Shopping_Card_Products
+                        from Products in _context.Product
+                        where shoppingProdutstable.Shopping_card_ID == shopping.ID &&
+                              shoppingProdutstable.Product_ID == Products.ID
+                        select new ResponseShopingCart() { product = Products, quantity = shoppingProdutstable.quantity + 1}
+                        ).ToList()
+                select shoppingProducts;
             Products = query.FirstOrDefault();
+
         }
+
+        //public async Task<IActionResult> OnPostDeleteAsync(int productid)
+        //{
+        //    _logger.LogWarning(productid.ToString());
+        //    Console.WriteLine("delete aangekomen");
+        //    var cart = await _context.Shopping_card.FindAsync(productid);
+
+        //    if (cart != null)
+        //    {
+
+        //        Console.WriteLine("er is een cart");
+        //        //_context.Shopping_card.Remove(cart);
+        //        //await _context.SaveChangesAsync();
+
+        //        var product = await _context.Shopping_Card_Products.FindAsync(productid);
+
+        //        if (product != null)
+        //        {
+        //            Console.WriteLine("er zijn producten");
+        //            _context.Shopping_Card_Products.Remove(product);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        await _context.SaveChangesAsync();
+        //    }
+
+
+        //    return RedirectToPage();
+        //}
 
         public async Task<IActionResult> OnPostDeleteAsync(int Id)
         {
@@ -52,11 +81,20 @@ namespace WebApplication1.Pages
 
             if (products != null)
             {
-
+                
                 _context.Shopping_Card_Products.Remove(products);
                 await _context.SaveChangesAsync();
             }
             return RedirectToPage();
+
+
         }
+
+    }
+
+    public class ResponseShopingCart
+    {
+        public Product product { get; set; }
+        public int quantity { get; set; }
     }
 }
