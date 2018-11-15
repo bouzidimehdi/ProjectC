@@ -22,8 +22,8 @@ namespace WebApplication1.Pages
             _logger = logger;
         }
 
-        public List<Product> Products;
-        //public List<Shopping_card_Product> hopping_Card_Products { get; set; }
+        public List<ResponseShopingCart> Products;
+
         public Shopping_card YourCart { get; set; }
         public void OnGet()
         {
@@ -34,17 +34,17 @@ namespace WebApplication1.Pages
             YourCart = query2.FirstOrDefault();
 
             var query = from shopping in _context.Shopping_card
-                        where shopping.User_ID == id
-                        let shoppingProducts = (
-                                from shoppingProdutstable in _context.Shopping_Card_Products
-                                from Products in _context.Product
-                                where shoppingProdutstable.Shopping_card_ID == shopping.ID &&
-                                      shoppingProdutstable.Product_ID == Products.ID
-                                
-                                select Products
-                                ).ToList()
-                        select shoppingProducts;
+                where shopping.User_ID == id
+                let shoppingProducts = (
+                        from shoppingProdutstable in _context.Shopping_Card_Products
+                        from Products in _context.Product
+                        where shoppingProdutstable.Shopping_card_ID == shopping.ID &&
+                              shoppingProdutstable.Product_ID == Products.ID
+                        select new ResponseShopingCart() { product = Products, quantity = shoppingProdutstable.quantity + 1}
+                        ).ToList()
+                select shoppingProducts;
             Products = query.FirstOrDefault();
+
         }
 
         //public async Task<IActionResult> OnPostDeleteAsync(int productid)
@@ -90,5 +90,11 @@ namespace WebApplication1.Pages
 
         }
 
+    }
+
+    public class ResponseShopingCart
+    {
+        public Product product { get; set; }
+        public int quantity { get; set; }
     }
 }

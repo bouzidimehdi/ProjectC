@@ -61,18 +61,50 @@ namespace WebApplication1.Pages
                 }
                 else
                 {
+                    var query3 = from shoping in _context.Shopping_card
+                        let shopingProduct = (
+                            from shopingProduct in _context.Shopping_Card_Products
+                            where shopingProduct.Shopping_card_ID == shoping.ID && shoping.User_ID == id
+                            select shopingProduct
+                        ).ToList()
+                        select shopingProduct;
+
+                    List<Shopping_card_Product> shoppingCardProducts = query3.FirstOrDefault();
+                    bool checkProductExists = false;
+
+                    foreach (var item in shoppingCardProducts)
+                    {
+                        if (item.Product_ID == productid)
+                        {
+                            checkProductExists = true;
+                        }
+                    }
+
                     var query2 = from shopingCard in _context.Shopping_card
                         where shopingCard.User_ID == id
                         select shopingCard;
+
                     Shopping_card shoppingCard = query2.FirstOrDefault();
 
-                    Shopping_card_Product shoppingCardProduct = new Shopping_card_Product()
+                    if (!checkProductExists)
                     {
-                        Shopping_card_ID = shoppingCard.ID,
-                        Product_ID = productid
-                    };
-                    _context.Shopping_Card_Products.Add(shoppingCardProduct);
-                    _context.SaveChanges();
+                        Shopping_card_Product shoppingCardProduct = new Shopping_card_Product()
+                        {
+                            Shopping_card_ID = shoppingCard.ID,
+                            Product_ID = productid
+                        };
+                        _context.Shopping_Card_Products.Add(shoppingCardProduct);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        var shoppingCardProduct = _context.Shopping_Card_Products.SingleOrDefault(b => b.Product_ID == productid);
+                        if (shoppingCardProduct != null)
+                        {
+                            shoppingCardProduct.quantity = shoppingCardProduct.quantity + 1;
+                            _context.SaveChanges();
+                        }
+                    }
                 }
 
             }
@@ -80,6 +112,9 @@ namespace WebApplication1.Pages
             {
 
             }
+
+
+            Response.Redirect("./shoppingCart");
         }
     }
 }
