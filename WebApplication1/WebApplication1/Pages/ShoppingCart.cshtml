@@ -26,12 +26,13 @@
     
     
     <tr>
-        <td>@item.ResponseName</td>
-        <td>@item.PriceFinal</td>
+        <td>@item.product.ResponseName</td>
+        <td>@item.product.PriceFinal</td>
+        <td>@item.quantity</td>
         
         <td>
             <form asp-page="deleteproduct" method="post">
-                <input type="hidden" name="id" value="@item.ID" />
+                <input type="hidden" name="id" value="@item.product.ID" />
                 <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
                 <input type="submit" value="delete the product" />
             </form>
