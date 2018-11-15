@@ -19,7 +19,7 @@ namespace WebApplication1.Pages
             _userManager = userManager;
         }
 
-        public List<Product> Products;
+        public List<ResponseShopingCart> Products;
 
         public void OnGet()
         {
@@ -32,10 +32,17 @@ namespace WebApplication1.Pages
                         from Products in _context.Product
                         where shoppingProdutstable.Shopping_card_ID == shopping.ID &&
                               shoppingProdutstable.Product_ID == Products.ID
-                        select Products
+                        select new ResponseShopingCart() { product = Products, quantity = shoppingProdutstable.quantity + 1}
                         ).ToList()
                 select shoppingProducts;
             Products = query.FirstOrDefault();
+
         }
+    }
+
+    public class ResponseShopingCart
+    {
+        public Product product { get; set; }
+        public int quantity { get; set; }
     }
 }

@@ -7,5 +7,5 @@
 <h2>ShoppingCart</h2>
 @foreach (var item in Model.Products)
 {
-    @item.ResponseName<br/>
+    @item.product.ResponseName @item.quantity <br/>
 }
