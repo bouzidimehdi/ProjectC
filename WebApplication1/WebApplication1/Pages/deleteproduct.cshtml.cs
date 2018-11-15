@@ -11,9 +11,9 @@ namespace WebApplication1.Pages
 {
     public class deleteproductModel : PageModel
     {
-        private readonly WebApplication1.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public deleteproductModel(WebApplication1.Data.ApplicationDbContext context)
+        public deleteproductModel(ApplicationDbContext context)
         {
             _context = context;
         }
