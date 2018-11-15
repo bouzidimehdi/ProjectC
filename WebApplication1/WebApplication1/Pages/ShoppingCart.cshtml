@@ -3,9 +3,44 @@
 @{
     ViewData["Title"] = "ShoppingCart";
 }
-
 <h2>ShoppingCart</h2>
-@foreach (var item in Model.Products)
+
+@if (Model.YourCart == null)
 {
-    @item.ResponseName<br/>
+    <br />
+    <h6>Oops! Your Cart is empty!</h6>
+    return;
 }
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+
+
+            <tr>
+                <td>@item.ResponseName</td>
+                <td>@item.PriceFinal</td>
+
+                <td>
+                    <form asp-page="deleteproduct" method="post">
+                        <input type="hidden" name="id" value="@item.ID" />
+                        <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                        <input type="submit" value="delete the product" />
+                    </form>
+                </td>
+
+
+            </tr>
+
+
+        }
+    </tbody>
+</table>
+<a asp-page="./Shopping">Continue Shopping</a>

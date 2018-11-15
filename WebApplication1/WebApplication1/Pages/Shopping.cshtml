@@ -105,6 +105,10 @@
                                 </div>
                                 <div class="card-footer">
                                     <a href="Productinfo?id=@Model.Products[i_products].ID" class="btn btn-primary">Product info</a>
+                                    <form asp-page="ShoppingCartController" method="post">
+                                        <input type="hidden" name="productid" value="@item.ID" />
+                                        <input type="submit" value="Add to Cart" />
+                                    </form>
                                 </div>
                             </div>
 
