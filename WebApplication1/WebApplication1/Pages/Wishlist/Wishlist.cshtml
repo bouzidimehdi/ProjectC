@@ -1,0 +1,50 @@
+﻿@page
+@model WebApplication1.Pages.Wishlist.WishlistModel
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<h2>Wishlist</h2>
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+        
+            @{
+                
+                    foreach (var item in Model.Wishlistitems)
+                    {
+                    <tr>
+                        <td>@item.Product.ResponseName</td>
+                        <td>
+                            <form asp-page="../ShoppingCartController" method="post">
+                                <input type="hidden" name="productid" value="@item.Product.ID" />
+                                <input type="submit" value="Add to Cart" />
+                            </form>
+                        
+                            <form asp-page="DeleteItemWishList" method="post">
+                                <input type="hidden" name="wish" value="@item.Product_ID" />
+                                <input type="hidden" name="id" value="@item.User_ID" />
+                                <input type="submit" value="delete from favorites" />
+                            </form>
+
+                        </td>
+                        </tr>
+                    }
+                }
+
+            
+        
+  
+        
+    </tbody>
+
+</table>
+            

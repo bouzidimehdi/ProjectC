@@ -66,33 +66,7 @@ namespace WebApplication1.Pages
 
         }
 
-        //public async Task<IActionResult> OnPostDeleteAsync(int productid)
-        //{
-        //    _logger.LogWarning(productid.ToString());
-        //    Console.WriteLine("delete aangekomen");
-        //    var cart = await _context.Shopping_card.FindAsync(productid);
-
-        //    if (cart != null)
-        //    {
-
-        //        Console.WriteLine("er is een cart");
-        //        //_context.Shopping_card.Remove(cart);
-        //        //await _context.SaveChangesAsync();
-
-        //        var product = await _context.Shopping_Card_Products.FindAsync(productid);
-
-        //        if (product != null)
-        //        {
-        //            Console.WriteLine("er zijn producten");
-        //            _context.Shopping_Card_Products.Remove(product);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        await _context.SaveChangesAsync();
-        //    }
-
-
-        //    return RedirectToPage();
-        //}
+        
 
         public async Task<IActionResult> OnPostDeleteAsync(int Id)
         {
