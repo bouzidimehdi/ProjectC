@@ -6,13 +6,6 @@
 
 <h2>ShoppingCart</h2>
 
-@if (Model.YourCart == null)
-{
-    <br />
-    <h6>Oops! Your Cart is empty!</h6>
-    return;
-}
-
 <table class="table">
        <thead>
            <tr>
@@ -21,7 +14,7 @@
                </tr>
        </thead>
     <tbody>
-@foreach (var item in Model.Products)
+@foreach (var item in Model._Products)
 {
     
     
@@ -30,13 +23,16 @@
         <td>@item.product.PriceFinal</td>
         <td>@item.quantity</td>
         
-        <td>
-            <form asp-page="deleteproduct" method="post">
-                <input type="hidden" name="id" value="@item.product.ID" />
-                <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                <input type="submit" value="delete the product" />
-            </form>
-        </td>
+        @if (Model.YourCart != null)
+        {
+            <td>
+                <form asp-page="deleteproduct" asp-page-handler="" method="post">
+                    <input type="hidden" name="id" value="@item.product.ID"/>
+                    <input type="hidden" name="cartid" value="@Model.YourCart.ID"/>
+                    <input type="submit" value="delete the product"/>
+                </form>
+            </td>
+        }
         
 
     </tr>
