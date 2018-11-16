@@ -45,7 +45,7 @@ namespace WebApplication1.Pages
         public void OnGet()
         {
             int page_index = 0;
-            int page_size = 10;
+            int page_size = 50;
             Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID);
             Products = Products_page.data.Items;
         }
