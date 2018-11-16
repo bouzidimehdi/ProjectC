@@ -60,7 +60,7 @@ namespace WebApplication1.Pages.Wishlist
             }
 
 
-            Response.Redirect("/Shopping");
+            Response.Redirect("../Productinfo?id=" + productid.ToString());
         }
     }
 }
