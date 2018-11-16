@@ -96,22 +96,21 @@
                         if (i_products < Model.Products.Length)
                         {
                             Product item = Model.Products[i_products];
-
-                            <div class="card">
-                                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width:100%; object-fit:cover; height:200px; " alt="...">
-                                <div class="card-body">
-                                    <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
-                                    <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="Productinfo?id=@Model.Products[i_products].ID" class="btn btn-primary">Product info</a>
-                                </div>
+                    <div onclick="location.href = 'Productinfo?id=@Model.Products[i_products].ID';" style="cursor: pointer">
+                        <div class="card">
+                            <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width:100%; object-fit:cover; height:200px; " alt="...">
+                            <div class="card-body">
+                                <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
+                                <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
                             </div>
+                           
+                        </div>
+                        </div>
 
                         }
                         i_products++;
-                    }
-                </div>
+                        }
+                    </div>
                 
 
 
