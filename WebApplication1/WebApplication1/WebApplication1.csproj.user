@@ -14,6 +14,7 @@
     <_SelectedScaffolderID>Microsoft.AspNet.Scaffolding.Mvc.RazorPageScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Common/RazorPage</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_DbContextTypeFullName>WebApplication1.Data.ApplicationDbContext</WebStackScaffolding_DbContextTypeFullName>
-    <WebStackScaffolding_LayoutPageFile>~/Pages/ProductInfo.cshtml</WebStackScaffolding_LayoutPageFile>
+    <WebStackScaffolding_LayoutPageFile>
+    </WebStackScaffolding_LayoutPageFile>
   </PropertyGroup>
 </Project>
