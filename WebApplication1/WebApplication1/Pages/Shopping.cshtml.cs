@@ -22,10 +22,12 @@ namespace WebApplication1.Pages
         {
             _context = context;
         }
-        
+
         // Variablen
         public Product[] Products { get; set; }
         public Product_search[] Products_search { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
         public Option<Page<Product>> Products_page { get; set; }
         public bool show_Pagination { get; set; }
 
@@ -35,6 +37,11 @@ namespace WebApplication1.Pages
         [Display(Name = "Search")]
         public string Search { get; set; }
 
+        [Required]
+        [DataType(DataType.Text)]
+        public string Price { get; set; }
+
+
         public void OnGet()
         {
             int page_index = 0;
@@ -43,7 +50,7 @@ namespace WebApplication1.Pages
             Products = Products_page.data.Items;
         }
 
-        public void OnGetPage(int page_index,int page_size)
+        public void OnGetPage(int page_index, int page_size)
         {
             Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID);
             Products = Products_page.data.Items;
@@ -58,6 +65,11 @@ namespace WebApplication1.Pages
             Products = Products_search;
             Products = Products.Skip(0).Take(50).ToArray();
             Products_page = null;
+        }
+
+        public void OnPostPrice(int Min, int Max) {
+
+
         }
     }
 }
