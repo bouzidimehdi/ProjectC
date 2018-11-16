@@ -5,68 +5,171 @@
     ViewData["Title"] = "Shopping";
 
 }
-<h2>@ViewData["Title"]</h2>
-<form method="post" asp-page-handler="search" asp-page="Search">
-    <label for="Search">Search:</label><br/>
-    <input asp-for="Search" name="Search" type="text"/>
-    <input type="hidden" name="page_index" value="0" />
-    <input type="hidden" name="page_size" value="50"/>
-    <input type="submit" value="Search"/>
-</form>
-<table class="table">
+@*<h2>@ViewData["Title"]</h2>
+*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <article class="card-group-item">
+                    <header class="card-header">
+                        <h6 class="title">Search products </h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body" style="min-height:100%  !important">
+                            <div class="form-row">
+                                    <form method="post" asp-page-handler="search">
+                                        <div class="search" style="display:inline-block">
+                                            <input asp-for="Search" name="Search" type="text" class="form-control" placeholder="Search" style="float:left; width:80%" />
+                                            <button type="submit" class="btn btn-primary" style="float:right;" /><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </form>
 
-    <tbody>
-    @{
-        int i_products = 0;
-        while (i_products < Model.Products.Length)
-        {
-            <tr>
-                @for (int i = 0; i < 4; i++)
+                                </div>
+                        </div> <!-- card-body.// -->
+                    </div>
+                </article>
+                <article class="card-group-item">
+                    <header class="card-header">
+                        <h6 class="title">Price </h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body">
+                            <form method="post" asp-page-handler="price">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input asp-for="Price" type="number" name="min" class="form-control" id="inputEmail4" placeholder="$0">
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Max</label>
+                                        <input asp-for="Price" type="number" name="max" class="form-control" placeholder="$1,0000">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
+
+                                </div>
+                                </form>     
+                        </div> <!-- card-body.// -->
+                    </div>
+                </article> <!-- card-group-item.// -->
+                <article class="card-group-item">
+                    <header class="card-header">
+                        <h6 class="title">Genres </h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body">
+                            <div class="custom-control custom-checkbox">
+                                <span class="float-right badge badge-light round">52</span>
+                                <input type="checkbox" class="custom-control-input" id="Check1">
+                                <label class="custom-control-label" for="Check1">Adventure</label>
+                            </div> <!-- form-check.// -->
+                            <div class="custom-control custom-checkbox">
+                                <span class="float-right badge badge-light round">52</span>
+                                <input type="checkbox" class="custom-control-input" id="Check2">
+                                <label class="custom-control-label" for="Check2">Racing</label>
+                            </div> <!-- form-check.// -->
+                            <div class="custom-control custom-checkbox">
+                                <span class="float-right badge badge-light round">52</span>
+                                <input type="checkbox" class="custom-control-input" id="Check3">
+                                <label class="custom-control-label" for="Check3">Shooter</label>
+                            </div> <!-- form-check.// -->
+                            <div class="custom-control custom-checkbox">
+                                <span class="float-right badge badge-light round">52</span>
+                                <input type="checkbox" class="custom-control-input" id="Check4">
+                                <label class="custom-control-label" for="Check4">Multiplayer</label>
+                            </div> <!-- form-check.// -->
+                        </div> <!-- card-body.// -->
+                    </div>
+                </article> <!-- card-group-item.// -->
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            @{
+                int i_products = 0;
+                while (i_products < Model.Products.Length)
                 {
-                    if (i_products < Model.Products.Length)
+                <div class="card-columns">
+                    @for (int i = 0; i < 3; i++)
                     {
-                        Product item = Model.Products[i_products];
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100px; height: auto;" /><br />
-                    <p style="font-size: 18px"><b>@Html.DisplayFor(modelItem => item.ResponseName)</b></p>
-                    <!---<a href="Productinfo?id=Model.Products[i_products].ID" class="btn btn-primary">Product info</a>-->
-                    <form asp-page="ShoppingCartController" method="post">
-                        <input type="hidden" name="productid" value="@item.ID"/>
-                        <input type="submit" value="Add to Cart"/>
-                    </form>
-                </td>
-                    }
-                    i_products++;
-                }    
-            </tr>
-        }
-    }
-    </tbody>
-</table>
-
-<nav aria-label="...">
-    <ul class="pagination">
-        @{
-            if (Model.Products_page != null && Model.show_Pagination == false)
-            {
-                if (Model.Products_page.empty == false)
-                {
-                    for (int i = 4; i > -4; i--)
-                    {
-                        int page_index = Model.Products_page.data.Index - i;
-
-                        if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages)
+                        if (i_products < Model.Products.Length)
                         {
-                            <li class="page-item">
-                                <a class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50">
-                                    @page_index
-                                </a>
-                            </li>
+                            Product item = Model.Products[i_products];
+                    <div onclick="location.href = 'Productinfo?id=@Model.Products[i_products].ID';" style="cursor: pointer">
+                        <div class="card">
+                            <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width:100%; object-fit:cover; height:200px; " alt="...">
+                            <div class="card-body">
+                                <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
+                                <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
+                            </div>
+                           
+                        </div>
+                        </div>
+
+                        }
+                        i_products++;
+                        }
+                    </div>
+                
+
+
+                    }
+                }
+            </div>
+    </div>
+
+    <div class="row">
+
+        <nav aria-label="..." style="text-align:center; margin:0 auto;">
+            <ul class="pagination">
+                @{
+                    if (Model.Products_page != null && Model.show_Pagination == false)
+                    {
+                        if (Model.Products_page.empty == false)
+                        {
+                            for (int i = 4; i > -4; i--)
+                            {
+                                int page_index = Model.Products_page.data.Index - i;
+
+                                if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50">
+                                            @page_index
+                                        </a>
+                                    </li>
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
-    </ul>
-</nav>
+            </ul>
+        </nav>
 
+    </div>
+</div>
+
+
+<style>
+
+
+    .container.body-content {
+        width:100%;
+        padding-top: 20px !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .card {
+        min-height: 300px;
+    }
+    .card-body{
+        min-height:150px;
+    }
+
+    .container {
+        margin-top: 1.5rem !important;
+    }
+</style>

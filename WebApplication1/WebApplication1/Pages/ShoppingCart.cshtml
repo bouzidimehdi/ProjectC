@@ -1,7 +1,8 @@
 ﻿@page
 @model WebApplication1.Pages.ShoppingCartModel
 @{
-    ViewData["Title"] = "ShoppingCart";
+
+    decimal totalz = 0;
 }
 
 <h2>ShoppingCart</h2>
@@ -11,6 +12,7 @@
            <tr>
            <th>Name</th>
             <th>Price</th>
+               <th>Quantity</th>
                </tr>
        </thead>
     <tbody>
@@ -35,11 +37,36 @@
         }
         
 
-    </tr>
+               <tr>
+                   <td>@item.product.ResponseName</td>
+                   <td>@(item.product.PriceFinal * item.quantity)</td>
+                   <td>
+                       <form asp-page="deleteproduct" method="post">
+                           <input type="hidden" name="id" value="@item.product.ID" />
+                           <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                           <input type="submit" value="-" />
+                       </form>  @item.quantity   <form asp-page="ShoppingCartController" method="post">
+                           <input type="hidden" name="productid" value="@item.product.ID" />
+                           <input type="submit" value="+" />
+                       </form>
+                   </td>
 
 
-}
-</tbody>
+                
+
+               </tr>
+
+
+
+           }
+           
+           <tr>
+               <td>Total amount : @totalz</td>
+               
+           </tr>
+
+       </tbody>
     </table>
-<a asp-page="./Shopping">Continue Shopping</a>
+<a asp-page="./Shopping">Continue Shopping</a><br />
+<a asp-page="./Index">To Checkout ( nog pagina maken)</a>
 
