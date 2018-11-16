@@ -19,7 +19,7 @@ namespace WebApplication1.Pages
         public Product product;
 
         // wishlist van de user
-        public List<User_Wishlist> Wishlistitems { get; set; }
+        public User_Wishlist Wishlistitems { get; set; }
 
         // Constructor
         public ProductInfoModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
@@ -45,19 +45,14 @@ namespace WebApplication1.Pages
             }
 
             string iduser = _userManager.GetUserId(User);
-            List<User_Wishlist> GetWishListItems = (from wish in _context.User_wishlist
-                                                    where wish.User_ID == iduser
-                                                    select wish).ToList();
 
-            Wishlistitems = GetWishListItems;
 
-            foreach (User_Wishlist item in GetWishListItems)
-            {
-                item.Product = (from product in _context.Product
-                                where product.ID == item.Product_ID
-                                select product).FirstOrDefault();
+            var query1 = from wishlist1 in _context.User_wishlist
+                        where wishlist1.User_ID == iduser && wishlist1.Product_ID == id
+                        select wishlist1;
 
-            }
+            Wishlistitems = query1.FirstOrDefault();
+
 
         }
     }
