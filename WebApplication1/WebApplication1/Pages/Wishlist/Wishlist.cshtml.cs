@@ -28,19 +28,25 @@ namespace WebApplication1.Pages.Wishlist
             {
 
                 string id = _userManager.GetUserId(User);
-                var GetWishListItems = (from wish in _context.User_wishlist
-                                        where wish.User_ID == id
+                List<User_Wishlist> GetWishListItems = (from wish in _context.User_wishlist
+                                        where wish.User_ID == id 
                                         select wish).ToList();
 
                 Wishlistitems = GetWishListItems;
 
-
-                var GetProducts = (from product in _context.Product
+                foreach(User_Wishlist item in GetWishListItems)
+                {
+                    item.Product = (from product in _context.Product
+                                    where product.ID == item.Product_ID
+                                    select product).FirstOrDefault();
+                            
+                }
+                /*var GetProducts = (from product in _context.Product
                                    from wishlist in _context.User_wishlist
                                    where product.ID == wishlist.Product_ID
                                    select product).ToList();
 
-                productitems = GetProducts;
+                productitems = GetProducts;*/
                 return Page();
             }
             else
