@@ -18,27 +18,33 @@
             </form>
 
             <br />
-            
+
             @{ if (Model.Wishlistitems != null)
                 {
-                <form><input value="Already in your Wishlist" class="btn btn-danger btn-lg" role="button" />
-                </form>
+
+            <form asp-page="Wishlist/DeleteItemWishList" method="post" asp-page-handler="Delete">
+                <input type="hidden" name="wish" value="@Model.Wishlistitems.Product_ID" />
+                <input type="hidden" name="id" value="@Model.Wishlistitems.User_ID" />
+                
+                <input type="submit" value="Already in your Wishlist" class="btn btn-danger btn-lg" role="button" />
+            </form>
                 }
-                else { 
-                if (User.Identity.IsAuthenticated)
+                else
                 {
-                    <form asp-page="Wishlist/MakeWishList" method="post">
-                        <input type="hidden" name="productid" value="@Model.product.ID" />
-                        <input type="submit" value="Add to WishList" class="btn btn-primary btn-lg" role="button" />
-                    </form>
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-page="Wishlist/MakeWishList" method="post">
+                            <input type="hidden" name="productid" value="@Model.product.ID" />
+                            <input type="submit" value="Add to WishList" class="btn btn-primary btn-lg" role="button" />
+                        </form>
                     }
                 }
-                
+
             }
 
 
 
-                </div>
+        </div>
     </div>
 </div>
 
@@ -89,5 +95,6 @@
             background: -moz-linear-gradient(to right,rgba(255,255,255,0),white 50%,white);
             background: -o-linear-gradient(to right,rgba(255,255,255,0),white 50%,white);
             background: -ms-linear-gradient(to right,rgba(255,255,255,0),white 50%,white);
+        
      
 </style>
