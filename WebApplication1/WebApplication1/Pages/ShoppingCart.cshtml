@@ -16,28 +16,39 @@
                </tr>
        </thead>
        <tbody>
-           @foreach (var item in Model.Products)
+           @foreach (var item in Model._Products)
            {
                totalz = totalz += (decimal)(item.product.PriceFinal * item.quantity);
 
-               <tr>
-                   <td>@item.product.ResponseName</td>
-                   <td>@(item.product.PriceFinal * item.quantity)</td>
-                   <td>
-                       <form asp-page="deleteproduct" method="post">
-                           <input type="hidden" name="id" value="@item.product.ID" />
-                           <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                           <input type="submit" value="-" />
-                       </form>  
-                       @item.quantity   
-                       <form asp-page="ShoppingCartController" method="post">
-                           <input type="hidden" name="productid" value="@item.product.ID" />
-                           <input type="submit" value="+" />
-                       </form>
-                   </td>
+           <tr>
+               <td>@item.product.ResponseName</td>
+               <td>@(item.product.PriceFinal * item.quantity)</td>
 
 
-                
+               <td>
+                   @{ if (Model.YourCart != null)
+                       {
+                           <form asp-page="deleteproduct" method="post">
+                               <input type="hidden" name="id" value="@item.product.ID" />
+                               <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                               <input type="submit" value="-" />
+                           </form>
+                       }
+                   }
+                   @item.quantity
+                   @{ if (Model.YourCart != null)
+                       {
+                           <form asp-page="ShoppingCartController" method="post">
+                               <input type="hidden" name="productid" value="@item.product.ID" />
+                               <input type="submit" value="+" />
+                           </form>
+                       
+                   }
+                   }
+
+
+
+
 
                </tr>
 
