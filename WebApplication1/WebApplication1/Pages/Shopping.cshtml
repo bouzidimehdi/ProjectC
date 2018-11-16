@@ -6,10 +6,12 @@
 
 }
 <h2>@ViewData["Title"]</h2>
-<form method="post" asp-page-handler="search">
+<form method="post" asp-page-handler="search" asp-page="Search">
     <label for="Search">Search:</label><br/>
     <input asp-for="Search" name="Search" type="text"/>
-    <input type="submit" value="Search"/><br>
+    <input type="hidden" name="page_index" value="0" />
+    <input type="hidden" name="page_size" value="50"/>
+    <input type="submit" value="Search"/>
 </form>
 <table class="table">
 
