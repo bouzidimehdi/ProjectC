@@ -10,14 +10,10 @@
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <h4>
                     Register<span>
-                        <button type="button" class="btn btn-info" style="float:right;" data-toggle="tooltip" data-html="true" title="<p>All fields with a * are mandatory </p><ol><li>Password must be 6-50 characters long</li>
-                        <li>Password must have atleast one upper case letter (A-Z)</li>
-                        <li>Password must have atleast one lower case letter (a-z)</li>
-                        <li>Password must have atleast one number (0-9)</li>
-                        <li>Password must have atleast one special character (example: #,$,^,+,=,!,*,(,),%,&)</li>
-                    </ol>"><i s class="fas fa-info"></i></button>
+
                     </span>
                 </h4><hr />
+                <p>All fields with a * are mandatory </p>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
@@ -25,6 +21,12 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>
+                    <button type="button" class="btn btn-info" style="float:right;" data-toggle="tooltip" data-html="true" title="<ol><li>Password must be 6-50 characters long</li>
+                        <li>Password must have atleast one upper case letter (A-Z)</li>
+                        <li>Password must have atleast one lower case letter (a-z)</li>
+                        <li>Password must have atleast one number (0-9)</li>
+                        <li>Password must have atleast one special character (example: #,$,^,+,=,!,*,(,),%,&)</li>
+                    </ol>"><i s class="fas fa-info"></i></button>
                     <input asp-for="Input.Password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
@@ -328,13 +330,12 @@
                             <input asp-for="Input.Street" class="form-control" />
                             <span asp-validation-for="Input.Street" class="text-danger"></span>
                         </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Input.HouseNumber"></label>
-                                <input asp-for="Input.HouseNumber" class="form-control" />
-                                <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
-                            </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Input.HouseNumber"></label>
+                            <input asp-for="Input.HouseNumber" class="form-control" />
+                            <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
                         </div>
                     </div>
                 @*<div class="form-group">*@

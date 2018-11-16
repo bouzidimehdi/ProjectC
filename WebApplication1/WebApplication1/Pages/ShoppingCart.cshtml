@@ -1,50 +1,69 @@
 ﻿@page
 @model WebApplication1.Pages.ShoppingCartModel
 @{
-    ViewData["Title"] = "ShoppingCart";
+
+    decimal totalz = 0;
 }
 <h2>ShoppingCart</h2>
 
 <h2>ShoppingCart</h2>
-
-@if (Model.YourCart == null)
-{
-    <br />
-    <h6>Oops! Your Cart is empty!</h6>
-    return;
-}
 
 <table class="table">
        <thead>
            <tr>
            <th>Name</th>
             <th>Price</th>
+               <th>Quantity</th>
                </tr>
        </thead>
-    <tbody>
-@foreach (var item in Model.Products)
-{
-    
-    
-    <tr>
-        <td>@item.product.ResponseName</td>
-        <td>@item.product.PriceFinal</td>
-        <td>@item.quantity</td>
-        
-        <td>
-            <form asp-page="deleteproduct" method="post">
-                <input type="hidden" name="id" value="@item.product.ID" />
-                <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                <input type="submit" value="delete the product" />
-            </form>
-        </td>
-        
+       <tbody>
+           @foreach (var item in Model._Products)
+           {
+               totalz = totalz += (decimal)(item.product.PriceFinal * item.quantity);
 
-    </tr>
+           <tr>
+               <td>@item.product.ResponseName</td>
+               <td>@(item.product.PriceFinal * item.quantity)</td>
 
 
-}
-</tbody>
+               <td>
+                   @{ if (Model.YourCart != null)
+                       {
+                           <form asp-page="deleteproduct" method="post">
+                               <input type="hidden" name="id" value="@item.product.ID" />
+                               <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                               <input type="submit" value="-" />
+                           </form>
+                       }
+                   }
+                   @item.quantity
+                   @{ if (Model.YourCart != null)
+                       {
+                           <form asp-page="ShoppingCartController" method="post">
+                               <input type="hidden" name="productid" value="@item.product.ID" />
+                               <input type="submit" value="+" />
+                           </form>
+                       
+                   }
+                   }
+
+
+
+
+
+               </tr>
+
+
+
+           }
+           
+           <tr>
+               <td>Total amount : @totalz</td>
+               
+           </tr>
+
+       </tbody>
     </table>
-<a asp-page="./Shopping">Continue Shopping</a>
+<a asp-page="./Shopping">Continue Shopping</a><br />
+<a asp-page="./Index">To Checkout ( nog pagina maken)</a>
 

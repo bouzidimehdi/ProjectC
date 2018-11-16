@@ -11,9 +11,9 @@ namespace WebApplication1.Pages
 {
     public class deleteproductModel : PageModel
     {
-        private readonly WebApplication1.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public deleteproductModel(WebApplication1.Data.ApplicationDbContext context)
+        public deleteproductModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -49,12 +49,18 @@ namespace WebApplication1.Pages
             }
 
             Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid,id);
-
-            if (Shopping_card_Product != null)
+            if (Shopping_card_Product.quantity != -1)
             {
-                _context.Shopping_Card_Products.Remove(Shopping_card_Product);
+                Shopping_card_Product.quantity -= 1;
                 await _context.SaveChangesAsync();
+
+                if (Shopping_card_Product.quantity <= -1)
+                {
+                    _context.Shopping_Card_Products.Remove(Shopping_card_Product);
+                    await _context.SaveChangesAsync();
+                }
             }
+            
 
             return RedirectToPage("./ShoppingCart");
         }

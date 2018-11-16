@@ -11,10 +11,28 @@
             <p class="ellipsis lead">@Model.product.AboutText</p>
             <hr class="my-4">
             <p>Price: € @Model.product.PriceFinal<br />Recommendation count:  @Model.product.RecommendationCount</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Add to cart</a>
-            </p>
-        </div>
+
+            <form asp-page="ShoppingCartController" method="post">
+                <input type="hidden" name="productid" value="@Model.product.ID" />
+                <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg" role="button" />
+            </form>
+
+            <br />
+            
+
+
+            @{ if (User.Identity.IsAuthenticated)
+                    {
+                    <form asp-page="Wishlist/MakeWishList" method="post">
+                        <input type="hidden" name="productid" value="@Model.product.ID" />
+                        <input type="submit" value="Add to WishList" class="btn btn-primary btn-lg" role="button" />
+                    </form>
+                }
+                }
+              
+
+
+                </div>
     </div>
 </div>
 
