@@ -11,16 +11,19 @@
             <p class="ellipsis lead">@Model.product.AboutText</p>
             <hr class="my-4">
             <p>Price: € @Model.product.PriceFinal<br />Recommendation count:  @Model.product.RecommendationCount</p>
-            <p class="lead">
-                <form method="post" asp-page="ShoppingCartController">
+            
+                <form asp-page="ShoppingCartController" method="post" >
                     <input type="hidden" name="productid" value="@Model.product.ID" />
-                    <input type="submit" class="btn btn-primary btn-lg" role="button" value="Add to Cart" />
-                </form><br/>
-                <form method="post" asp-page="Wishlist/MakeWishList">
-                    <input type="hidden" name="productid" value="@Model.product.ID" />
-                    <input type="submit" class="btn btn-primary btn-lg" role="button" value="Add to Wishlist" />
+                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg" role="button" />
                 </form>
-            </p>
+               
+            <br />
+                <form asp-page="Wishlist/MakeWishList" method="post">
+                    <input type="hidden" name="productid" value="@Model.product.ID" />
+                    <input type="submit" value="Add to WishList" class="btn btn-primary btn-lg" role="button" />
+                </form>
+            
+                
         </div>
     </div>
 </div>
