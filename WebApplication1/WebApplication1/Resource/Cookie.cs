@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication1.Resource
 {
@@ -24,6 +25,23 @@ namespace WebApplication1.Resource
             }
 
             return shoppingcartlist;
+        }
+
+        public static string CookieCreater_shoppingcart(List<shoppingCart_cookie> shoppingcartlist)
+        {
+            string cookieshoping_update = "";
+            if (shoppingcartlist.Count > 0)
+            {
+                cookieshoping_update = shoppingcartlist[0].ProductID + "-" + shoppingcartlist[0].Quantity;
+
+                for (int i = 1; i < shoppingcartlist.Count; i++)
+                {
+                    cookieshoping_update = cookieshoping_update + "_" + shoppingcartlist[i].ProductID + "-" +
+                                           shoppingcartlist[i].Quantity;
+                }
+            }
+
+            return cookieshoping_update;
         }
 
     }

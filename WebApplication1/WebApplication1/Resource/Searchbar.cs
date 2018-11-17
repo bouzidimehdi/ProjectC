@@ -85,10 +85,9 @@ namespace WebApplication1.Searchengine
                 if (word.search_query == "by") words[k].search_query = "";
                 if (word.search_query == "to") words[k].search_query = "";
                 if (word.search_query == "on") words[k].search_query = "";
+
                 k++;
             }
-
-            var isNumeric = int.TryParse("123", out int n);
 
             // Zoek alle producten op die in een word bevat dat in de title staat.
             List<IQueryable> result_query_list = new List<IQueryable>();
@@ -111,7 +110,10 @@ namespace WebApplication1.Searchengine
             {
                 foreach (Product item in query)
                 {
-                    results_query.Add(item);
+                    if (words.All(word => item.QueryName.Contains(word.search_query)))
+                    {
+                        results_query.Add(item);
+                    }
                 }
             }
 

@@ -8,61 +8,68 @@
 <h2>ShoppingCart</h2>
 
 <table class="table">
-       <thead>
-           <tr>
-           <th>Name</th>
+    <thead>
+        <tr>
+            <th>Name</th>
             <th>Price</th>
-               <th>Quantity</th>
-               </tr>
-       </thead>
-       <tbody>
-           @foreach (var item in Model._Products)
-           {
-               totalz = totalz += (decimal)(item.product.PriceFinal * item.quantity);
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model._Products)
+        {
+            totalz = totalz += (decimal)(item.product.PriceFinal * item.quantity);
 
-           <tr>
-               <td>@item.product.ResponseName</td>
-               <td>@(item.product.PriceFinal * item.quantity)</td>
-
-
-               <td>
-                   @{ if (Model.YourCart != null)
-                       {
-                           <form asp-page="deleteproduct" method="post">
-                               <input type="hidden" name="id" value="@item.product.ID" />
-                               <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                               <input type="submit" value="-" />
-                           </form>
-                       }
-                   }
-                   @item.quantity
-                   @{ if (Model.YourCart != null)
-                       {
-                           <form asp-page="ShoppingCartController" method="post">
-                               <input type="hidden" name="productid" value="@item.product.ID" />
-                               <input type="submit" value="+" />
-                           </form>
-                       
-                   }
-                   }
+            <tr>
+                <td>@item.product.ResponseName</td>
+                <td>@(item.product.PriceFinal * item.quantity)</td>
 
 
+                <td>
+                    @{ if (Model.YourCart != null)
+                        {
+                            <form asp-page="deleteproduct" method="post">
+                                <input type="hidden" name="id" value="@item.product.ID" />
+                                <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                                <input type="submit" value="-" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-page="deleteproduct" method="post">
+                                <input type="hidden" name="id" value="@item.product.ID" />
+                                <input type="submit" value="-" />
+                            </form>
+                        }
+                    }
+
+                    @item.quantity
+                    @{
+                        <form asp-page="ShoppingCartController" method="post">
+                            <input type="hidden" name="productid" value="@item.product.ID" />
+                            <input type="submit" value="+" />
+                        </form>
+                    }
 
 
 
-               </tr>
+
+
+            </tr>
 
 
 
-           }
-           
-           <tr>
-               <td>Total amount : @totalz</td>
-               
-           </tr>
+        }
 
-       </tbody>
-    </table>
+        <tr>
+            <td>Total amount : @totalz</td>
+
+        </tr>
+
+    </tbody>
+</table>
 <a asp-page="./Shopping">Continue Shopping</a><br />
-<a asp-page="./Index">To Checkout ( nog pagina maken)</a>
-
+@if (Model._Products.Count > 0)
+{
+    <a asp-page="./Index">To Checkout ( nog pagina maken)</a>
+}
