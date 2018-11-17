@@ -81,6 +81,7 @@ namespace WebApplication1.Pages.Account
                 if (!await _userManager.IsEmailConfirmedAsync(user))
                 {
                     ModelState.AddModelError("", "You need to confirm your email before you can login.");
+                    await _signInManager.SignOutAsync();
                     return Page();
                 }
 
