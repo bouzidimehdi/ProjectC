@@ -166,7 +166,7 @@ namespace WebApplication1.Pages
                 }
             }
             // Redirect naar de shoppingcart
-            Response.Redirect("./shoppingCart");
+            Response.Redirect("/shoppingCart");
         }
     }
 

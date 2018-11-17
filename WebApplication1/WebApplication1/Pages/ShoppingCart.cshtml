@@ -2,67 +2,105 @@
 @model WebApplication1.Pages.ShoppingCartModel
 @{
 
-    decimal totalz = 0;
+    decimal total = 0;
 }
 
-<h2>ShoppingCart</h2>
+<div class="container">
+    <div class="row border">
+        <h2>Cart <i class="fas fa-shopping-cart"></i></h2>
+        <span style="padding:0px 350px "></span>
+        <div>
+            <a class="btn btn-primary float-right" style="margin-top:10px; margin-bottom:10px" asp-page="./Shopping">Continue Shopping</a>
+        </div>
+         <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sub total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model._Products)
+                {
+                    total = total += (decimal)(item.product.PriceFinal * item.quantity);
 
-<table class="table">
-       <thead>
-           <tr>
-           <th>Name</th>
-            <th>Price</th>
-               <th>Quantity</th>
-               </tr>
-       </thead>
-       <tbody>
-           @foreach (var item in Model._Products)
-           {
-               totalz = totalz += (decimal)(item.product.PriceFinal * item.quantity);
+                <tr>
+                    <td> @item.product.ResponseName</td>
+                    <td> € @item.product.PriceFinal</td>
+                    <td>
+                        @{ if (Model.YourCart != null)
+                            {
+                                <form asp-page="deleteproduct" method="post" class="d-inline align-middle ">
+                                    <input type="hidden" name="id" value="@item.product.ID" />
+                                    <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
+                                    <input type="submit" value="-" class="btn btn-light" />
+                                </form>
+                                <span style="padding:1px 10px"> @item.quantity</span>
+                                <form asp-page="ShoppingCartController" method="post" class="d-inline align-middle  ">
+                                    <input type="hidden" name="productid" value="@item.product.ID" />
+                                    <input type="submit" value="+" class="btn btn-light" />
+                                    
+                                </form>
+                            }
+                        }
+                    </td>
+                    <td>
+                        € @(item.product.PriceFinal * item.quantity)
+                    </td>
+                    <td>
+                        @{if (Model.YourCart != null)
+                            {
+                        <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
+                            <input type="hidden" name="id1" value="@item.product.ID" />
+                            <input type="hidden" name="cartid1" value="@Model.YourCart.ID" />
+                            <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
+                            <button type="submit" class="close float-lg-left" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </form>
+                            }
 
-           <tr>
-               <td>@item.product.ResponseName</td>
-               <td>@(item.product.PriceFinal * item.quantity)</td>
-
-
-               <td>
-                   @{ if (Model.YourCart != null)
-                       {
-                           <form asp-page="deleteproduct" method="post">
-                               <input type="hidden" name="id" value="@item.product.ID" />
-                               <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                               <input type="submit" value="-" />
-                           </form>
-                       }
-                   }
-                   @item.quantity
-                   @{ if (Model.YourCart != null)
-                       {
-                           <form asp-page="ShoppingCartController" method="post">
-                               <input type="hidden" name="productid" value="@item.product.ID" />
-                               <input type="submit" value="+" />
-                           </form>
-                       
-                   }
-                   }
-
-
-
-
-
-               </tr>
-
-
-
-           }
+                          }
+                      </td>
+                </tr>
+                }
+             </tbody>
+        </table>
+    </div>
+    <br /><br />
            
-           <tr>
-               <td>Total amount : @totalz</td>
-               
-           </tr>
+ <div class="row">
+    <div class="col-md-6">    </div>
 
-       </tbody>
-    </table>
-<a asp-page="./Shopping">Continue Shopping</a><br />
-<a asp-page="./Index">To Checkout ( nog pagina maken)</a>
+    <div class="col-md-6 border" style="padding-bottom: 10px">
+        <h2>Cart totals</h2>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Sub Total</th>
+                    <td>Total: € @total</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td>Total: € @total</td>
+                </tr>
+            </tbody>
+        </table>
+      
+        <div>
+            <a class="btn btn-primary float-right">Proceed to Checkout</a>
+        </div>
+     </div>
+  </div>
+</div>
+
+<style>
+    .container  {
+        margin-top: 1.5em;
+    }
+    .border     {
+        border-width: 1px !important
+    }
+</style>
+
 

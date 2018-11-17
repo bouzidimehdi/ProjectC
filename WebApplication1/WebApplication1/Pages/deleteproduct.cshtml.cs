@@ -32,9 +32,7 @@ namespace WebApplication1.Pages
             Shopping_card_Product = await _context.Shopping_Card_Products
                 .Include(s => s.ShoppingCard).SingleOrDefaultAsync(m => m.Shopping_card_ID == id);
 
-            
-                
-            if (Shopping_card_Product == null)
+             if (Shopping_card_Product == null)
             {
                 return NotFound();
             }
@@ -60,9 +58,20 @@ namespace WebApplication1.Pages
                     await _context.SaveChangesAsync();
                 }
             }
-            
-
             return RedirectToPage("./ShoppingCart");
+        }
+
+        public async Task<IActionResult> OnPostDeleteitemAsync(int? id1, int cartid1)
+        {
+            if (id1 == null)
+            {
+                return NotFound();
+            }
+
+            Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid1, id1);
+           _context.Shopping_Card_Products.Remove(Shopping_card_Product);
+           await _context.SaveChangesAsync();
+           return RedirectToPage("./ShoppingCart");
         }
     }
 }
