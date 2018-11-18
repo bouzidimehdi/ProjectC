@@ -78,7 +78,7 @@
                             {
                                 Product item = Model.Products_page.Items[i_products];
                                 <div class="card">
-                                    <div onclick="location.href = 'Productinfo?id=@Model.Products[i_products].ID';" style="cursor: pointer">
+                                    <div onclick="location.href = 'Productinfo?id=@Model.Products_page.Items[i_products].ID';" style="cursor: pointer">
                                         <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width:100%; object-fit:cover; height:200px; " alt="...">
                                         </div>
                                         <div class=" card-body">
