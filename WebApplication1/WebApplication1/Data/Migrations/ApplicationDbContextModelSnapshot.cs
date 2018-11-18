@@ -142,6 +142,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("Country");
 
+                    b.Property<DateTime>("DOB");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
