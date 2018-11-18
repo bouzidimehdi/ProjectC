@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Data;
@@ -12,13 +13,19 @@ namespace WebApplication1.Pages
     {
         // Context to the model of database
         private readonly ApplicationDbContext _context;
+        public readonly UserManager<ApplicationUser> _userManager;
 
         // Product
         public Product product;
+
+        // wishlist van de user
+        public List<User_Wishlist> Wishlistitems { get; set; }
+
         // Constructor
-        public ProductInfoModel(ApplicationDbContext context)
+        public ProductInfoModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // OnGet inintialsise the page.
@@ -36,7 +43,22 @@ namespace WebApplication1.Pages
                     this.product = item;
                 }
             }
-            
+
+            string iduser = _userManager.GetUserId(User);
+            List<User_Wishlist> GetWishListItems = (from wish in _context.User_wishlist
+                                                    where wish.User_ID == iduser
+                                                    select wish).ToList();
+
+            Wishlistitems = GetWishListItems;
+
+            foreach (User_Wishlist item in GetWishListItems)
+            {
+                item.Product = (from product in _context.Product
+                                where product.ID == item.Product_ID
+                                select product).FirstOrDefault();
+
+            }
+
         }
     }
 }
