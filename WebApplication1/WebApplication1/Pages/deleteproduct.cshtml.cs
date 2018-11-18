@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,10 +15,11 @@ namespace WebApplication1.Pages
     public class deleteproductModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
-        public deleteproductModel(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public deleteproductModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -34,8 +36,6 @@ namespace WebApplication1.Pages
             Shopping_card_Product = await _context.Shopping_Card_Products
                 .Include(s => s.ShoppingCard).SingleOrDefaultAsync(m => m.Shopping_card_ID == id);
 
-            
-                
             if (Shopping_card_Product == null)
             {
                 return NotFound();
@@ -100,7 +100,33 @@ namespace WebApplication1.Pages
                 Response.Cookies.Append("ShoppingCart", Cookie.CookieCreater_shoppingcart(shoppingcartlist_new), cookieOptions);
 
             }
+            return RedirectToPage("./ShoppingCart");
+        }
 
+        public async Task<IActionResult> OnPostDeleteitemAsync(int? id1, int cartid1)
+        {
+            if (id1 == null)
+            {
+                return NotFound();
+            }
+
+            Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid1, id1);
+            _context.Shopping_Card_Products.Remove(Shopping_card_Product);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./ShoppingCart");
+        }
+
+        public async Task<IActionResult> OnPostDeletecartAsync()
+        {
+            var id = _userManager.GetUserId(User);
+            var fullcart = from cartprd in _context.Shopping_Card_Products
+                           from cartid in _context.Shopping_card
+                           where cartprd.Shopping_card_ID == cartid.ID && cartid.User_ID == id
+                           select cartprd;
+
+                //_context.Shopping_Card_Products.Where(s => s.Shopping_card_ID == Shopping_card.ID);
+            _context.Shopping_Card_Products.RemoveRange(fullcart);
+            await _context.SaveChangesAsync();
             return RedirectToPage("./ShoppingCart");
         }
     }

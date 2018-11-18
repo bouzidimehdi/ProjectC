@@ -13261,15 +13261,37 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+=======
+<<<<<<< HEAD
+    "C:\\Users\\Mehdi\\.nuget\\packages\\": {},
+=======
+<<<<<<< HEAD
     "C:\\Users\\Dion\\.nuget\\packages\\": {},
 =======
+<<<<<<< HEAD
     "C:\\Users\\Maarten\\.nuget\\packages\\": {},
 >>>>>>> Maarten
+=======
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+>>>>>>> Tim
+>>>>>>> Tim
+>>>>>>> Mehdi
+>>>>>>> Mehdi
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectName": "WebApplication1",
+      "projectPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\Mehdi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+=======
 <<<<<<< HEAD
       "projectUniqueName": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
@@ -13277,22 +13299,49 @@
       "packagesPath": "C:\\Users\\Dion\\.nuget\\packages\\",
       "outputPath": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
 =======
+<<<<<<< HEAD
       "projectUniqueName": "D:\\Maarten\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
       "projectPath": "D:\\Maarten\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\Maarten\\.nuget\\packages\\",
       "outputPath": "D:\\Maarten\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
 >>>>>>> Maarten
+=======
+>>>>>>> Mehdi
+      "projectUniqueName": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectName": "WebApplication1",
+      "projectPath": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+<<<<<<< HEAD
+=======
+>>>>>>> Tim
+>>>>>>> Tim
+>>>>>>> Mehdi
+>>>>>>> Mehdi
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
 <<<<<<< HEAD
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+<<<<<<< HEAD
+        "C:\\Users\\Mehdi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+<<<<<<< HEAD
         "C:\\Users\\Dion\\AppData\\Roaming\\NuGet\\NuGet.Config",
 =======
+<<<<<<< HEAD
         "C:\\Users\\Maarten\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> Maarten
+=======
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Tim
+>>>>>>> Tim
+>>>>>>> Mehdi
+>>>>>>> Mehdi
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13350,10 +13399,14 @@
       "level": "Warning",
       "warningLevel": 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
       "message": "Problem reading the cache file D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\WebApplication1.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
 =======
       "message": "Problem reading the cache file D:\\Maarten\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\WebApplication1.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
 >>>>>>> Maarten
+=======
+      "message": "Problem reading the cache file C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\WebApplication1.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+>>>>>>> Mehdi
     }
   ]
 }

@@ -23,5 +23,6 @@ namespace WebApplication1.Data
         public List<User_Wishlist> Wishlists { get; set; }
         public Shopping_card ShoppingCard { get; set; }
         public List<Order> Orders { get; set; }
+>>>>>>> master
     }
 }
