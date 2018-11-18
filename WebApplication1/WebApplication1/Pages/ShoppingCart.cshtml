@@ -4,7 +4,7 @@
 
     decimal total = 0;
 }
-<h2>ShoppingCart</h2>
+<!--<h2>ShoppingCart</h2>-->
 
 <div class="container">
     <div class="row border">
@@ -90,36 +90,40 @@
     </div>
     <br /><br />
            
- <div class="row">
-     <div class="col-md-6">
-         <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
-             <input type="submit" value="Clear Cart" class="btn-danger">
-             @*<input type="submit" value="delete the whole cart" />*@
-         </form>
-     </div>
+          <div class="row">
+              <div class="col-md-6">
+                  @if (Model.YourCart != null)
+                  {
 
-    <div class="col-md-6 border" style="padding-bottom: 10px">
-        <h2>Cart totals</h2>
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Sub Total</th>
-                    <td>Total: € @total</td>
-                </tr>
-                <tr>
-                    <th>Total</th>
-                    <td>Total: € @total</td>
-                </tr>
-            </tbody>
-        </table>
-      @if (Model._Products.Count > 0)
-      {
-          <div>
-              <a class="btn btn-primary float-right">Proceed to Checkout</a>
+                      <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
+                          <input type="submit" value="Clear Cart" class="btn-danger">
+                          @*<input type="submit" value="delete the whole cart" />*@
+                      </form>
+                  }
+              </div>
+
+              <div class="col-md-6 border" style="padding-bottom: 10px">
+                  <h2>Cart totals</h2>
+                  <table class="table">
+                      <tbody>
+                          <tr>
+                              <th>Sub Total</th>
+                              <td>Total: € @total</td>
+                          </tr>
+                          <tr>
+                              <th>Total</th>
+                              <td>Total: € @total</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  @if (Model._Products.Count > 0)
+                  {
+                      <div>
+                          <a class="btn btn-primary float-right" asp-page="Checkout">Proceed to Checkout</a>
+                      </div>
+                  }
+              </div>
           </div>
-      }
-     </div>
-  </div>
 </div>
 
 <style>
