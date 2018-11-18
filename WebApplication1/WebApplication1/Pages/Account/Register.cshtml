@@ -8,11 +8,13 @@
         <div class="col"></div>
         <div class="col-md-6">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h4>
-                    Register<span>
-
-                    </span>
-                </h4><hr />
+                <div class="card" style=" width = 1000px">
+                    <div class="card-header">
+                        <h4>
+                            Register<span>
+                            </span>
+                        </h4>
+                    </div>
                 <p>All fields with a * are mandatory </p>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
@@ -345,7 +347,8 @@
             <span asp-validation-for="Input.DOB" class="text-danger"></span>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         </div>*@
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary" style="width: 100px">Register</button>
+                </div>
             </form>
 </div>
         <div class="col"></div>
@@ -361,6 +364,13 @@
         max-width: 350px;
         /* If max-width does not work, try using width instead */
         width: 350px;
+    }
+    .card {
+        min-height: 300px;
+    }
+
+    .card-body {
+        min-height: 150px;
     }
 </style>
 

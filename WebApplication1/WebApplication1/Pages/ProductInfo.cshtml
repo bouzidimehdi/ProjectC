@@ -6,6 +6,7 @@
 }
 <div class="container">
     <div class="row">
+        <img src="@Model.product.HeaderImage" style="width:100%; height:250px; " alt="...">
         <div class="jumbotron" style="background-image:url(@Model.product.Background); background-size:100%;">
             <h3 class="display-5" style="text-decoration:white;">@Model.product.ResponseName</h3>
             <p class="ellipsis lead">@Model.product.AboutText</p>
@@ -18,21 +19,21 @@
             </form>
 
             <br />
-            
+
 
 
             @{ if (User.Identity.IsAuthenticated)
-                    {
+                {
                     <form asp-page="Wishlist/MakeWishList" method="post">
                         <input type="hidden" name="productid" value="@Model.product.ID" />
                         <input type="submit" value="Add to WishList" class="btn btn-primary btn-lg" role="button" />
                     </form>
                 }
-                }
-              
+            }
 
 
-                </div>
+
+        </div>
     </div>
 </div>
 
