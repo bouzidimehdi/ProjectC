@@ -26,7 +26,12 @@ namespace WebApplication1.Searchengine
 
         private string[] stringsplitter(string searchquery) => searchquery.Split(' ');
 
-        // Deze functie haalt alle duplicate response name uit de lijst die getoond word.
+        /// <summary>
+        /// Deze functie haalt alle duplicate response name uit de lijst die getoond word.
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         private bool FilterDuplicates(List<Product_search> results, Product result)
         {
             bool check_item_exists = false;
@@ -51,6 +56,13 @@ namespace WebApplication1.Searchengine
             return check_item_exists;
         }
 
+        /// <summary>
+        /// De main zoek functie.
+        /// </summary>
+        /// <param name="searchquery"></param>
+        /// <param name="page_size"></param>
+        /// <param name="Page_index"></param>
+        /// <returns></returns>
         public Search_Page<Product_search> search(string searchquery, int page_size, int Page_index)
         {
             // Maak de zoek item tekst kleiner.
