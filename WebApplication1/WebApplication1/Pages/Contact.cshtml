@@ -5,15 +5,160 @@
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@Model.Message</h3>
-
 <address>
     One Microsoft Way<br />
     Redmond, WA 98052-6399<br />
     <abbr title="Phone">P:</abbr>
     425.555.0100
 </address>
-
 <address>
     <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    
+
+        <!-- Modal content-->
+        <div class="modal-content">
+           
+            <div class="modal-body modal-lg">
+                <div class="row">
+
+                    @*@for (int i = 0; i < 3; i++)
+                    {
+                        <div class="col-md-4">
+                            <label>
+                                <input type="checkbox" />
+                                <div class="card">
+                                    <div class="front">klik erop </div>
+                                    <div class="back">@Model.namenow</div>
+                                </div>
+                            </label>
+                        </div>
+                    }*@
+
+                    <div class="col-md-4">
+                        <label>
+                            <input type="checkbox" />
+                            <div class="card">
+                                <div class="front">klik erop </div>
+                                <div class="back">@Model.namenow</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label>
+                            <input type="checkbox" />
+                            <div class="card">
+                                <div class="front">here </div>
+                                <div class="back">@Model.namenow1  </div>
+                             </div>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+
+                        <label>
+                            <input type="checkbox" />
+                            <div class="card">
+                                <div class="front">Click me </div>
+                                <div class="back">@Model.namenow2</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer modal-dialog">
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    label {
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        display: block;
+        width: 500px;
+        height: 300px;
+        position: absolute;
+        left: 100%;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+
+    .card {
+        margin-top:200px;
+        position: relative;
+        height: 50%;
+        width: 50%;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transition: all 600ms;
+        transition: all 600ms;
+        z-index: 20;
+    }
+
+        .card div {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #FFF;
+            text-align: center;
+            line-height: 200px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 2px;
+        }
+
+        .card .back {
+            background: #222;
+            color: #FFF;
+            -webkit-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+        }
+
+    label:hover .card {
+        -webkit-transform: rotateX(20deg);
+        transform: rotateX(20deg);
+        box-shadow: 0 20px 20px rgba(50,50,50,.2);
+    }
+
+    input {
+        display: none;
+    }
+
+    :checked + .card {
+        transform: rotateX(180deg);
+        -webkit-transform: rotateX(180deg);
+    }
+
+    label:hover :checked + .card {
+        transform: rotateX(160deg);
+        -webkit-transform: rotateX(160deg);
+        box-shadow: 0 20px 20px rgba(255,255,255,.2);
+    }
+</style>

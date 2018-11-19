@@ -35,5 +35,10 @@ namespace WebApplication1.Pages
 
             Products_page = Searchbar.search(Search, page_size, page_index);
         }
+
+        public void OnPostPrice(int Min, int Max)
+        {
+
+        }
     }
 }
