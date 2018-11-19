@@ -6,9 +6,10 @@
 <div class="container">
     <div class="row">
         <div class="col"></div>
-        <div class="col-md-6">
+        <div class="col-md-6 border">
+            <br />
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h4>
+                <h4 >
                     Register<span>
 
                     </span>
@@ -338,6 +339,7 @@
                             <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
                         </div>
                     </div>
+                </div>
                 @*<div class="form-group">*@
             @*<label asp-for="Input.DOB"></label>
             <input asp-for="Input.DOB" class="form-control" />
@@ -346,6 +348,7 @@
         @*</div>*@
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
+            <br />
 </div>
         <div class="col"></div>
     </div>
@@ -360,6 +363,10 @@
         max-width: 350px;
         /* If max-width does not work, try using width instead */
         width: 350px;
+    }
+
+    .border{
+        border-width:3px !important
     }
 </style>
 

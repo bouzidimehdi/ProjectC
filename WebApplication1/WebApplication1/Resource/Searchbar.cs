@@ -26,7 +26,12 @@ namespace WebApplication1.Searchengine
 
         private string[] stringsplitter(string searchquery) => searchquery.Split(' ');
 
-        // Deze functie haalt alle duplicate response name uit de lijst die getoond word.
+        /// <summary>
+        /// Deze functie haalt alle duplicate response name uit de lijst die getoond word.
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         private bool FilterDuplicates(List<Product_search> results, Product result)
         {
             bool check_item_exists = false;
@@ -51,6 +56,13 @@ namespace WebApplication1.Searchengine
             return check_item_exists;
         }
 
+        /// <summary>
+        /// De main zoek functie.
+        /// </summary>
+        /// <param name="searchquery"></param>
+        /// <param name="page_size"></param>
+        /// <param name="Page_index"></param>
+        /// <returns></returns>
         public Search_Page<Product_search> search(string searchquery, int page_size, int Page_index)
         {
             // Maak de zoek item tekst kleiner.
@@ -85,10 +97,9 @@ namespace WebApplication1.Searchengine
                 if (word.search_query == "by") words[k].search_query = "";
                 if (word.search_query == "to") words[k].search_query = "";
                 if (word.search_query == "on") words[k].search_query = "";
+
                 k++;
             }
-
-            var isNumeric = int.TryParse("123", out int n);
 
             // Zoek alle producten op die in een word bevat dat in de title staat.
             List<IQueryable> result_query_list = new List<IQueryable>();
@@ -111,7 +122,10 @@ namespace WebApplication1.Searchengine
             {
                 foreach (Product item in query)
                 {
-                    results_query.Add(item);
+                    if (words.All(word => item.QueryName.Contains(word.search_query)))
+                    {
+                        results_query.Add(item);
+                    }
                 }
             }
 

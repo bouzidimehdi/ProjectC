@@ -38,7 +38,7 @@ namespace WebApplication1.Pages.Wishlist
             }
             return Page();
         }
-
+        // delete vanuit wishlist
         public async Task<IActionResult> OnPostAsync(string id, int wish)
         {
             if (id == null)
@@ -55,6 +55,25 @@ namespace WebApplication1.Pages.Wishlist
             }
 
             return RedirectToPage("/Wishlist/Wishlist");
+        }
+
+        // delete vanuit productinfo
+        public async Task<IActionResult> OnPostDeleteAsync(string id, int wish)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            User_Wishlist = await _context.User_wishlist.FindAsync(id, wish);
+
+            if (User_Wishlist != null)
+            {
+                _context.User_wishlist.Remove(User_Wishlist);
+                await _context.SaveChangesAsync();
+            }
+
+            return Redirect("../Productinfo?id=" + wish.ToString());
         }
     }
 }

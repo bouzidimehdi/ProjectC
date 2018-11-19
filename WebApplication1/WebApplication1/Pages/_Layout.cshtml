@@ -31,12 +31,12 @@
                     <a class="nav-item nav-link" href="/Shopping">Products</a>
                     <a class="nav-item nav-link" href="/Contact">Contact</a>
                     <a class="nav-item nav-link" href="/Policy">General information</a>
-                    <form method="post" asp-page="search">
+                    <form method="post" asp-page="/Search">
                         <div class="search" style="display:inline-block">
-                            <input asp-page=""="Search" name="Search" type="text" class="form-control" placeholder="Search" style="float:left; width:80%" />
+                            <input asp-page="/Search" name="Search" type="text" class="form-control" placeholder="Search" style="float:left; width:80%" />
                             <input type="hidden" name="page_index" value="0" />
                             <input type="hidden" name="page_size" value="50" />
-                            <button type="submit" class="btn btn-primary" style="float:right;" /><i class="fas fa-search"></i></button>
+                            <button type="submit" class="btn btn-primary" style="float:right;" ><i class="fas fa-search"></i></button>
                         </div>
                     </form>
                 </div>
