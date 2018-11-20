@@ -7,7 +7,7 @@
 <!--<h2>ShoppingCart</h2>-->
 
 <div class="container">
-    <div class="row border">
+    <div class="row border" >
         <h2>Cart <i class="fas fa-shopping-cart"></i></h2>
         <span style="padding:0px 350px "></span>
         <div>
@@ -28,7 +28,8 @@
                     total = total += (decimal)(item.product.PriceFinal * item.quantity);
 
                 <tr>
-                    <td> @item.product.ResponseName</td>
+                    <td> <img src="@item.product.HeaderImage" style="width:15%; height:15%;" alt="We could not load your image" />
+                    @item.product.ResponseName</td>
                     <td> € @item.product.PriceFinal</td>
                     <td>
                         @{ if (Model.YourCart != null)
@@ -70,7 +71,7 @@
                                     <input type="hidden" name="id1" value="@item.product.ID" />
                                     <input type="hidden" name="cartid1" value="@Model.YourCart.ID" />
                                     <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                    <button type="submit" class="close float-lg-left" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button type="submit" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </form>
                              }
                           else
@@ -78,7 +79,7 @@
                               <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
                                   <input type="hidden" name="id1" value="@item.product.ID" />
                                   <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                  <button type="submit" class="close float-lg-left" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="submit" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                               </form>
                           }
                         }
