@@ -36,6 +36,7 @@ namespace WebApplication1.Pages
             if (User.Identity.IsAuthenticated) // Wordt uitgevoerd als de gebruiker is ingelogd.
             {
                 string id = _userManager.GetUserId(User);
+                _userManager.UpdateAsync()
 
                 var query = from shop in _context.Shopping_card
                     where shop.User_ID == id

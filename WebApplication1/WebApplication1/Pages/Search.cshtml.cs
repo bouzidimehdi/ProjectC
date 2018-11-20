@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Data;
 using WebApplication1.Searchengine;
 using WebApplication1.Resource.Pagination;
+using WebApplication1.Resource.Option;
 
 namespace WebApplication1.Pages
 {
@@ -14,31 +15,38 @@ namespace WebApplication1.Pages
     {
         // database context
         public readonly ApplicationDbContext _context;
+        public int page_size;
+
         public SearchModel(ApplicationDbContext context)
         {
             _context = context;
+            page_size = 50;
         }
 
         // Variablen 
-        public Search_Page<Product_search> Products_page { get; set; }
+        public Option<Search_Page<Product_search>> Products_page { get; set; }
+        public int _Min;
+        public int _Max;
 
-        public void OnPost(string Search, int page_index, int page_size)
+        public void OnPost(string Search, int page_index, int page_size, int? min, int? max)
         {
+            Func<Product, bool> filter = p => true;
+            if (min != null && max != null)
+            {
+                _Min = min.GetValueOrDefault();
+                _Max = max.GetValueOrDefault();
+                filter = p => p.PriceFinal > min && p.PriceFinal < max;
+            }
             Searchbar Searchbar = new Searchbar(_context);
 
-            Products_page = Searchbar.search(Search, page_size, page_index);
+            Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, filter);
         }
 
         public void OnGet(string Search, int page_index, int page_size)
         {
             Searchbar Searchbar = new Searchbar(_context);
 
-            Products_page = Searchbar.search(Search, page_size, page_index);
-        }
-
-        public void OnPostPrice(int Min, int Max)
-        {
-
+            Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, p => true);
         }
     }
 }

@@ -18,21 +18,24 @@
                     </header>
                     <div class="filter-content">
                         <div class="card-body">
-                            <form method="post" asp-page-handler="price">
+                            <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
+                                <input type="hidden" value="page" name="handler" />
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Min</label>
-                                        <input asp-for="Price" type="number" name="min" class="form-control" id="inputEmail4" placeholder="$0">
+                                        <input type="number" onchange="checkMinRealTime()" min="1" max="1000" name="min" class="form-control" id="min" placeholder="€0" value="@if(Model._Min != null){ @Model._Min }">
                                     </div>
                                     <div class="form-group col-md-6 text-right">
                                         <label>Max</label>
-                                        <input asp-for="Price" type="number" name="max" class="form-control" placeholder="$1,0000">
+                                        <input type="number" onchange="checkMinRealTime()" min="2" max="1000" name="max" class="form-control" id="max" placeholder="€1,0000" value="@if(Model._Max != null){ @Model._Max }">
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
-
+                                    <input type="hidden" value="@if (!Model.Products_page.empty) { @Model.Products_page.data.Index }" name="page_index" />
+                                    <input type="hidden" value="@Model.page_size" name="page_size" />
                                 </div>
-                                </form>     
+                                <input hidden type="text" value="" />
+                            </form>     
                         </div> <!-- card-body.// -->
                     </div>
                 </article> <!-- card-group-item.// -->
@@ -70,37 +73,41 @@
         </div>
         <div class="col-md-9">
             @{
-                int i_products = 0;
-                while (i_products < Model.Products.Length)
+                if (!Model.Products_page.empty)
                 {
-                <div class="card-columns">
-                    @for (int i = 0; i < 3; i++)
+                    int i_products = 0;
+                    while (i_products < Model.Products_page.data.Items.Length)
                     {
-                        if (i_products < Model.Products.Length)
-                        {
-                            Product item = Model.Products[i_products];
-                   
-                        <div class="card">
-                            <div onclick="location.href = 'Productinfo?id=@Model.Products[i_products].ID';" style="cursor: pointer">
-                                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width:100%; object-fit:cover; height:200px; " alt="...">
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
-                                    <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
-                                </div>
+                        <div class="card-columns">
+                            @for (int i = 0; i < 3; i++)
+                            {
+                                if (i_products < Model.Products_page.data.Items.Length)
+                                {
+                                    Product item = Model.Products_page.data.Items[i_products];
 
-                            </div>
-                        
+                                    <div class="card">
+                                        <div onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer">
+                                            <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="...">
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
+                                            <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
+                                        </div>
 
-                        }
-                        i_products++;
-                        }
-                    </div>
-                
+                                    </div>
 
 
+                                }
+                                i_products++;
+                            }
+                        </div>
                     }
                 }
+                else
+                {
+                    <p>Oops! There are no results!</p>
+                }
+            }
             </div>
     </div>
 
@@ -135,6 +142,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="js/CheckMinMaxFilter.js" />
 
 <style>
 
