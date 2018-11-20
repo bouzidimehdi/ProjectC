@@ -1,50 +1,66 @@
 ﻿@page
 @model WebApplication1.Pages.Wishlist.WishlistModel
 @{
-    ViewData["Title"] = "Favorites";
+    
 }
 
-<h2>Favorites</h2>
 
+<div class="container">
+    <div class="row border">
+        <h2>Favorites <i class="fas fa-heart"></i></h2>
+        <span style="padding:0px 350px "></span>
+        <div>
+            <a class="btn btn-primary float-right" style="margin-top:10px; margin-bottom:10px" asp-page="./Shopping">Continue Shopping</a>
+        </div>
 
-<table class="table">
+        <table class="table">
 
-    <thead>
-     <tr>
-        <th>Name</th>
-        <th>Options</th>
-    </tr>
-    </thead>
-    <tbody>
-        
-            @{
-                
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+
                     foreach (var item in Model.Wishlistitems)
                     {
-                    <tr>
-                        <td>@item.Product.ResponseName</td>
-                        <td>
-                            <form asp-page="../ShoppingCartController" method="post">
-                                <input type="hidden" name="productid" value="@item.Product.ID" />
-                                <input type="submit" value="Add to Cart" />
-                            </form>
-                        
-                            <form asp-page="DeleteItemWishList" method="post">
-                                <input type="hidden" name="wish" value="@item.Product_ID" />
-                                <input type="hidden" name="id" value="@item.User_ID" />
-                                <input type="submit" value="delete from favorites" />
-                            </form>
-
-                        </td>
-                        </tr>
+                <tr>
+                     <td >
+                        <form asp-page="DeleteItemWishList" method="post">
+                            <input type="hidden" name="wish" value="@item.Product_ID" />
+                            <input type="hidden" name="id" value="@item.User_ID" />
+                            <button type="submit" class="close float-left align-self-lg-center" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </form>
+                        <span style="margin-left:10px; "></span>
+                        <img src="@item.Product.HeaderImage" style="width:15%; height:15%;" alt="We could not load your image" />
+                        @item.Product.ResponseName
+                    </td>
+                    <td>€ @item.Product.PriceFinal</td>
+                    <td>
+                        <form asp-page="../ShoppingCartController" method="post">
+                            <input type="hidden" name="productid" value="@item.Product.ID" />
+                            <input type="submit" value="Add to Cart" class="btn btn-success" />
+                        </form>
+                     </td>
+                </tr>
                     }
                 }
 
-            
-        
-  
-        
-    </tbody>
+            </tbody>
 
-</table>
-            
+        </table>
+    </div>
+</div>
+
+<style>
+    .container {
+        margin-top: 1.5em;
+    }
+
+    .border {
+        border-width: 1px !important
+    }
+</style>

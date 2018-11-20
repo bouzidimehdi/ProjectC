@@ -1,19 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="~/css/paper-kit.css" rel="stylesheet" />
 
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApplication1</title>
-
     <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <script type="text/javascript">
         $(document).ready(function () {
             $("[data-toggle=tooltip]").tooltip()
@@ -21,33 +19,24 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/Index" style="font-weight:100;">MONKEY</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="/Shopping">Products</a>
-                    <a class="nav-item nav-link" href="/Contact">Contact</a>
-                    <a class="nav-item nav-link" href="/Policy">General information</a>
-                    <form method="post" asp-page="/Search">
-                        <div class="search" style="display:inline-block">
-                            <input asp-page="/Search" name="Search" type="text" class="form-control" placeholder="Search" style="float:left; width:80%" />
-                            <input type="hidden" name="page_index" value="0" />
-                            <input type="hidden" name="page_size" value="50" />
-                            <button type="submit" class="btn btn-primary" style="float:right;" ><i class="fas fa-search"></i></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            @await Html.PartialAsync("_LoginPartial")
+    <nav class="navbar navbar-expand-md navbar-#primary">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/Index">MONKEY.</a>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Shopping">Products</a>
+                </li>
+            </ul>
+
+        </div>
+        @await Html.PartialAsync("_LoginPartial")
+
     </nav>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li><a href="#">Link </a></li>
-        </ul>
-    </div>
     <div class="container-fluid">
         @RenderBody()
         <hr />
@@ -69,5 +58,41 @@
 <style>
     * {
         font-family: 'Montserrat', sans-serif;
+    }
+
+    .navbar-brand {
+        font-family: 'Rubik', sans-serif;
+    }
+
+    .nav-item nav-link{
+        padding: 0px 20px 0px 10px;
+    }
+
+    #ja {
+        margin-top: 15px;
+        border:none;
+        border-bottom:groove;
+        border-radius:0px;
+    }
+
+    input[type=text] {
+        width: 130px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+        /* When the input field gets focus, change its width to 100% */
+        input[type=text]:focus {
+            width: 100%;
+        }
+
+    .active-pink-2 input[type=text]:focus:not([readonly]) {
+        border-bottom: 1px solid #f48fb1;
+        box-shadow: 0 1px 0 0 #f48fb1;
+    }
+
+    .active-pink input[type=text] {
+        border-bottom: 1px solid #f48fb1;
+        box-shadow: 0 1px 0 0 #f48fb1;
     }
 </style>
