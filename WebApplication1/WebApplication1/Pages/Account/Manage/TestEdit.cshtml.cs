@@ -25,8 +25,7 @@ namespace WebApplication1.Pages.Account.Manage
         public ApplicationUser Users { get; set; }
         public async Task<IActionResult> OnGet(string id)
         {
-            var user = _userManager.FindByIdAsync(id);
-            Users = await _context.Users.FindAsync(user);
+            Users = await _context.Users.FindAsync(id);
             if(Users == null)
             {
                 return RedirectToPage("Account/Manage/Admin");
@@ -48,7 +47,7 @@ namespace WebApplication1.Pages.Account.Manage
 
             try
             {
-                await _userManager.UpdateAsync(Users);
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {

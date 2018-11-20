@@ -11,7 +11,7 @@
     <RazorPage_SelectedScaffolderID>Microsoft.AspNet.Scaffolding.Mvc.RazorPageScaffolder</RazorPage_SelectedScaffolderID>
     <RazorPage_SelectedScaffolderCategoryPath>root/Common/RazorPage</RazorPage_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
-    <_SelectedScaffolderID>Microsoft.AspNet.Scaffolding.Mvc.RazorPages.ModelBasedRazorPageScaffolder</_SelectedScaffolderID>
+    <_SelectedScaffolderID>Microsoft.AspNet.Scaffolding.Mvc.ModelBasedCrudRazorPageScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Common/RazorPage</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_DbContextTypeFullName>WebApplication1.Data.ApplicationDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_LayoutPageFile>
