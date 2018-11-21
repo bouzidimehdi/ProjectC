@@ -4,6 +4,23 @@
     ViewData["Title"] = "Admin";
 }
 
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <th>Lastname</th>
+    </tr>
+    @{
+        foreach (var item in Model.Users)
+        {
+            <tr>
+            <td>@item.Email</td>
+            <td>@item.LastName</td>
+           <td><a asp-page="./TestEdit" asp-route-id="@item.Id">edit</a></td>
+            </tr>
+        }
+    }
+</table>
+
 @if (User.Identity.IsAuthenticated)
 {
     @if (User.IsInRole("Admin"))
@@ -12,6 +29,8 @@
         <h3>@Model.Message</h3>
         <p>Use this area to provide additional information.</p>
     }
+
+ 
 }
 else
 {
