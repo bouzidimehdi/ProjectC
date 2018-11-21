@@ -18,16 +18,16 @@ namespace WebApplication1.Pages
     {
         // database context
         public readonly ApplicationDbContext _context;
+        public int page_size;
         public ShoppingModel(ApplicationDbContext context)
         {
             _context = context;
+            page_size = 50;
         }
 
         // Variablen
-        public Product[] Products { get; set; }
-        public Product_search[] Products_search { get; set; }
-        public int Min { get; set; }
-        public int Max { get; set; }
+        public int _Min { get; set; }
+        public int _Max { get; set; }
         public Option<Page<Product>> Products_page { get; set; }
         public bool show_Pagination { get; set; }
 
@@ -46,29 +46,24 @@ namespace WebApplication1.Pages
         {
             int page_index = 0;
             int page_size = 50;
-            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID);
-            Products = Products_page.data.Items;
+            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, P => true);
         }
 
-        public void OnGetPage(int page_index, int page_size)
+        public void OnGetPage(int page_index, int page_size, int? min, int? max)
         {
-            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID);
-            Products = Products_page.data.Items;
-        }
+            Func<Product, bool> filter;
+            if (min != null && max != null)
+            {
+                _Min = min.GetValueOrDefault();
+                _Max = max.GetValueOrDefault();
+                filter = P => min <= P.PriceFinal && max >= P.PriceFinal;
+            }
+            else
+            {
+                filter = P => true;
+            }
 
-        public void OnPostSearch(string Search)
-        {
-            Searchbar Searchbar = new Searchbar(_context);
-
-            Page<Product_search> Products_page = Searchbar.search(Search, 50, 0);
-            Products_search = Products_page.Items;
-            Products = Products_search;
-            Products = Products.Skip(0).Take(50).ToArray();
-            Products_page = null;
-        }
-
-        public void OnPostPrice(int Min, int Max) {
-
+            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, filter);
 
         }
     }
