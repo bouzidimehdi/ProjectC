@@ -31,6 +31,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Shopping">Products</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                    <ul class="dropdown-menu dropdown-menu-left ">
+                        <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
+                        <a asp-page="/Account/Login" class="dropdown-item">Login</a>
+                        <a asp-page="/Account/Register" class="dropdown-item">Register</a>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <form method="post" asp-page="/Search" class="formsearch">
+                        <input asp-page="Search" name="Search" type="search" placeholder="Search.." class="search">
+                        <input type="hidden" name="page_index" value="0" />
+                        <input type="hidden" name="page_size" value="50" />
+                        <button style="visibility:hidden;" type="submit"></button><i class="fa fa-search"></i>
+                    </form>
+                </li>
             </ul>
 
         </div>
@@ -68,31 +84,73 @@
         padding: 0px 20px 0px 10px;
     }
 
-    #ja {
-        margin-top: 15px;
-        border:none;
-        border-bottom:groove;
-        border-radius:0px;
+    .navbar {
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 
-    input[type=text] {
-        width: 130px;
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
+    .formsearch {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        transition: all 1s;
+        width: 50px;
+        height: 50px;
+        background: white;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: 4px solid white;
+        padding: 5px;
     }
 
-        /* When the input field gets focus, change its width to 100% */
-        input[type=text]:focus {
-            width: 100%;
-        }
-
-    .active-pink-2 input[type=text]:focus:not([readonly]) {
-        border-bottom: 1px solid #f48fb1;
-        box-shadow: 0 1px 0 0 #f48fb1;
+    .search {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 42.5px;
+        line-height: 30px;
+        outline: 0;
+        border: 0;
+        display: none;
+        /*background: #66615B;*/
+        font-size: 1em;
+        border-radius: 20px;
+        padding: 0 20px;
     }
 
-    .active-pink input[type=text] {
-        border-bottom: 1px solid #f48fb1;
-        box-shadow: 0 1px 0 0 #f48fb1;
+    .fa {
+        box-sizing: border-box;
+        padding-top: 12.5px;
+        width: 42.5px;
+        height: 42.5px;
+        /*background: #66615B;*/ 
+        position: absolute;
+        top: 0px;
+        right: 0;
+        border-radius: 100%;
+        color: #07051a;
+        text-align: center;
+        font-size: 1.2em;
+        transition: all 1s;
+    }
+
+    .fa fa-search{
+        padding-top:2px !important;
+    }
+
+    .formsearch:hover {
+        width: 200px;
+        cursor: pointer;
+    }
+
+    .formsearch:hover input {
+        display: block;
+    }
+
+    .formsearch:hover .fa {
+        background: #66615B;
+        color: white;
     }
 </style>
