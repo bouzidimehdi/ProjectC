@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Routing.Constraints;
 using WebApplication1.Resource.Pagination;
 
 namespace WebApplication1.Resource.Pagination
@@ -9,10 +10,12 @@ namespace WebApplication1.Resource.Pagination
 
     public static class Paginate
     {
-        public static Option<Page<T>> GetPage<T>(this Microsoft.EntityFrameworkCore.DbSet<T> List, int Page_index, int page_size, Func<T, object> order_by_selector)
+        public static Option<Page<T>> GetPage<T>(this Microsoft.EntityFrameworkCore.DbSet<T> List, int Page_index, int page_size, Func<T, object> order_by_selector, Func<T, bool> filter_by_selector)
             where T : class
         {
-            T[] res = List.OrderBy(order_by_selector)
+            T[] res = List
+                .Where(filter_by_selector)
+                .OrderBy(order_by_selector)
                 .Skip(Page_index * page_size)
                 .Take(page_size)
                 .ToArray();

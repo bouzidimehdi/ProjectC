@@ -10,5 +10,9 @@
             empty = false;
             this.data = data;
         }
+        public Some()
+        {
+            empty = false;
+        }
     }
 }
