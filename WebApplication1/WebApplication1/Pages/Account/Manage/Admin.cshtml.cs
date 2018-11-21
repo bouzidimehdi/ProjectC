@@ -4,16 +4,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Data;
 
 namespace WebApplication1.Pages
 {
     public class AdminModel : PageModel
-    {
+    {       
+        private readonly ApplicationDbContext _context;
+
+        // all users
+        public IList<ApplicationUser> Users { get; private set; }
+        public AdminModel(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public string Message { get; set; }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            //var query = (from alluser in _context.Users
+            //             select alluser).ToList();
+            //_users = query;
+
+            Users = await _context.Users.AsNoTracking().ToListAsync();
+
             Message = "Your application description page.";
         }
+
+ 
     }
 }
