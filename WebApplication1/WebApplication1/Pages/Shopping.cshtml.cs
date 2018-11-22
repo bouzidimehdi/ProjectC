@@ -11,6 +11,7 @@ using WebApplication1.Models;
 using WebApplication1.Resource.Pagination;
 using WebApplication1.Resource.Option;
 using WebApplication1.Searchengine;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebApplication1.Pages
 {
@@ -40,8 +41,7 @@ namespace WebApplication1.Pages
         [Required]
         [DataType(DataType.Text)]
         public string Price { get; set; }
-
-
+                
         public void OnGet()
         {
             int page_index = 0;
