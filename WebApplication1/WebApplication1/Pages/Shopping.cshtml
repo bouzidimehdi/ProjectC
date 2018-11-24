@@ -37,7 +37,7 @@
                                 <input hidden type="text" value="" />
                             </form>     
                     </div>
-                </form>
+                
             </table>
 
             <table class="table">
@@ -110,7 +110,14 @@
                                         <div class="card-body">
                                             <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
                                             <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
-                                         </div>
+                                            @{
+                                                if (Model.IsAdmin)
+                                                {
+                                                    <a asp-page="/Account/Manage/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
+                                                    <a asp-page="/Account/Manage/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
+                                                }
+                                            }
+                                        </div>
 
                                     </div>
 

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Admin";
 }
 
+<a asp-page="./AdminCreateProduct">Create new product</a>
+
 <table class="table">
     <tr>
         <th>Email</th>
@@ -20,16 +22,8 @@
         }
     }
 </table>
-<a asp-page="./TestCreateProduct">Create new product</a>
-@{ 
-    @Model._Products.Count()<br />
-    foreach (var prod in Model._Products)
-    {
-        @prod.ResponseName<br />
-        
 
-    }
-}
+
 
 @if (User.Identity.IsAuthenticated)
 {
