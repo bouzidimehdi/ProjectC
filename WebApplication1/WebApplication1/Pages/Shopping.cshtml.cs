@@ -28,6 +28,10 @@ namespace WebApplication1.Pages
         // Variablen
         public int _Min { get; set; }
         public int _Max { get; set; }
+        public string _Adventure { get; set; }
+        public string _Racing { get; set; }
+        public string _actie { get; set; }
+        public string _Multiplayer { get; set; }
         public Option<Page<Product>> Products_page { get; set; }
         public bool show_Pagination { get; set; }
 
@@ -49,19 +53,46 @@ namespace WebApplication1.Pages
             Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, P => true);
         }
 
-        public void OnGetPage(int page_index, int page_size, int? min, int? max)
+        public void OnGetPage(int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer)
         {
             Func<Product, bool> filter;
-            if (min != null && max != null)
+            Func<Product, bool> filterMinMax = p => true;
+            Func<Product, bool> filterAdventure = p => true;
+            Func<Product, bool> filterRacing = p => true;
+            Func<Product, bool> filterShooter = p => true;
+            Func<Product, bool> filterMultiplayer = p => true;
+            if (min != null && max != null && min != 0 && max != 0)
             {
                 _Min = min.GetValueOrDefault();
                 _Max = max.GetValueOrDefault();
-                filter = P => min <= P.PriceFinal && max >= P.PriceFinal;
+                filterMinMax = P => min <= P.PriceFinal && max >= P.PriceFinal;
             }
-            else
+
+            if (Adventure == "1")
             {
-                filter = P => true;
+                _Adventure = Adventure;
+                filterAdventure = P => P.GenreIsMassivelyMultiplayer;
             }
+
+            if (Racing == "1")
+            {
+                _Racing = Racing;
+                filterRacing = P => P.GenreIsRacing;
+            }
+
+            if (actie == "1")
+            {
+                _actie = actie;
+                filterShooter = p => p.GenreIsAction;
+            }
+
+            if (Multiplayer == "1")
+            {
+                _Multiplayer = Multiplayer;
+                filterMultiplayer = p => p.GenreIsMassivelyMultiplayer;
+            }
+
+            filter = p => filterAdventure(p) && filterMinMax(p) && filterRacing(p) && filterShooter(p) && filterMultiplayer(p);
 
             Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, filter);
 

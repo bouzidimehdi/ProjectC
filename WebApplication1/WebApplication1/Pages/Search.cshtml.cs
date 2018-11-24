@@ -25,21 +25,57 @@ namespace WebApplication1.Pages
 
         // Variablen 
         public Option<Search_Page<Product_search>> Products_page { get; set; }
-        public int _Min;
-        public int _Max;
+        public int _Min { get; set; }
+        public int _Max { get; set; }
+        public string _Adventure { get; set; }
+        public string _Racing { get; set; }
+        public string _actie { get; set; }
+        public string _Multiplayer { get; set; }
+        public string _searchquery { get; set; }
 
-        public void OnPost(string Search, int page_index, int page_size, int? min, int? max)
+        public void OnPost(string Search, int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer)
         {
-            Func<Product, bool> filter = p => true;
-            if (min != null && max != null)
+            Func<Product, bool> filter;
+            Func<Product, bool> filterMinMax = p => true;
+            Func<Product, bool> filterAdventure = p => true;
+            Func<Product, bool> filterRacing = p => true;
+            Func<Product, bool> filterShooter = p => true;
+            Func<Product, bool> filterMultiplayer = p => true;
+            if (min != null && max != null && min != 0 && max != 0)
             {
                 _Min = min.GetValueOrDefault();
                 _Max = max.GetValueOrDefault();
-                filter = p => p.PriceFinal > min && p.PriceFinal < max;
+                filterMinMax = P => min <= P.PriceFinal && max >= P.PriceFinal;
             }
+
+            if (Adventure == "1")
+            {
+                _Adventure = Adventure;
+                filterAdventure = P => P.GenreIsMassivelyMultiplayer;
+            }
+
+            if (Racing == "1")
+            {
+                _Racing = Racing;
+                filterRacing = P => P.GenreIsRacing;
+            }
+
+            if (actie == "1")
+            {
+                _actie = actie;
+                filterShooter = p => p.GenreIsAction;
+            }
+
+            if (Multiplayer == "1")
+            {
+                _Multiplayer = Multiplayer;
+                filterMultiplayer = p => p.GenreIsMassivelyMultiplayer;
+            }
+            filter = p => filterAdventure(p) && filterMinMax(p) && filterRacing(p) && filterShooter(p) && filterMultiplayer(p);
             Searchbar Searchbar = new Searchbar(_context);
 
             Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, filter);
+            _searchquery = Search;
         }
 
         public void OnGet(string Search, int page_index, int page_size)
@@ -47,6 +83,7 @@ namespace WebApplication1.Pages
             Searchbar Searchbar = new Searchbar(_context);
 
             Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, p => true);
+            _searchquery = Search;
         }
     }
 }
