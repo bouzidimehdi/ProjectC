@@ -10,11 +10,11 @@
             <img src="@Model.product.HeaderImage" style="width:100%;  border-radius:50px !important; height:250px; " alt="...">
         </div>
         <div class="col">
-            <div class="jumbotron" style="background-image:url(@Model.product.Background); background-size:100%;">
-                <h3 class="display-5" style="text-decoration:white;">@Model.product.ResponseName</h3>
-                <p class="ellipsis lead" style="font-size:0.8em;">@Model.product.AboutText</p>
+            <div class="jumbotron" style="background:none; color:#16262E ">
+                <h3 class="display-5" style="text-decoration:white; color:#16262E!important; ">@Model.product.ResponseName</h3>
+                <p class="ellipsis lead" style="font-size:0.8em; color:#16262E!important; ">@Model.product.AboutText</p>
                 <hr class="my-4">
-                <p>Price: € @Model.product.PriceFinal<br />Recommendation count:  @Model.product.RecommendationCount</p>
+                <p style="color:#16262E!important;" >Price: € @Model.product.PriceFinal<br />Recommendation count:  @Model.product.RecommendationCount</p>
 
                 <form asp-page="ShoppingCartController" method="post">
                     <input type="hidden" name="productid" value="@Model.product.ID" />

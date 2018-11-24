@@ -38,22 +38,17 @@ namespace WebApplication1.Pages
 
         public void OnPost(string Search, int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer)
         {
-<<<<<<< HEAD
             // check if user is an admin ( if not then Admin = false)
             var Admin = User.IsInRole("Admin");
             IsAdmin = Admin;
 
             Func<Product, bool> filter = p => true;
-            if (min != null && max != null)
-=======
-            Func<Product, bool> filter;
             Func<Product, bool> filterMinMax = p => true;
             Func<Product, bool> filterAdventure = p => true;
             Func<Product, bool> filterRacing = p => true;
             Func<Product, bool> filterShooter = p => true;
             Func<Product, bool> filterMultiplayer = p => true;
             if (min != null && max != null && min != 0 && max != 0)
->>>>>>> Dion
             {
                 _Min = min.GetValueOrDefault();
                 _Max = max.GetValueOrDefault();

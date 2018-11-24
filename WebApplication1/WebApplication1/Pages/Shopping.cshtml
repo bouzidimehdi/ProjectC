@@ -10,12 +10,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="card">
+            <div class="card-plain">
                 <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
                     <article class="card-group-item">
-                        <header class="card-header">
-                            <h6 class="title">Price </h6>
-                        </header>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                        </table>
                         <div class="filter-content">
                             <div class="card-body">
 
@@ -39,28 +43,28 @@
                         </div>
                     </article> <!-- card-group-item.// -->
                     <article class="card-group-item">
-                        <header class="card-header">
-                            <h6 class="title">Genres </h6>
-                        </header>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                        </table>
                         <div class="filter-content">
                             <div class="card-body">
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check1" name="Adventure" @(Model._Adventure == "1" ? "checked" : "") value="1">
                                     <label class="custom-control-label" for="Check1">Adventure</label>
                                 </div> <!-- form-check.// -->
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check2" name="Racing" @(Model._Racing == "1" ? "checked" : "") value="1">
                                     <label class="custom-control-label" for="Check2">Racing</label>
                                 </div> <!-- form-check.// -->
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check3" name="actie" @(Model._actie == "1" ? "checked" : "") value="1">
-                                    <label class="custom-control-label" for="Check3">Actie</label>
+                                    <label class="custom-control-label" for="Check3">Action</label>
                                 </div> <!-- form-check.// -->
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check4" name="Multiplayer" @(Model._Multiplayer == "1" ? "checked" : "") value="1">
                                     <label class="custom-control-label" for="Check4">Multiplayer</label>
                                 </div> <!-- form-check.// -->
@@ -69,37 +73,6 @@
                     </article> <!-- card-group-item.// -->
                 </form>
             </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Genres</th>
-                    </tr>
-                </thead>
-            </table>
-
-            <table>
-                <div class="custom-control custom-checkbox">
-                    <span class="float-right badge badge-light round">52</span>
-                    <input type="checkbox" class="custom-control-input" id="Check1">
-                    <label class="custom-control-label" for="Check1">Adventure</label>
-                </div> <!-- form-check.// -->
-                <div class="custom-control custom-checkbox">
-                    <span class="float-right badge badge-light round">52</span>
-                    <input type="checkbox" class="custom-control-input" id="Check2">
-                    <label class="custom-control-label" for="Check2">Racing</label>
-                </div> <!-- form-check.// -->
-                <div class="custom-control custom-checkbox">
-                    <span class="float-right badge badge-light round">52</span>
-                    <input type="checkbox" class="custom-control-input" id="Check3">
-                    <label class="custom-control-label" for="Check3">Shooter</label>
-                </div> <!-- form-check.// -->
-                <div class="custom-control custom-checkbox">
-                    <span class="float-right badge badge-light round">52</span>
-                    <input type="checkbox" class="custom-control-input" id="Check4">
-                    <label class="custom-control-label" for="Check4">Multiplayer</label>
-                </div> <!-- form-check.// -->
-            </table>
         </div>   
 
         <div class="col-md-9">

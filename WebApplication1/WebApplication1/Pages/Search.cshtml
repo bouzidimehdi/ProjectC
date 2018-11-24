@@ -10,7 +10,6 @@
     <form method="post" asp-page="Search" onsubmit="return checkmin()">
         <div class="row">
             <div class="col-md-3">
-<<<<<<< HEAD
                 <table class="table">
                     <thead>
                         <tr>
@@ -23,29 +22,11 @@
                 <table class="table">
                     <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
                         <input type="hidden" value="page" name="handler" />
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Min</label>
-                                <input type="number" onchange="checkMinRealTime()" min="1" max="1000" name="min" class="form-control" id="min" placeholder="€0" value="@if(Model._Min != null){ @Model._Min }">
-                            </div>
-                            <div class="form-group col-md-6 text-right">
-                                <label>Max</label>
-                                <input type="number" onchange="checkMinRealTime()" min="2" max="1000" name="max" class="form-control" id="max" placeholder="€1,0000" value="@if(Model._Max != null){ @Model._Max }">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
-                            <input type="hidden" value="@if (!Model.Products_page.empty) { @Model.Products_page.data.Index }" name="page_index" />
-                            <input type="hidden" value="@Model.page_size" name="page_size" />
-=======
-                <div class="card">
+                        
 
                     <article class="card-group-item">
-                        <header class="card-header">
-                            <h6 class="title">Price </h6>
-                        </header>
                         <div class="filter-content">
                             <div class="card-body">
-
-
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Min</label>
@@ -65,39 +46,32 @@
                         </div>
                     </article> <!-- card-group-item.// -->
                     <article class="card-group-item">
-                        <header class="card-header">
                             <h6 class="title">Genres </h6>
-                        </header>
                         <div class="filter-content">
                             <div class="card-body">
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check1" name="Adventure" @((Model._Adventure == "1") ? "checked" : "") value="1">
                                     <label class="custom-control-label" for="Check1">Adventure</label>
                                 </div> <!-- form-check.// -->
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check2" name="Racing" @((Model._Racing == "1") ? "checked" : "") value="1">
                                     <label class="custom-control-label" for="Check2">Racing</label>
                                 </div> <!-- form-check.// -->
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check3" name="actie" @((Model._actie == "1") ? "checked" : "") value="1">
-                                    <label class="custom-control-label" for="Check3">Actie</label>
+                                    <label class="custom-control-label" for="Check3">Action</label>
                                 </div> <!-- form-check.// -->
                                 <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
                                     <input type="checkbox" class="custom-control-input" id="Check4" name="Multiplayer" @((Model._Multiplayer == "1") ? "checked" : "") value="1">
                                     <label class="custom-control-label" for="Check4">Multiplayer</label>
                                 </div> <!-- form-check.// -->
                             </div> <!-- card-body.// -->
->>>>>>> Dion
                         </div>
                         <input hidden type="text" value="" />
                     </form>
                 </table>
 
-                <table class="table">
+                @*<table class="table">
                     <thead>
                         <tr>
                             <th>Genres</th>
@@ -126,7 +100,7 @@
                         <input type="checkbox" class="custom-control-input" id="Check4">
                         <label class="custom-control-label" for="Check4">Multiplayer</label>
                     </div> <!-- form-check.// -->
-                </table>
+                </table>*@
             </div>
 
             <div class="col-md-9">
