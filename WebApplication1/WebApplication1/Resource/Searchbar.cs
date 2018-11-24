@@ -162,7 +162,11 @@ namespace WebApplication1.Searchengine
             }
 
             // Zet de producten op volgorde van 
-            Product_search[] array_results = results
+            IOrderedEnumerable<Product_search> array_results_tmp = results
+                                                                    .Where(filter_by_selector)
+                                                                    .OrderBy(order_by_selector);
+
+            Product_search[] array_results = array_results_tmp
                                                 .Where(filter_by_selector)
                                                 .OrderBy(order_by_selector)
                                                 .Skip(Page_index * page_size)
@@ -170,7 +174,7 @@ namespace WebApplication1.Searchengine
                                                 .OrderByDescending(p => p.points)
                                                 .ToArray();
 
-            var tot_items = results.Count();
+            var tot_items = array_results_tmp.Count();
             var tot_pages = tot_items / page_size;
 
 
