@@ -20,6 +20,16 @@
         }
     }
 </table>
+<a asp-page="./TestCreateProduct">Create new product</a>
+@{ 
+    @Model._Products.Count()<br />
+    foreach (var prod in Model._Products)
+    {
+        @prod.ResponseName<br />
+        
+
+    }
+}
 
 @if (User.Identity.IsAuthenticated)
 {

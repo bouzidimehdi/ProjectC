@@ -15,19 +15,29 @@ namespace WebApplication1.Pages
 
         // all users
         public IList<ApplicationUser> Users { get; private set; }
+        // all products
+        public IList<Product> _Products { get; set; }
+
         public AdminModel(ApplicationDbContext context)
         {
             _context = context;
         }
         public string Message { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int productid)
         {
             //var query = (from alluser in _context.Users
             //             select alluser).ToList();
             //_users = query;
 
             Users = await _context.Users.AsNoTracking().ToListAsync();
+
+            // get products ( test )
+            var query = (from products in _context.Product
+                        where products.ID > 13160
+                        select products).ToList();
+           
+            _Products = query;
 
             Message = "Your application description page.";
         }
