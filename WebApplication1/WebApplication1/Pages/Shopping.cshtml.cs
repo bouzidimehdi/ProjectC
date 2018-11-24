@@ -20,6 +20,10 @@ namespace WebApplication1.Pages
         // database context
         public readonly ApplicationDbContext _context;
         public int page_size;
+
+        //check if user is admin
+        public bool IsAdmin { get; set; }
+
         public ShoppingModel(ApplicationDbContext context)
         {
             _context = context;
@@ -44,6 +48,10 @@ namespace WebApplication1.Pages
                 
         public void OnGet()
         {
+            // check if user is an admin ( if not then Admin = false)
+            var Admin = User.IsInRole("Admin");
+            IsAdmin = Admin;
+
             int page_index = 0;
             int page_size = 50;
             Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, P => true);

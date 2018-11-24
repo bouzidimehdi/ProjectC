@@ -110,6 +110,13 @@
                                                 <!---<a href="Productinfo?id=Model.Products[i_products].ID" class="btn btn-primary">Product info</a>-->
 
                                                 <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
+                                                @{
+                                                    if (Model.IsAdmin)
+                                                    {
+                                                        <a asp-page="/Account/Manage/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
+                                                        <a asp-page="/Account/Manage/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
+                                                    }
+                                                  }
                                             </div>
                                         </div>
                                     }

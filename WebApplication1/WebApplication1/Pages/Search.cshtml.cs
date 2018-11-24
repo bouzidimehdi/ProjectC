@@ -17,6 +17,9 @@ namespace WebApplication1.Pages
         public readonly ApplicationDbContext _context;
         public int page_size;
 
+        //check if user is admin
+        public bool IsAdmin { get; set; }
+
         public SearchModel(ApplicationDbContext context)
         {
             _context = context;
@@ -30,6 +33,10 @@ namespace WebApplication1.Pages
 
         public void OnPost(string Search, int page_index, int page_size, int? min, int? max)
         {
+            // check if user is an admin ( if not then Admin = false)
+            var Admin = User.IsInRole("Admin");
+            IsAdmin = Admin;
+
             Func<Product, bool> filter = p => true;
             if (min != null && max != null)
             {
@@ -44,6 +51,10 @@ namespace WebApplication1.Pages
 
         public void OnGet(string Search, int page_index, int page_size)
         {
+            // check if user is an admin ( if not then Admin = false)
+            var Admin = User.IsInRole("Admin");
+            IsAdmin = Admin;
+
             Searchbar Searchbar = new Searchbar(_context);
 
             Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, p => true);
