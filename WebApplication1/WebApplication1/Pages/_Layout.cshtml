@@ -31,17 +31,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Shopping">Products</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-                    <ul class="dropdown-menu dropdown-menu-left ">
-                        <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
-                        <a asp-page="/Account/Login" class="dropdown-item">Login</a>
-                        <a asp-page="/Account/Register" class="dropdown-item">Register</a>
-                    </ul>
-                </li>
                 <li class="nav-item">
                     <form method="post" asp-page="/Search" class="formsearch">
-                        <input asp-page="Search" name="Search" type="search" placeholder="Search.." class="search">
+                        <input asp-page="Search" name="Search" type="search" placeholder="Search.." class="search" style="color:black;">
                         <input type="hidden" name="page_index" value="0" />
                         <input type="hidden" name="page_size" value="50" />
                         <button style="visibility:hidden;" type="submit"></button><i class="fa fa-search"></i>
@@ -91,7 +83,7 @@
                     </div><hr />
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                            <p class="h6">&copy All right Reversed.<a class="text-green ml-2">MONKEY</a></p>
+                            <p class="h6">&copy All rights Reserved.<a class="text-green ml-2">MONKEY</a></p>
                         </div>
                         </hr>
                     </div>

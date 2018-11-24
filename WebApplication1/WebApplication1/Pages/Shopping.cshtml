@@ -17,28 +17,27 @@
                     </tr>
                 </thead>
             </table>
-                            <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
-                                <input type="hidden" value="page" name="handler" />
 
-            <table class="table">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label>Min</label>
-                                        <input type="number" onchange="checkMinRealTime()" min="1" max="1000" name="min" class="form-control" id="min" placeholder="€0" value="@if(Model._Min != null){ @Model._Min }">
-                                    </div>
-                                    <div class="form-group col-md-6 text-right">
-                                        <label>Max</label>
-                                        <input type="number" onchange="checkMinRealTime()" min="2" max="1000" name="max" class="form-control" id="max" placeholder="€1,0000" value="@if(Model._Max != null){ @Model._Max }">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
-                                    <input type="hidden" value="@if (!Model.Products_page.empty) { @Model.Products_page.data.Index }" name="page_index" />
-                                    <input type="hidden" value="@Model.page_size" name="page_size" />
-                                </div>
-                                <input hidden type="text" value="" />
-                            </form>     
+
+                <table class="table">
+                <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
+                    <input type="hidden" value="page" name="handler" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Min</label>
+                            <input type="number" onchange="checkMinRealTime()" min="1" max="1000" name="min" class="form-control" id="min" placeholder="€0" value="@if(Model._Min != null){ @Model._Min }">
+                        </div>
+                        <div class="form-group col-md-6 text-right">
+                            <label>Max</label>
+                            <input type="number" onchange="checkMinRealTime()" min="2" max="1000" name="max" class="form-control" id="max" placeholder="€1,0000" value="@if(Model._Max != null){ @Model._Max }">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
+                        <input type="hidden" value="@if (!Model.Products_page.empty) { @Model.Products_page.data.Index }" name="page_index" />
+                        <input type="hidden" value="@Model.page_size" name="page_size" />
                     </div>
+                    <input hidden type="text" value="" />
                 </form>
-            </table>
+        </table>
 
             <table class="table">
                 <thead>
