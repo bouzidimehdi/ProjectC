@@ -84,7 +84,7 @@ namespace WebApplication1.Pages.Account.Manage
                 var result = _context.Product.Add(product);
                 await _context.SaveChangesAsync();
 
-                StatusMessage = "Your Product has been added to the database!";
+                StatusMessage = $"{product.QueryName} has been added to the database!";
                 return RedirectToPage("./Index");
             }
             return Page();
