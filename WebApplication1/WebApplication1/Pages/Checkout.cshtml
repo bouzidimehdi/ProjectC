@@ -3,113 +3,99 @@
 @{
     float totalz = 0;
 }
-
 <div id="paypal-button-container"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-// Render the PayPal button
-paypal.Button.render({
-// Set your environment
-env: 'sandbox', // sandbox | production
+    // Render the PayPal button
+    paypal.Button.render({
+        // Set your environment
+        env: 'sandbox', // sandbox | production
 
-// Specify the style of the button
-style: {
-  layout: 'vertical',  // horizontal | vertical
-  size:   'medium',    // medium | large | responsive
-  shape:  'rect',      // pill | rect
-  color:  'gold'       // gold | blue | silver | white | black
-},
+        // Specify the style of the button
+        style: {
+            layout: 'vertical',  // horizontal | vertical
+            size: 'medium',    // medium | large | responsive
+            shape: 'rect',      // pill | rect
+            color: 'gold'       // gold | blue | silver | white | black
+        },
 
-// Specify allowed and disallowed funding sources
-//
-// Options:
-// - paypal.FUNDING.CARD
-// - paypal.FUNDING.CREDIT
-// - paypal.FUNDING.ELV
-funding: {
-  allowed: [
-    paypal.FUNDING.CARD,
-    paypal.FUNDING.CREDIT
-  ],
-  disallowed: []
-},
+        // Specify allowed and disallowed funding sources
+        //
+        // Options:
+        // - paypal.FUNDING.CARD
+        // - paypal.FUNDING.CREDIT
+        // - paypal.FUNDING.ELV
+        funding: {
+            allowed: [
+                paypal.FUNDING.CARD,
+                paypal.FUNDING.CREDIT
+            ],
+            disallowed: []
+        },
 
-// PayPal Client IDs - replace with your own
-// Create a PayPal app: https://developer.paypal.com/developer/applications/create
-client: {
-    sandbox: 'AbkpTYViWloGJrvvueH7VjvKdO48IELUV2kZBk2lxTkaCIswmeuZ0MziHWpS21xM5P4vyqW8Uu8r83xF',
-  production: '<insert production client id>'
-},
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+        client: {
+            sandbox: 'AbkpTYViWloGJrvvueH7VjvKdO48IELUV2kZBk2lxTkaCIswmeuZ0MziHWpS21xM5P4vyqW8Uu8r83xF',
+            production: '<insert production client id>'
+        },
 
-payment: function (data, actions) {
-  return actions.payment.create({
-    payment: {
-      transactions: [
-        {
-          amount: {
-            total: '0.01',
-            currency: 'USD'
-          }
+        payment: function (data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: {
+                                total: '0.01',
+                                currency: 'USD'
+                            }
+                        }
+                    ]
+                }
+            });
+        },
+
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute()
+                .then(function () {
+                    window.alert('Payment Complete!');
+                    window.location.replace("https://localhost:44358");
+
+                });
         }
-      ]
-    }
-  });
-},
-
-onAuthorize: function (data, actions) {
-  return actions.payment.execute()
-    .then(function () {
-        window.alert('Payment Complete!');
-        window.location.replace("https://localhost:44358");
-
-    });
-}
-}, '#paypal-button-container');
+    }, '#paypal-button-container');
 </script>
 
-
-    <h2>Checkout</h2>
-
-    @if (Model.YourCart == null)
+<h2>Checkout</h2>
+@*@if (Model.YourCart == null)
     {
         <br />
         <h6>Oops! Your Cart is empty!</h6>
         return;
-    }
+    }*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model._Products)
+        {
+            totalz = totalz += item.product.PriceFinal;
 
-    <table class="table">
-        <thead>
+
             <tr>
-                <th>Name</th>
-                <th>Price</th>
+                <td>@item.product.ResponseName</td>
+                <td>@item.product.PriceFinal</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Products)
-            {
-                totalz = totalz += item.PriceFinal;
+        }
+        <tr>
+            <td>@totalz</td>
+        </tr>
 
 
-                <tr>
-                    <td>@item.ResponseName</td>
-                    <td>@item.PriceFinal</td>
-
-                    <td>
-                        <form asp-page="deleteproduct" method="post">
-                            <input type="hidden" name="id" value="@item.ID" />
-                            <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                            <input type="submit" value="delete the product" />
-                        </form>
-                    </td>
-
-                </tr>
-            }
-            <tr>
-                <td>@totalz</td>
-            </tr>
-
-
-            }
-        </tbody>
-    </table>
-    <a asp-page="./Shopping">Continue Shopping</a>
+    </tbody>
+</table>
+<a asp-page="./Shopping">Continue Shopping</a>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using WebApplication1.Data;
 using WebApplication1.Searchengine;
 using WebApplication1.Resource.Pagination;
@@ -35,19 +36,24 @@ namespace WebApplication1.Pages
         public string _actie { get; set; }
         public string _Multiplayer { get; set; }
         public string _searchquery { get; set; }
+        public string _order { get; set; }
 
-        public void OnPost(string Search, int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer)
+        public void OnPost(string Search, int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer, string order)
         {
             // check if user is an admin ( if not then Admin = false)
             var Admin = User.IsInRole("Admin");
             IsAdmin = Admin;
 
-            Func<Product, bool> filter = p => true;
-            Func<Product, bool> filterMinMax = p => true;
-            Func<Product, bool> filterAdventure = p => true;
-            Func<Product, bool> filterRacing = p => true;
-            Func<Product, bool> filterShooter = p => true;
-            Func<Product, bool> filterMultiplayer = p => true;
+            bool descending = false;
+            _order = order;
+
+            Func<Product_search, bool> filter = p => true;
+            Func<Product_search, bool> filterMinMax = p => true;
+            Func<Product_search, bool> filterAdventure = p => true;
+            Func<Product_search, bool> filterRacing = p => true;
+            Func<Product_search, bool> filterShooter = p => true;
+            Func<Product_search, bool> filterMultiplayer = p => true;
+            Func<Product_search, object> filterorder = p => p.points;
             if (min != null && max != null && min != 0 && max != 0)
             {
                 _Min = min.GetValueOrDefault();
@@ -81,7 +87,22 @@ namespace WebApplication1.Pages
             filter = p => filterAdventure(p) && filterMinMax(p) && filterRacing(p) && filterShooter(p) && filterMultiplayer(p);
             Searchbar Searchbar = new Searchbar(_context);
 
-            Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, filter);
+            if (order == "Price (High to low)")
+            {
+
+                descending = true;
+                filterorder = p => p.PriceFinal;
+            }
+            else if(order == "Price (Low to High)")
+            {
+                filterorder = p => p.PriceFinal;
+            }
+            else
+            {
+                descending = true;
+            }
+
+            Products_page = Searchbar.search(Search, page_size, page_index, filterorder, filter, descending);
             _searchquery = Search;
         }
 
@@ -93,7 +114,7 @@ namespace WebApplication1.Pages
 
             Searchbar Searchbar = new Searchbar(_context);
 
-            Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, p => true);
+            Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, p => true, false);
             _searchquery = Search;
         }
     }
