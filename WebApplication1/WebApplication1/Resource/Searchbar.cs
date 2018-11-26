@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using WebApplication1.Data;
@@ -64,7 +64,7 @@ namespace WebApplication1.Searchengine
         /// <param name="page_size"></param>
         /// <param name="Page_index"></param>
         /// <returns></returns>
-        public Option<Search_Page<Product_search>> search(string searchquery, int page_size, int Page_index, Func<Product_search, object> order_by_selector, Func<Product_search, bool> filter_by_selector)
+        public Option<Search_Page<Product_search>> search(string searchquery, int page_size, int Page_index, Func<Product_search, object> order_by_selector, Func<Product_search, bool> filter_by_selector, bool descending)
         {
             // Maak de zoek item tekst kleiner.
             searchquery = searchquery.ToLower();
@@ -161,16 +161,28 @@ namespace WebApplication1.Searchengine
                 }
             }
 
+            IOrderedEnumerable<Product_search> array_results_tmp;
             // Zet de producten op volgorde van 
-            Product_search[] array_results = results
-                                                .Where(filter_by_selector)
-                                                .OrderBy(order_by_selector)
+            if (descending)
+            {
+                array_results_tmp = results
+                                    .Where(filter_by_selector)
+                                    .OrderByDescending(order_by_selector);
+            }
+            else
+            {
+                array_results_tmp = results
+                                    .Where(filter_by_selector)
+                                    .OrderBy(order_by_selector);
+            }
+            
+
+            Product_search[] array_results = array_results_tmp
                                                 .Skip(Page_index * page_size)
                                                 .Take(page_size)
-                                                .OrderByDescending(p => p.points)
                                                 .ToArray();
 
-            var tot_items = results.Count();
+            var tot_items = array_results_tmp.Count();
             var tot_pages = tot_items / page_size;
 
 

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Admin";
 }
 
+<a asp-page="./AdminCreateProduct">Create new product</a>
+
 <table class="table">
     <tr>
         <th>Email</th>
@@ -20,6 +22,8 @@
         }
     }
 </table>
+
+
 
 @if (User.Identity.IsAuthenticated)
 {

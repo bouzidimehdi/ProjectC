@@ -21,6 +21,9 @@ namespace WebApplication1.Pages
         // wishlist van de user
         public User_Wishlist Wishlistitems { get; set; }
 
+        //check if user is admin
+        public bool IsAdmin { get; set; }
+
         // Constructor
         public ProductInfoModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -31,6 +34,10 @@ namespace WebApplication1.Pages
         // OnGet inintialsise the page.
         public void OnGet(int id)
         {
+            // check if user is an admin ( if not then Admin = false)
+            var Admin = User.IsInRole("Admin");
+            IsAdmin = Admin;
+
             // Query the product.
             var query = from p in _context.Product
                 where p.ID == id

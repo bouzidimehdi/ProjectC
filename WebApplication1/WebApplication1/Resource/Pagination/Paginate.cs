@@ -10,12 +10,24 @@ namespace WebApplication1.Resource.Pagination
 
     public static class Paginate
     {
-        public static Option<Page<T>> GetPage<T>(this Microsoft.EntityFrameworkCore.DbSet<T> List, int Page_index, int page_size, Func<T, object> order_by_selector, Func<T, bool> filter_by_selector)
+        public static Option<Page<T>> GetPage<T>(this Microsoft.EntityFrameworkCore.DbSet<T> List, int Page_index, int page_size, Func<T, object> order_by_selector, Func<T, bool> filter_by_selector, bool descending)
             where T : class
         {
-            T[] res = List
-                .Where(filter_by_selector)
-                .OrderBy(order_by_selector)
+            IOrderedEnumerable<T> resTMP;
+            if (descending)
+            {
+                resTMP = List
+                    .Where(filter_by_selector)
+                    .OrderByDescending(order_by_selector);
+            }
+            else
+            {
+                resTMP = List
+                    .Where(filter_by_selector)
+                    .OrderBy(order_by_selector);
+            }
+
+            T[] res = resTMP
                 .Skip(Page_index * page_size)
                 .Take(page_size)
                 .ToArray();
@@ -23,7 +35,7 @@ namespace WebApplication1.Resource.Pagination
             if (res == null || res.Length == 0)
                 return new Empty<Page<T>>();
 
-            var tot_items = List.Count();
+            var tot_items = resTMP.Count();
 
             var tot_pages = tot_items / page_size;
 
