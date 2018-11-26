@@ -7,119 +7,118 @@
 
 <!---<h2>Search</h2>-->
 <div class="container">
-    <form method="post" asp-page="Search" onsubmit="return checkmin()">
+    <form method="post" asp-page-handler="page" onsubmit="return checkmin()">
         <div class="row">
             <div class="col-md-3">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Price</th>
-                        </tr>
+                    <tr>
+                        <th>Price</th>
+                    </tr>
                     </thead>
                 </table>
 
-
-                <table class="table">
-                    <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
+                    <table class="table">
                         <input type="hidden" value="page" name="handler" />
-                        
 
-                    <article class="card-group-item">
-                        <div class="filter-content">
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label>Min</label>
-                                        <input type="number" onchange="checkMinRealTime()" name="min" class="form-control" id="min" placeholder="€0" value="@(Model._Min != null ?  Model._Min : 0)" />
-                                    </div>
-                                    <div class="form-group col-md-6 text-right">
-                                        <label>Max</label>
-                                        <input type="number" onchange="checkMinRealTime()" name="max" class="form-control" id="max" placeholder="€1,0000" value="@(Model._Max != null ? Model._Max : 0)">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
-                                    <input type="hidden" value="@(!Model.Products_page.empty ? Model.Products_page.data.Index : 0) " name="page_index" />
-                                    <input type="hidden" value="@Model.page_size" name="page_size" />
-                                    <input type="hidden" value="@Model._searchquery" name="Search" />
-                                </div>
 
-                            </div> <!-- card-body.// -->
-                        </div>
-                    </article> <!-- card-group-item.// -->
-                    <article class="card-group-item">
+                        <article class="card-group-item">
+                            <div class="filter-content">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Min</label>
+                                            <input type="number" onchange="checkMinRealTime()" name="min" class="form-control" id="min" placeholder="€0" value="@(Model._Min != null ?  Model._Min : 0)" />
+                                        </div>
+                                        <div class="form-group col-md-6 text-right">
+                                            <label>Max</label>
+                                            <input type="number" onchange="checkMinRealTime()" name="max" class="form-control" id="max" placeholder="€1,0000" value="@(Model._Max != null ? Model._Max : 0)">
+                                        </div>
+                                        <input type="hidden" value="@(!Model.Products_page.empty ? Model.Products_page.data.Index : 0) " name="page_index" />
+                                        <input type="hidden" value="@Model.page_size" name="page_size" />
+                                        <input type="hidden" value="@Model._searchquery" name="Search" />
+                                    </div>
+
+                                </div> <!-- card-body.// -->
+                            </div>
+                        </article> <!-- card-group-item.// -->
+                        <article class="card-group-item">
                             <h6 class="title">Genres </h6>
-                        <div class="filter-content">
-                            <div class="card-body">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Check1" name="Adventure" @((Model._Adventure == "1") ? "checked" : "") value="1">
-                                    <label class="custom-control-label" for="Check1">Adventure</label>
-                                </div> <!-- form-check.// -->
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Check2" name="Racing" @((Model._Racing == "1") ? "checked" : "") value="1">
-                                    <label class="custom-control-label" for="Check2">Racing</label>
-                                </div> <!-- form-check.// -->
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Check3" name="actie" @((Model._actie == "1") ? "checked" : "") value="1">
-                                    <label class="custom-control-label" for="Check3">Action</label>
-                                </div> <!-- form-check.// -->
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Check4" name="Multiplayer" @((Model._Multiplayer == "1") ? "checked" : "") value="1">
-                                    <label class="custom-control-label" for="Check4">Multiplayer</label>
-                                </div> <!-- form-check.// -->
-                            </div> <!-- card-body.// -->
-                        </div>
-                        <input hidden type="text" value="" />
-                    </form>
-                </table>
+                            <div class="filter-content">
+                                <div class="card-body">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="Check1" name="Adventure" @((Model._Adventure == "1") ? "checked" : "") value="1">
+                                        <label class="custom-control-label" for="Check1">Adventure</label>
+                                    </div> <!-- form-check.// -->
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="Check2" name="Racing" @((Model._Racing == "1") ? "checked" : "") value="1">
+                                        <label class="custom-control-label" for="Check2">Racing</label>
+                                    </div> <!-- form-check.// -->
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="Check3" name="actie" @((Model._actie == "1") ? "checked" : "") value="1">
+                                        <label class="custom-control-label" for="Check3">Action</label>
+                                    </div> <!-- form-check.// -->
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="Check4" name="Multiplayer" @((Model._Multiplayer == "1") ? "checked" : "") value="1">
+                                        <label class="custom-control-label" for="Check4">Multiplayer</label>
+                                    </div> <!-- form-check.// -->
+                                </div> <!-- card-body.// -->
+                            </div>
+                            <input hidden type="text" value="" />
+                        </article>
+                        <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
+                    </table>
 
-                @*<table class="table">
-                    <thead>
-                        <tr>
-                            <th>Genres</th>
-                        </tr>
-                    </thead>
-                </table>
+                    @*<table class="table">
+                <thead>
+                    <tr>
+                        <th>Genres</th>
+                    </tr>
+                </thead>
+            </table>
 
-                <table>
-                    <div class="custom-control custom-checkbox">
-                        <span class="float-right badge badge-light round">52</span>
-                        <input type="checkbox" class="custom-control-input" id="Check1">
-                        <label class="custom-control-label" for="Check1">Adventure</label>
-                    </div> <!-- form-check.// -->
-                    <div class="custom-control custom-checkbox">
-                        <span class="float-right badge badge-light round">52</span>
-                        <input type="checkbox" class="custom-control-input" id="Check2">
-                        <label class="custom-control-label" for="Check2">Racing</label>
-                    </div> <!-- form-check.// -->
-                    <div class="custom-control custom-checkbox">
-                        <span class="float-right badge badge-light round">52</span>
-                        <input type="checkbox" class="custom-control-input" id="Check3">
-                        <label class="custom-control-label" for="Check3">Shooter</label>
-                    </div> <!-- form-check.// -->
-                    <div class="custom-control custom-checkbox">
-                        <span class="float-right badge badge-light round">52</span>
-                        <input type="checkbox" class="custom-control-input" id="Check4">
-                        <label class="custom-control-label" for="Check4">Multiplayer</label>
-                    </div> <!-- form-check.// -->
-                </table>*@
+            <table>
+                <div class="custom-control custom-checkbox">
+                    <span class="float-right badge badge-light round">52</span>
+                    <input type="checkbox" class="custom-control-input" id="Check1">
+                    <label class="custom-control-label" for="Check1">Adventure</label>
+                </div> <!-- form-check.// -->
+                <div class="custom-control custom-checkbox">
+                    <span class="float-right badge badge-light round">52</span>
+                    <input type="checkbox" class="custom-control-input" id="Check2">
+                    <label class="custom-control-label" for="Check2">Racing</label>
+                </div> <!-- form-check.// -->
+                <div class="custom-control custom-checkbox">
+                    <span class="float-right badge badge-light round">52</span>
+                    <input type="checkbox" class="custom-control-input" id="Check3">
+                    <label class="custom-control-label" for="Check3">Shooter</label>
+                </div> <!-- form-check.// -->
+                <div class="custom-control custom-checkbox">
+                    <span class="float-right badge badge-light round">52</span>
+                    <input type="checkbox" class="custom-control-input" id="Check4">
+                    <label class="custom-control-label" for="Check4">Multiplayer</label>
+                </div> <!-- form-check.// -->
+            </table>*@
             </div>
 
             <div class="col-md-9">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th style="text-align:right;">
-                                Order by :
-                                <select aria-labelledby="dropdownMenuButton">
+                    <tr>
+                        <th style="text-align:right;">
+                            Order by :
+                            <select aria-labelledby="dropdownMenuButton" name="order">
+                                <option>Relevantie</option>
+                                <option>Price (High to low)</option>
+                                <option>Price (Low to High)</option>
+                            </select>
 
-                                    <option>Price (High to low)</option>
-                                    <option>Price (Low to High)</option>
-                                </select>
+                        </th>
 
-                            </th>
-
-                        </tr>
+                    </tr>
                     </thead>
                 </table>
+    
 
                 @{
                     if (!Model.Products_page.empty)
@@ -149,7 +148,7 @@
                                                         <a asp-page="/Account/Manage/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
                                                         <a asp-page="/Account/Manage/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
                                                     }
-                                                  }
+                                                }
                                             </div>
                                         </div>
                                     }

@@ -50,7 +50,7 @@ namespace WebApplication1.Pages.Account.Manage
             {
                 return Page();
             }
-
+            Product.QueryName = Product.ResponseName.ToLower();
             _context.Product.Attach(Product).State = EntityState.Modified;
 
             try
