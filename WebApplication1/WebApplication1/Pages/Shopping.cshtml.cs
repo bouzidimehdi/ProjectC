@@ -58,17 +58,20 @@ namespace WebApplication1.Pages
 
             int page_index = 0;
             int page_size = 50;
-            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, P => true);
+            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, P => true, false);
         }
 
-        public void OnGetPage(int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer)
+        public void OnGetPage(int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer, string order)
         {
+            bool descending = false;
+
             Func<Product, bool> filter;
             Func<Product, bool> filterMinMax = p => true;
             Func<Product, bool> filterAdventure = p => true;
             Func<Product, bool> filterRacing = p => true;
             Func<Product, bool> filterShooter = p => true;
             Func<Product, bool> filterMultiplayer = p => true;
+            Func<Product, object> filterorder = p => p.ID;
             if (min != null && max != null && min != 0 && max != 0)
             {
                 _Min = min.GetValueOrDefault();
@@ -102,7 +105,17 @@ namespace WebApplication1.Pages
 
             filter = p => filterAdventure(p) && filterMinMax(p) && filterRacing(p) && filterShooter(p) && filterMultiplayer(p);
 
-            Products_page = _context.Product.GetPage(page_index, page_size, a => a.ID, filter);
+            if (order == "Price (High to low)")
+            {
+                descending = true;
+                filterorder = p => p.PriceFinal;
+            }
+            else if (order == "Price (Low to High)")
+            {
+                filterorder = p => p.PriceFinal;
+            }
+
+            Products_page = _context.Product.GetPage(page_index, page_size, filterorder, filter, descending);
 
         }
     }

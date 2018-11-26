@@ -8,10 +8,10 @@
 @*<h2>@ViewData["Title"]</h2>
 *@
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card-plain">
-                <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
+    <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-plain">
                     <article class="card-group-item">
                         <table class="table">
                             <thead>
@@ -34,7 +34,6 @@
                                         <label>Max</label>
                                         <input type="number" onchange="checkMinRealTime()" name="max" class="form-control" id="max" placeholder="€1,0000" value="@(Model._Max != null ? @Model._Max : 0)">
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
                                     <input type="hidden" value="@if (!Model.Products_page.empty){@Model.Products_page.data.Index}" name="page_index" />
                                     <input type="hidden" value="@Model.page_size" name="page_size" />
                                 </div>
@@ -46,7 +45,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Price</th>
+                                    <th>Genre</th>
                                 </tr>
                             </thead>
                         </table>
@@ -71,99 +70,99 @@
                             </div> <!-- card-body.// -->
                         </div>
                     </article> <!-- card-group-item.// -->
-                </form>
+                    <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
+                </div>
             </div>
-        </div>   
 
-        <div class="col-md-9">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th style="text-align:right;">
-                            Order by : 
-                            <select aria-labelledby="dropdownMenuButton">
-                                
-                                <option>Price (High to low)</option>
-                                <option>Price (Low to High)</option>
-                            </select>
+            <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:right;">
+                                Order by :
+                                <select aria-labelledby="dropdownMenuButton" name="order">
 
-                        </th>
+                                    <option>Price (High to low)</option>
+                                    <option>Price (Low to High)</option>
+                                </select>
 
-                    </tr>
-                </thead>
-            </table>
+                            </th>
 
-            @{
-                if (!Model.Products_page.empty)
-                {
-                    int i_products = 0;
-                    while (i_products < Model.Products_page.data.Items.Length)
+                        </tr>
+                    </thead>
+                </table>
+
+                @{
+                    if (!Model.Products_page.empty)
                     {
-                        <div class="card-columns">
-                            @for (int i = 0; i < 3; i++)
-                            {
-                                if (i_products < Model.Products_page.data.Items.Length)
+                        int i_products = 0;
+                        while (i_products < Model.Products_page.data.Items.Length)
+                        {
+                            <div class="card-columns">
+                                @for (int i = 0; i < 3; i++)
                                 {
-                                    Product item = Model.Products_page.data.Items[i_products];
+                                    if (i_products < Model.Products_page.data.Items.Length)
+                                    {
+                                        Product item = Model.Products_page.data.Items[i_products];
 
-                                    <div class="card">
-                                        <div onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer">
-                                            <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
-                                            <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
-                                            @{
-                                                if (Model.IsAdmin)
-                                                {
-                                                    <a asp-page="/Account/Manage/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
-                                                    <a asp-page="/Account/Manage/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
+                                        <div class="card">
+                                            <div onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer">
+                                                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="...">
+                                            </div>
+                                            <div class="card-body">
+                                                <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
+                                                <p>€ @Html.DisplayFor(modelItem => item.PriceFinal)</p>
+                                                @{
+                                                    if (Model.IsAdmin)
+                                                    {
+                                                        <a asp-page="/Account/Manage/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
+                                                        <a asp-page="/Account/Manage/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
+                                                    }
                                                 }
-                                            }
+                                            </div>
+
                                         </div>
 
-                                    </div>
 
-
+                                    }
+                                    i_products++;
                                 }
-                                i_products++;
-                            }
-                        </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Oops! There are no results!</p>
                     }
                 }
-                else
-                {
-                    <p>Oops! There are no results!</p>
-                }
-            }
             </div>
-    </div>
+        </div>
 
-    <div class="row">
+        <div class="row">
 
-        <nav aria-label="..." style="text-align:center; margin:0 auto; color:#16262E; border-color:#16262E;">
-            <ul class="pagination" sstyle="color:#16262E; border-color:#16262E;">
-                @{
-                    if (Model.Products_page.empty == false && Model.Products_page.data.TotalPages > 1)
-                    {
-                        for (int i = 4; i > -4; i--)
+            <nav aria-label="..." style="text-align:center; margin:0 auto; color:#16262E; border-color:#16262E;">
+                <ul class="pagination" sstyle="color:#16262E; border-color:#16262E;">
+                    @{
+                        if (Model.Products_page.empty == false && Model.Products_page.data.TotalPages > 1)
                         {
-                            int page_index = Model.Products_page.data.Index - i;
-
-                            if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages - 1 && page_index >= 0)
+                            for (int i = 4; i > -4; i--)
                             {
-                                <li class="page-item">
-                                    <a class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")">
-                                        @page_index
-                                    </a>
-                                </li>
+                                int page_index = Model.Products_page.data.Index - i;
+
+                                if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages - 1 && page_index >= 0)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")">
+                                            @page_index
+                                        </a>
+                                    </li>
+                                }
                             }
                         }
                     }
-                }
-            </ul>
-        </nav>
-
+                </ul>
+            </nav>
+    </form>
     </div>
 </div>
 
