@@ -1,0 +1,30 @@
+﻿@page
+@model WebApplication1.Pages.Admin.UserManageModel
+@{
+    ViewData["Title"] = "UserManage";
+}
+
+<h2>UserManage</h2>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Lastname</th>
+        </tr>
+        @{
+            foreach (var item in Model.Users)
+            {
+                <tr>
+                    <td>@item.Email</td>
+                    <td>@item.LastName</td>
+                    <td><a asp-page="./TestEdit" asp-route-id="@item.Id">edit</a></td>
+                </tr>
+            }
+        }
+    </table>
+}
+else
+{
+    <p>You at the wrong place</p>
+}
