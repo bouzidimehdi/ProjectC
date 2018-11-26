@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 
-namespace WebApplication1.Pages.Account.Manage
+namespace WebApplication1.Pages.Admin
 {
     public class AdminDeleteProductModel : PageModel
     {
@@ -58,7 +58,7 @@ namespace WebApplication1.Pages.Account.Manage
 
             StatusMessage = $"You permanently deleted {Product.QueryName} from the database";
             //return RedirectToPage();
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Admin/Admin");
             
         }
     }

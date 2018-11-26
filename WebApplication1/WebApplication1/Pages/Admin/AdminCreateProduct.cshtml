@@ -1,5 +1,5 @@
 ﻿@page
-@model WebApplication1.Pages.Account.Manage.AdminCreateProductModel
+@model WebApplication1.Pages.Admin.AdminCreateProductModel
 
 @{
     ViewData["Title"] = "TestCreateProduct";
@@ -20,11 +20,6 @@
                 <span asp-validation-for="Input.HeaderImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Background" class="control-label"></label>
-                <input asp-for="Input.Background" class="form-control " />
-                <span asp-validation-for="Input.Background" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Input.ResponseName" class="control-label"></label>
                 <input asp-for="Input.ResponseName" class="form-control" />
                 <span asp-validation-for="Input.ResponseName" class="text-danger"></span>
@@ -39,12 +34,6 @@
                 <input asp-for="Input.PriceFinal" class="form-control" />
                 <span asp-validation-for="Input.PriceFinal" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.RecommendationCount" class="control-label"></label>
-                <input asp-for="Input.RecommendationCount" class="form-control" />
-                <span asp-validation-for="Input.RecommendationCount" class="text-danger"></span>
-            </div>
-
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -82,7 +71,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to Admin-panel</a>
+    <a asp-page="/Admin/Admin">Back to Admin-panel</a>
 </div>
 
 @section Scripts {

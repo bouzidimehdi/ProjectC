@@ -1,5 +1,5 @@
 ﻿@page
-@model WebApplication1.Pages.Account.Manage.AdminDeleteProductModel
+@model WebApplication1.Pages.Admin.AdminDeleteProductModel
 
 @{
     ViewData["Title"] = "AdminDeleteProduct";
@@ -13,22 +13,10 @@
     <h4>Product</h4>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Product.QueryName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.QueryName)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Product.ResponseName)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Product.ResponseName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.RecommendationCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.RecommendationCount)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Product.GenreIsAction)
@@ -67,12 +55,6 @@
             @Html.DisplayFor(model => model.Product.AboutText)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product.Background)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.Background)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Product.HeaderImage)
         </dt>
         <dd>
@@ -83,11 +65,11 @@
     <form method="post">
         <input type="hidden" asp-for="Product.ID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-page="./Index">Back to List</a>
+        <a asp-page="/Shopping">Back to Shopping</a>
     </form>
 
 
     <div>
-        <a asp-page="./Index">Back to Admin-panel</a>
+        <a asp-page="/Admin/Admin">Back to Admin-panel</a>
     </div>
 </div>

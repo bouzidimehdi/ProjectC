@@ -1,5 +1,5 @@
 ﻿@page
-@model WebApplication1.Pages.Account.Manage.AdminEditProductModel
+@model WebApplication1.Pages.Admin.AdminEditProductModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -16,19 +16,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Product.ID" />
             <div class="form-group">
-                <label asp-for="Product.QueryName" class="control-label"></label>
-                <input type="hidden" asp-for="Product.QueryName" class="form-control"data-val="true" data-val-required="The Queryname field is required." /> 
+               @*vraag me af of het nodig is, voorheen werd het op null gezet als het er niet stond -> kijk hier naar*@
+                <input type="hidden" asp-for="Product.QueryName" class="form-control"data-val="true"  /> 
                 <span asp-validation-for="Product.QueryName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.ResponseName" class="control-label"></label>
-                <input asp-for="Product.ResponseName" class="form-control" id="name"  data-val="true" data-val-required="The Response field is required." pattern="/[a-z]/"/> 
+                <input asp-for="Product.ResponseName" class="form-control" id="name"  data-val="true" data-val-required="The Response field is required." /> 
                 <span asp-validation-for="Product.ResponseName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.RecommendationCount" class="control-label"></label>
-                <input asp-for="Product.RecommendationCount" class="form-control" />
-                <span asp-validation-for="Product.RecommendationCount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
@@ -62,7 +57,7 @@
 
             <div class="form-group">
                 <label asp-for="Product.PriceFinal" class="control-label"></label>
-                <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required."/>
+                <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required." data-val-regex="No negative numbers, only 2 decimals" data-val-regex-pattern="^[1-9]+$"/>
                 <span asp-validation-for="Product.PriceFinal" class="text-danger"></span>
             </div>
 
@@ -72,14 +67,8 @@
                 <span asp-validation-for="Product.AboutText" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.Background" class="control-label"></label>
-                <input asp-for="Product.Background" class="form-control" data-val="true" data-val-url="Invalid file type, use image in form of http:// or https://"/>
-                <span asp-validation-for="Product.Background" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
                 <label asp-for="Product.HeaderImage" class="control-label"></label>
-                <input asp-for="Product.HeaderImage" class="form-control" data-val="true" data-val-url="Invalid file type, use image in form of http:// or https://"/>
+                <input asp-for="Product.HeaderImage" class="form-control" data-val="true" data-val-url="Invalid file type, use image in form of http:// or https:// or FTP URL"/>
                 <span asp-validation-for="Product.HeaderImage" class="text-danger"></span>
             </div>
 
@@ -91,7 +80,8 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="/Shopping">Back to Shopping</a>
+    <a asp-page="/Admin/Admin">Back to Admin-panel</a>
 </div>
 
 

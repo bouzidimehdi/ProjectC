@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 
-namespace WebApplication1.Pages.Account.Manage
+namespace WebApplication1.Pages.Admin
 {
-    public class AdminEditProductModel : PageModel
+    public class 
+        AdminEditProductModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
@@ -72,7 +73,7 @@ namespace WebApplication1.Pages.Account.Manage
             StatusMessage = $"You have updated this product: {Product.QueryName} !";
             //return Page();
             //return RedirectToPage("Account/Manage/AdminEditProduct");
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Admin/Admin");
         }
 
         private bool ProductExists(int productid)
