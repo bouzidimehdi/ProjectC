@@ -18,6 +18,10 @@
                     <ul class="dropdown-menu dropdown-menu-right ">
                         <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
                         <a asp-page="/Account/Manage/Index" class="dropdown-item">My profile</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-page="Admin/Admin" class="dropdown-item">Admin</a>
+                        }
                         <button class="btn btn-danger btn-lg btn-block" type="submit" style="margin:0 auto; border-radius:0px;"> Logout</button>
                     </ul>
                 </li>
