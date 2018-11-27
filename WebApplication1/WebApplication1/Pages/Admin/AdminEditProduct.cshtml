@@ -57,7 +57,7 @@
 
             <div class="form-group">
                 <label asp-for="Product.PriceFinal" class="control-label"></label>
-                <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required." data-val-regex="No negative numbers, only 2 decimals" data-val-regex-pattern="^[1-9]+$"/>
+                <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required." data-val-regex="No negative numbers" data-val-regex-pattern="^[1-9]+$"/>
                 <span asp-validation-for="Product.PriceFinal" class="text-danger"></span>
             </div>
 

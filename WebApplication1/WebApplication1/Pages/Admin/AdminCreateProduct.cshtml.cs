@@ -47,7 +47,7 @@ namespace WebApplication1.Pages.Admin
             public string AboutText { get; set; }
             [Required]
             [Display(Name = "Price of the product *")]
-            [RegularExpression(@"^[1-9]+$", ErrorMessage ="No negative numbers, only 2 decimals")]
+            [RegularExpression(@"^[1-9]+$", ErrorMessage ="No negative numbers")]
             public float PriceFinal  { get; set; }
             
 
