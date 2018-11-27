@@ -8,16 +8,20 @@
         <div class="collapse navbar-collapse" id="navbar-primary">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" asp-page="/ShoppingCart"> <i class="fas fa-shopping-cart"></i> &nbsp;Cart</a>
+                    <a class="nav-link" asp-page="/ShoppingCart" id="NavCart"> <i class="fas fa-shopping-cart"></i> &nbsp;Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-page="/Wishlist/Wishlist"> <i class="fas fa-heart"></i> &nbsp;Favorites</a>
+                    <a class="nav-link" asp-page="/Wishlist/Wishlist" id="NavFavs"> <i class="fas fa-heart"></i> &nbsp;Favorites</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;Profile</a>
                     <ul class="dropdown-menu dropdown-menu-right ">
                         <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
-                        <a asp-page="/Account/Manage/Index" class="dropdown-item">My profile</a>
+                        <a asp-page="/Account/Manage/Index" class="dropdown-item" id="NavProfile">My profile</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-page="/Admin/Admin" class="dropdown-item" id="NavAdmin">Admin</a>
+                        }
                         <button class="btn btn-danger btn-lg btn-block" type="submit" style="margin:0 auto; border-radius:0px;"> Logout</button>
                     </ul>
                 </li>
@@ -32,14 +36,14 @@ else
     <div class="collapse navbar-collapse" id="navbar-primary">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" asp-page="/ShoppingCart"> <i class="fas fa-shopping-cart"></i> &nbsp;Cart</a>
+                <a class="nav-link" asp-page="/ShoppingCart" id="NavCartNoLogin"> <i class="fas fa-shopping-cart"></i> &nbsp;Cart</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;Profile</a>
                 <ul class="dropdown-menu dropdown-menu-right ">
                     <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
-                    <a asp-page="/Account/Login" class="dropdown-item">Login</a>
-                    <a asp-page="/Account/Register" class="dropdown-item">Register</a>
+                    <a asp-page="/Account/Login" class="dropdown-item" id="NavLogin">Login</a>
+                    <a asp-page="/Account/Register" class="dropdown-item" id="NavRegister">Register</a>
                 </ul>
             </li>
         </ul>
