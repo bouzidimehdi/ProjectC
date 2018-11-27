@@ -35,18 +35,18 @@
                         </div>
                     </div>*@
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block" style="border-radius:50px;">Log in</button>
+                            <button type="submit" class="btn btn-primary btn-block" style="border-radius:50px;" id="LoginButton">Log in</button>
                         </div>
                         <div class="form-group">
                             <p>
-                            <a asp-page="./ConfirmEmailSend">Send new verification email</a>
+                            <a asp-page="./ConfirmEmailSend" id="Login_NewVerify">Send new verification email</a>
                             <p>
                         </div>
                     </form>
                 </section>
             </div>
             <p style="text-align:center; padding-bottom:50px;">
-                <a asp-page="./ForgotPassword">Forgot password</a> |  <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register </a>
+                <a asp-page="./ForgotPassword" id="Login_NewPassword">Forgot password</a> |  <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" id="Login_ToRegister">Register </a>
             </p>
         </div>
         <div class="col"></div>

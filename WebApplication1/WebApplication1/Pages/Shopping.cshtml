@@ -80,10 +80,10 @@
                         <tr>
                             <th style="text-align:right;">
                                 Order by :
-                                <select aria-labelledby="dropdownMenuButton" name="order">
+                                <select aria-labelledby="dropdownMenuButton" name="order" id="Products_OrderBy">
 
-                                    <option>Price (High to low)</option>
-                                    <option>Price (Low to High)</option>
+                                    <option id="Products_HightoLow">Price (High to low)</option>
+                                    <option id="Products_LowtoHigh">Price (Low to High)</option>
                                 </select>
 
                             </th>
@@ -106,8 +106,8 @@
                                         Product item = Model.Products_page.data.Items[i_products];
 
                                         <div class="card">
-                                            <div onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer">
-                                                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="...">
+                                            <div id="Products_Image" onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer">
+                                                <img id="Products_ClickedImage" class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="...">
                                             </div>
                                             <div class="card-body">
                                                 <h6 class="display-5">@Html.DisplayFor(modelItem => item.ResponseName)</h6>
@@ -115,8 +115,8 @@
                                                 @{
                                                     if (Model.IsAdmin)
                                                     {
-                                                        <a asp-page="/Admin/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
-                                                        <a asp-page="/Admin/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
+                                                        <a asp-page="/Admin/AdminEditProduct" asp-route-productid="@item.ID" id="Products_AdminEdit">edit</a>
+                                                        <a asp-page="/Admin/AdminDeleteProduct" asp-route-productid="@item.ID" id="Products_AdminDelete">delete product</a>
                                                     }
                                                 }
                                             </div>
@@ -152,7 +152,7 @@
                                 if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages - 1 && page_index >= 0)
                                 {
                                     <li class="page-item">
-                                        <a class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")">
+                                        <a id="Products_Pagination_Pages" class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")">
                                             @page_index
                                         </a>
                                     </li>
