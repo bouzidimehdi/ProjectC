@@ -29,11 +29,11 @@
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Shopping">Products</a>
+                    <a class="nav-link" href="/Shopping" id="NavProducts">Products</a>
                 </li>
                 <li class="nav-item">
-                    <form method="post" asp-page="/Search" class="formsearch">
-                        <input asp-page="Search" name="Search" type="search" placeholder="Search.." class="search" style="color:black;">
+                    <form method="post" asp-page="/Search" class="formsearch" id="Searchbar">
+                        <input asp-page="Search" name="Search" type="search" placeholder="Search.." class="search" style="color:black;" id="SearchName">
                         <input type="hidden" name="page_index" value="0" />
                         <input type="hidden" name="page_size" value="50" />
                         <button style="visibility:hidden;" type="submit"></button><i class="fa fa-search"></i>
