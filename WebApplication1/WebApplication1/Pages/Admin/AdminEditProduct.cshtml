@@ -62,7 +62,7 @@
 
                 <div class="form-group">
                     <label asp-for="Product.PriceFinal" class="control-label"></label>
-                    <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required." data-val-regex="No negative numbers" data-val-regex-pattern="^[1-9]+$" />
+                    <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required." data-val-range="Price has to be between 0 and 9.999" data-val-range-max="9999" data-val-range-min="0" />
                     <span asp-validation-for="Product.PriceFinal" class="text-danger"></span>
                 </div>
 
