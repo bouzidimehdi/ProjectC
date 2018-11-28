@@ -35,10 +35,10 @@ namespace WebApplication1.Pages.Admin
             // nodig voor ProductInfo pagina
             //HeaderImage  , ResponseName , AboutText , PriceFinal 
             [Url]
-            [Display(Name = "Put a Headerimage in the right format here ( http, https or FTP URL)")]
+            [Display(Name = "Image")]
             public string HeaderImage { get; set; }
-            [Url]
-            public string Background { get; set; }
+            //[Url]
+            //public string Background { get; set; }
             [Required]
             [Display(Name = "Name of the Game *")]
             public string ResponseName { get; set; }
@@ -47,7 +47,8 @@ namespace WebApplication1.Pages.Admin
             public string AboutText { get; set; }
             [Required]
             [Display(Name = "Price of the product *")]
-            [RegularExpression(@"^[1-9]+$", ErrorMessage ="No negative numbers")]
+            //[RegularExpression(@"^[1-9]+$", ErrorMessage ="No negative numbers")]
+            [Range(0,9999,ErrorMessage ="Price has to be between 0 and 9.999")]
             public float PriceFinal  { get; set; }
             
 

@@ -84,17 +84,15 @@ namespace WebApplication1.Pages.Account
                     await _signInManager.SignOutAsync();
                     return Page();
                 }
-
-
+                
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(Url.GetLocalUrl(returnUrl));
                     }
-
-               
-
             }
+               
+            
 
             // If we got this far, something failed, redisplay form
             return Page();
