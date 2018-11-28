@@ -1,27 +1,26 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Text.Encodings.Web;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Data;
+using WebApplication1.Pages.Account;
 using WebApplication1.Services;
 
-namespace WebApplication1.Pages.Account
+namespace WebApplication1.Pages.Admin
 {
-    public class RegisterModel : PageModel
+    public class AdminCreateUserModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
+        public AdminCreateUserModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
@@ -33,7 +32,7 @@ namespace WebApplication1.Pages.Account
             _emailSender = emailSender;
         }
 
-        
+
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -90,6 +89,7 @@ namespace WebApplication1.Pages.Account
 
             [Required]
             [EmailAddress]
+            [DataType(DataType.EmailAddress)]
             [Display(Name = "Email *")]
             public string Email { get; set; }
 
@@ -98,7 +98,7 @@ namespace WebApplication1.Pages.Account
             [DataType(DataType.Password)]
             [Display(Name = "Password *")]
             [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#$^+=!*()@%&]).{6,50}$", ErrorMessage = "Check 'Requirements for a valid password' below")]
-             public string Password { get; set; }
+            public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password *")]
@@ -109,6 +109,9 @@ namespace WebApplication1.Pages.Account
             [Display(Name = "Birth Date")]
             [DataType(DataType.Date)]
             public DateTime DOB { get; set; }
+
+            [Display(Name = "Confirm the email of the user")]
+            public bool ConfirmEmail { get; set; }
         }
 
 
@@ -123,7 +126,8 @@ namespace WebApplication1.Pages.Account
             ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {
+                var user = new ApplicationUser
+                {
                     UserName = Input.Email,
                     Email = Input.Email,
                     Name = Input.Name,
@@ -133,10 +137,18 @@ namespace WebApplication1.Pages.Account
                     Street = Input.Street,
                     Zip = Input.Zip,
                     HouseNumber = Input.HouseNumber,
-                    DOB = Input.DOB,
+                    DOB = Input.DOB
                 };
-                var result = await _userManager.CreateAsync(user, Input.Password);
-                if (result.Succeeded)
+                IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
+                IdentityResult EmailConfirmResult = null;
+
+                if (Input.ConfirmEmail)
+                {
+                    string EmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    EmailConfirmResult = await _userManager.ConfirmEmailAsync(user, EmailToken);
+                }
+                
+                if (result.Succeeded || result.Succeeded && EmailConfirmResult.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
