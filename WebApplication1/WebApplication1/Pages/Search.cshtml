@@ -66,7 +66,7 @@
                             </div>
                             <input hidden type="text" value="" />
                         </article>
-                        <button type="submit" class="btn btn-primary btn-sm btn-block">Filter out </button>
+                        <button type="submit" class="btn btn-primary btn-sm btn-block" id="Search_FilterOut">Filter out </button>
                     </table>
 
                     @*<table class="table">
@@ -107,10 +107,10 @@
                     <tr>
                         <th style="text-align:right;">
                             Order by :
-                            <select aria-labelledby="dropdownMenuButton" name="order">
-                                <option>Relevantie</option>
-                                <option>Price (High to low)</option>
-                                <option>Price (Low to High)</option>
+                            <select aria-labelledby="dropdownMenuButton" name="order" id="Search_OrderByDropDown">
+                                <option id="Search_Relevantie">Relevantie</option>
+                                <option id="Search_HightoLow">Price (High to low)</option>
+                                <option id="Search_LowtoHigh">Price (Low to High)</option>
                             </select>
 
                         </th>
@@ -133,8 +133,8 @@
                                     {
                                         Product item = Model.Products_page.data.Items[i_products];
                                         <div class="card">
-                                            <div onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer">
-                                                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="...">
+                                            <div onclick="location.href = 'Productinfo?id=@Model.Products_page.data.Items[i_products].ID';" style="cursor: pointer" id="Search_Image">
+                                                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.HeaderImage)" style="width: 100%; object-fit: cover; height: 200px;" alt="..." id="Search_ClickedImage">
                                             </div>
                                             <div class=" card-body">
 
@@ -145,8 +145,8 @@
                                                 @{
                                                     if (Model.IsAdmin)
                                                     {
-                                                        <a asp-page="/Admin/AdminEditProduct" asp-route-productid="@item.ID">edit</a>
-                                                        <a asp-page="/Admin/AdminDeleteProduct" asp-route-productid="@item.ID">delete product</a>
+                                                        <a asp-page="/Admin/AdminEditProduct" asp-route-productid="@item.ID" id="Search_AdminEdit">edit</a>
+                                                        <a asp-page="/Admin/AdminDeleteProduct" asp-route-productid="@item.ID" id="Search_AdminDelete">delete product</a>
                                                     }
                                                 }
                                             </div>
@@ -178,7 +178,7 @@
                                     if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages)
                                     {
                                         <li class="page-item">
-                                            <a class="page-link" style="color:#16262E; border-color:#16262E !important;" href="search?search=@Model.Products_page.data.SearchQuery&page_size=50&page_index=@page_index">
+                                            <a id="Search_Pagination_Pages" class="page-link" style="color:#16262E; border-color:#16262E !important;" href="search?search=@Model.Products_page.data.SearchQuery&page_size=50&page_index=@page_index">
                                                 @page_index
                                             </a>
                                         </li>
