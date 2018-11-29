@@ -68,11 +68,11 @@
                     <td>
                         @{if (Model.YourCart != null)
                             {
-                                <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
+                                <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem" id="OneTimeClick">
                                     <input type="hidden" name="id1" value="@item.product.ID" />
                                     <input type="hidden" name="cartid1" value="@Model.YourCart.ID" />
                                     <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                    <button type="submit" id="DeleteProductUser" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button  type="submit" id="DeleteProductUser" class="close float-lg-left" title="Remove this product" aria-label="Close" onclick="this.disabled = true;this.form.submit()"><span aria-hidden="true">&times;</span></button>
                                 </form>
                              }
                           else
@@ -80,7 +80,7 @@
                               <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
                                   <input type="hidden" name="id1" value="@item.product.ID" />
                                   <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                  <button type="submit" id="Cart_DeleteProductCookie"class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="submit" id="Cart_DeleteProductCookie"class="close float-lg-left" title="Remove this product" aria-label="Close" onclick="this.disabled = true;this.form.submit()"><span aria-hidden="true">&times;</span></button>
                               </form>
                           }
                         }
@@ -130,6 +130,8 @@
               </div>
           </div>
 </div>
+
+
 
 <style>
     .container  {

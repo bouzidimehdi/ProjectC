@@ -112,6 +112,7 @@ namespace WebApplication1.Pages
                     return NotFound();
                 }
 
+
                 Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid1, id1);
                 _context.Shopping_Card_Products.Remove(Shopping_card_Product);
                 await _context.SaveChangesAsync();

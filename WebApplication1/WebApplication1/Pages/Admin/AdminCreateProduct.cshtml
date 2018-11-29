@@ -87,8 +87,11 @@ else
             </div>
         </div>
     </div>
+    <script>
+        window.location.replace("https://localhost:44358")
+    </script>
 }
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

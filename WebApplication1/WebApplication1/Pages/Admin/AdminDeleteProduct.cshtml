@@ -67,7 +67,7 @@
 
             <form method="post">
                 <input type="hidden" asp-for="Product.ID" />
-                <input type="submit" value="Delete" class="btn btn-default" /> |
+                <input type="submit" value="Delete" class="btn btn-default" onclick="this.disabled = true;this.form.submit()" /> |
                 <a asp-page="/Shopping" class="btn btn-primary">Back to Shopping</a>
             </form>
 
@@ -87,4 +87,7 @@ else
             </div>
         </div>
     </div>
+    <script>
+        window.location.replace("https://localhost:44358")
+    </script>
 }
