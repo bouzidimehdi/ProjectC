@@ -42,16 +42,6 @@
                             <input type="submit" value="Add to Favorites" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddFav" />
                         </form>
                     }
-                    else
-                    {
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            <form asp-page="Wishlist/MakeWishList" method="post">
-                                <input type="hidden" name="productid" value="@Model.product.ID" />
-                                <input type="submit" value="Add to Favorites" class="btn btn-primary btn-lg" role="button" />
-                            </form>
-                        }
-                    }
 
                 }
             }

@@ -6,14 +6,58 @@
 @Html.Partial("_StatusMessage", Model.StatusMessage)
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <a asp-page="AdminCreateProduct" id="CreateAdminButton" class="btn">Create new product</a>
+    <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="btn">Create new product</a>
     <a asp-page="UserManage" id="ManageUserredirict" class="btn">User Management</a>
 
     <h2>@ViewData["Title"]</h2>
     <h3>@Model.Message</h3>
     <p>Use this area to provide additional information.</p>
+
+    <div class="container">
+     <div class="col">
+            <div class="col-md-6">
+                <canvas id="myChart" width="200" height="200"></canvas>
+            </div>
+       </div> 
+    </div>
 }
 else
 {
     <p>Trying to sneak in?</p>
 }
+
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ["Adventure", "Action", "MMO", "Racing"],
+        datasets: [{
+            label: 'Genres',
+            data: [@Model.Adven.Count(), @Model.ActionGenre.Count(), @Model.MMO.Count(), @Model.Racer.Count()],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
