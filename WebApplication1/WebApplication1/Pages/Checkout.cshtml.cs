@@ -16,6 +16,10 @@ namespace WebApplication1.Pages
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ShoppingCartModel> _logger;
+
+        // Product
+        public Product product;
+
         public CheckoutModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager, ILogger<ShoppingCartModel> logger)
         {
             _context = context;
