@@ -65,15 +65,12 @@ namespace WebApplication1.Pages
                 }
                 else // Wordt uitgevoerd als gebruiker uit de shoppingcard al bestaat
                 {
-                    var query3 = from shoping in _context.Shopping_card
-                        let shopingProduct = (
+                    var query3 = (from shoping in _context.Shopping_card
                             from shopingProduct in _context.Shopping_Card_Products
                             where shopingProduct.Shopping_card_ID == shoping.ID && shoping.User_ID == id
-                            select shopingProduct
-                        ).ToList()
-                        select shopingProduct;
+                        select shopingProduct).ToList();
 
-                    List<Shopping_card_Product> shoppingCardProducts = query3.FirstOrDefault();
+                    List<Shopping_card_Product> shoppingCardProducts = query3;
                     bool checkProductExists = false;
 
                     foreach (var item in shoppingCardProducts)

@@ -2,7 +2,7 @@
 @model WebApplication1.Pages.ShoppingCartModel
 @{
 
-    decimal total = 0;
+    float total = 0;
 }
 <!--<h2>ShoppingCart</h2>-->
 
@@ -11,7 +11,7 @@
         <div class="col">
         <h2 style="font-family: 'Rubik', sans-serif; font-weight:900;">CART <i class="fas fa-shopping-cart"></i></h2></div>
         <div class="col">
-            <a class="btn btn-warning float-right" style="margin-top:10px; margin-bottom:10px; padding-left:15px;" asp-page="./Shopping">Continue Shopping</a>
+            <a class="btn btn-warning float-right" style="margin-top:10px; margin-bottom:10px; padding-left:15px;" asp-page="./Shopping" id="Cart_ToShopping">Continue Shopping</a>
         </div>
          <table class="table">
             <thead>
@@ -26,10 +26,10 @@
             <tbody>
                 @foreach (var item in Model._Products)
                 {
-                    total = total += (decimal)(item.product.PriceFinal * item.quantity);
+                    total = total += (item.product.PriceFinal * item.quantity);
 
                 <tr>
-                    <td> <img src="@item.product.HeaderImage" style="width:15%; height:15%;" alt="We could not load your image" />
+                    <td> <img src="@item.product.HeaderImage" style="width:170px; height:90px;" alt="No Image" />
                     @item.product.ResponseName</td>
                     <td> € @item.product.PriceFinal</td>
                     <td>
@@ -38,12 +38,12 @@
                                 <form asp-page="deleteproduct" method="post" class="d-inline align-middle ">
                                     <input type="hidden" name="id" value="@item.product.ID" />
                                     <input type="hidden" name="cartid" value="@Model.YourCart.ID" />
-                                    <input type="submit" value="-" class="btn btn-light btn-sm" />
+                                    <input type="submit" value="-" class="btn btn-light btn-sm" id="Cart_Decrease_Quantity"/>
                                 </form>
                                 <span style="padding:1px 10px"> @item.quantity</span>
                                 <form asp-page="ShoppingCartController" method="post" class="d-inline align-middle  ">
                                     <input type="hidden" name="productid" value="@item.product.ID" />
-                                    <input type="submit" value="+" class="btn btn-light btn-sm" />
+                                    <input type="submit" value="+" class="btn btn-light btn-sm" id="Cart_Add_Quantity"/>
                                     
                                 </form>
                             }
@@ -51,12 +51,12 @@
                            {
                                <form asp-page="deleteproduct" method="post" class="d-inline align-middle ">
                                    <input type="hidden" name="id" value="@item.product.ID" />
-                                   <input type="submit" value="-" class="btn btn-light btn-sm" />
+                                   <input type="submit" value="-" class="btn btn-light btn-sm" id="Cart_Decrease_QuantityCookie" />
                                </form>
                                <span style="padding:1px 10px"> @item.quantity</span>
                                <form asp-page="ShoppingCartController" method="post" class="d-inline align-middle  ">
                                    <input type="hidden" name="productid" value="@item.product.ID" />
-                                   <input type="submit" value="+" class="btn btn-light btn-sm" />
+                                   <input type="submit" value="+" class="btn btn-light btn-sm" id="Cart_Add_QuantityCookie"/>
                                     
                                </form>
                            }
@@ -72,7 +72,7 @@
                                     <input type="hidden" name="id1" value="@item.product.ID" />
                                     <input type="hidden" name="cartid1" value="@Model.YourCart.ID" />
                                     <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                    <button type="submit" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button type="submit" id="DeleteProductUser" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </form>
                              }
                           else
@@ -80,7 +80,7 @@
                               <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
                                   <input type="hidden" name="id1" value="@item.product.ID" />
                                   <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                  <button type="submit" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="submit" id="Cart_DeleteProductCookie"class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                               </form>
                           }
                         }
@@ -103,10 +103,6 @@
                   <table class="table">
                       <tbody>
                           <tr>
-                              <th>Sub Total</th>
-                              <td>Total: € @total</td>
-                          </tr>
-                          <tr>
                               <th>Total</th>
                               <td>Total: € @total</td>
                           </tr>
@@ -122,12 +118,12 @@
                           {
 
                       <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
-                          <input type="submit" value="Clear Cart" class="btn btn-danger">&nbsp;&nbsp;
+                          <input type="submit" value="Clear Cart" class="btn btn-danger" id="Cart_Clear_Cart">&nbsp;&nbsp;
                           @*<input type="submit" value="delete the whole cart" />*@
                       </form>
                           }
 
-                                  <a class="btn btn-primary float-right" asp-page="Checkout">Proceed to Checkout</a>
+                                  <a class="btn btn-primary float-right" asp-page="Checkout" id="Cart_Checkout">Proceed to Checkout</a>
                       }
                   </div>
 

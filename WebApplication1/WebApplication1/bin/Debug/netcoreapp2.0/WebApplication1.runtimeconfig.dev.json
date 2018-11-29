@@ -1,8 +1,23 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
+<<<<<<< HEAD
+<<<<<<< HEAD
       "C:\\Users\\Mehdi\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\Mehdi\\.nuget\\packages",
+=======
+<<<<<<< Updated upstream
+      "C:\\Users\\Tim Oosterlee\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Tim Oosterlee\\.nuget\\packages",
+=======
+      "C:\\Users\\Dion\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Dion\\.nuget\\packages",
+>>>>>>> Stashed changes
+>>>>>>> Dion
+=======
+      "C:\\Users\\User\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\User\\.nuget\\packages",
+>>>>>>> Tim
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
     ]
   }

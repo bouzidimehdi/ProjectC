@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication1.Data;
 
-namespace WebApplication1.Pages.Account.Manage
+namespace WebApplication1.Pages.Admin
 {
     public class AdminCreateProductModel : PageModel
     {
@@ -33,12 +33,12 @@ namespace WebApplication1.Pages.Account.Manage
             //public int QueryID { get; set; }
 
             // nodig voor ProductInfo pagina
-            //HeaderImage , Background , ResponseName , AboutText , PriceFinal , RecommendationCount
+            //HeaderImage  , ResponseName , AboutText , PriceFinal 
             [Url]
-            [Display(Name = "Put a Headerimage in the right format here")]
+            [Display(Name = "Image")]
             public string HeaderImage { get; set; }
-            [Url]
-            public string Background { get; set; }
+            //[Url]
+            //public string Background { get; set; }
             [Required]
             [Display(Name = "Name of the Game *")]
             public string ResponseName { get; set; }
@@ -47,8 +47,10 @@ namespace WebApplication1.Pages.Account.Manage
             public string AboutText { get; set; }
             [Required]
             [Display(Name = "Price of the product *")]
+            //[RegularExpression(@"^[1-9]+$", ErrorMessage ="No negative numbers")]
+            [Range(0,9999,ErrorMessage ="Price has to be between 0 and 9.999")]
             public float PriceFinal  { get; set; }
-            public int RecommendationCount { get; set; }
+            
 
             public bool GenreIsAdventure { get; set; }
             public bool GenreIsRacing { get; set; }
@@ -71,11 +73,9 @@ namespace WebApplication1.Pages.Account.Manage
                     QueryName = Input.ResponseName.ToLower(),
                     //QueryID = ,
                     HeaderImage = Input.HeaderImage,
-                    Background = Input.Background,
                     ResponseName = Input.ResponseName,
                     AboutText = Input.AboutText,
                     PriceFinal = Input.PriceFinal,
-                    RecommendationCount = Input.RecommendationCount,
                     GenreIsAction = Input.GenreIsAction,
                     GenreIsAdventure = Input.GenreIsAdventure,
                     GenreIsMassivelyMultiplayer = Input.GenreIsMassivelyMultiplayer,
@@ -85,7 +85,7 @@ namespace WebApplication1.Pages.Account.Manage
                 await _context.SaveChangesAsync();
 
                 StatusMessage = $"{product.QueryName} has been added to the database!";
-                return RedirectToPage("./Index");
+                return RedirectToPage("/Admin/Admin");
             }
             return Page();
         }

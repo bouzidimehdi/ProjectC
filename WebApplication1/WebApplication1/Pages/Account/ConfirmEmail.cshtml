@@ -4,9 +4,20 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div>
-    <p>
-        Thank you for confirming your email.
-    </p>
+
+
+<div class="container" >
+    <div class="row">
+        <div class="col">
+            <div class="col-6" style="margin-top:10em;margin-bottom:10em;">
+               
+                    <div>
+                        <h6 >Thank you for confirming your email.</h6>
+                    </div>
+                    <div style="margin-top:50px;">
+                        <a asp-page="/Account/Login" id="EmailToLogin" class="btn btn-primary"> Go to Login-page</a>
+                    </div>
+                </div>
+        </div>
+    </div>
 </div>
