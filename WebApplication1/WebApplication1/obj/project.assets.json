@@ -13301,7 +13301,15 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "C:\\Users\\Mehdi\\.nuget\\packages\\": {},
+=======
+<<<<<<< Updated upstream
+    "C:\\Users\\Tim Oosterlee\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\Dion\\.nuget\\packages\\": {},
+>>>>>>> Stashed changes
+>>>>>>> Dion
 =======
     "C:\\Users\\User\\.nuget\\packages\\": {},
 >>>>>>> Tim
@@ -13311,11 +13319,27 @@
     "version": "1.0.0",
     "restore": {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
       "projectPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\Mehdi\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+=======
+<<<<<<< Updated upstream
+      "projectUniqueName": "C:\\Users\\Tim Oosterlee\\Desktop\\Jaar2_Project_Webshop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectName": "WebApplication1",
+      "projectPath": "C:\\Users\\Tim Oosterlee\\Desktop\\Jaar2_Project_Webshop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\Tim Oosterlee\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Tim Oosterlee\\Desktop\\Jaar2_Project_Webshop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+=======
+      "projectUniqueName": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectName": "WebApplication1",
+      "projectPath": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\Dion\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+>>>>>>> Stashed changes
+>>>>>>> Dion
 =======
       "projectUniqueName": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
@@ -13329,7 +13353,15 @@
       ],
       "configFilePaths": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "C:\\Users\\Mehdi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+<<<<<<< Updated upstream
+        "C:\\Users\\Tim Oosterlee\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Dion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Stashed changes
+>>>>>>> Dion
 =======
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> Tim
