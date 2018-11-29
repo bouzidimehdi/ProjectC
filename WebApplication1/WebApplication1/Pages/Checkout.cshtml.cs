@@ -16,6 +16,8 @@ namespace WebApplication1.Pages
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ShoppingCartModel> _logger;
+        public string id { get; set; }  
+        
 
         // Product
         public Product product;
@@ -34,7 +36,7 @@ namespace WebApplication1.Pages
         {
             if (User.Identity.IsAuthenticated)
             {
-                string id = _userManager.GetUserId(User);
+                id = _userManager.GetUserId(User);
                 var query2 = from shop in _context.Shopping_card
                              where shop.User_ID == id
                              select shop;

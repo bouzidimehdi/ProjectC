@@ -15,7 +15,9 @@ namespace WebApplication1.Pages
     {
         private readonly WebApplication1.Data.ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-
+        public string mehdiid { get; set; }
+        int i = -1;
+        public IList<Shopping_card_Product> proptabtab { get; set; }
 
         public AddKeyModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -26,7 +28,7 @@ namespace WebApplication1.Pages
 
         public IActionResult OnGet()
         {
-        ViewData["ProductID"] = new SelectList(_context.Product, "ID", "ID");
+                ViewData["ProductID"] = new SelectList(_context.Product, "ID", "ID");
             return Page();
 
 
@@ -35,27 +37,42 @@ namespace WebApplication1.Pages
         [BindProperty]
         public Key Key { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string userid, string license, int productid)
         {
 
             var id = _userManager.GetUserId(User);
-            var fullcart = from cartprd in _context.Shopping_Card_Products
+            mehdiid = id;
+            var fullcart = (from cartprd in _context.Shopping_Card_Products
                            from cartid in _context.Shopping_card
                            where cartprd.Shopping_card_ID == cartid.ID && cartid.User_ID == id
-                           select cartprd;
+                           select cartprd);
 
+            proptabtab = fullcart.ToList();
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            foreach (var item in fullcart)
+            
+            foreach (var item in proptabtab)
             {
-                _context.Key.Add(Key);
-                await _context.SaveChangesAsync();
-
+                while (i < item.quantity)
+                {
+                    Key keyz = new Key()
+                    {
+                        UserID = id,
+                        License = Guid.NewGuid().ToString(),
+                        ProductID = item.Product_ID
+                    };
+                    _context.Key.Add(keyz);
+                    i = i + 1;
+                }
+                i = -1;
             }
 
+            _context.Shopping_Card_Products.RemoveRange(fullcart);
+
+            await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
         }
     }

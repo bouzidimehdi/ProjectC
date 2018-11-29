@@ -1,5 +1,6 @@
 ﻿@page
 @model CheckoutModel
+@using static AddKeyModel
 @{
     float totalz = 0;
     int i = 0;
@@ -117,10 +118,9 @@
                 <td>@item.quantity</td>
                 <td>@Guid.NewGuid()</td>
                 <td></td>
-                <input type="hidden" name="productid" value="@item.product.ID" />
-                <input type="hidden" name="license" value="@Guid.NewGuid()" />
-                @*<input type="hidden" name="userid" value="@GetUserId(User)" />*@
-
+                @*<input type="hidden" name="productid" value="@item.product.ID" />*@
+                @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
+                @*<input type="hidden" name="userid" value="@Model.id)" />*@
 
             </tr>
 

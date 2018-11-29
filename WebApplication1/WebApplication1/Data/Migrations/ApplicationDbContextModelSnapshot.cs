@@ -282,6 +282,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<bool>("Sold");
 
+                    b.Property<string>("UserID");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ProductID");

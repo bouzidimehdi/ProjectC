@@ -1,0 +1,44 @@
+﻿@page
+@model WebApplication1.Pages.OrderHistoryModel
+
+@{
+    ViewData["Title"] = "OrderHistory";
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+<h2>OrderHistory</h2>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Key[0].License)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Key[0].UserID)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Key[0].Products)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Key)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.License)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.ID)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}

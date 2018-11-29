@@ -14,11 +14,12 @@
     @{
         foreach (var item in Model.Users)
         {
-            <tr>
-            <td>@item.Email</td>
-            <td>@item.LastName</td>
-           <td><a asp-page="./TestEdit" asp-route-id="@item.Id">edit</a></td>
-            </tr>
+    <tr>
+        <td>@item.Email</td>
+        <td>@item.LastName</td>
+        <a href="~/Pages/Account/Manage/Admin.cshtml">~/Pages/Account/Manage/Admin.cshtml</a>
+        <td><a asp-page="./TestEdit" asp-route-id="@item.Id">edit</a></td>
+    </tr>
         }
     }
 </table>
