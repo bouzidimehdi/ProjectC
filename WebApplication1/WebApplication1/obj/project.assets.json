@@ -7078,7 +7078,7 @@
       ]
     },
     "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
-      "sha512": "UMlN++q5qqzQ2HH+uOrKxN5fmBXMQDhrYkSaPJxhmyzfJaFPirrVr1raim/Ocq1psAZoB9+7JSAf0GDAX35wUg==",
+      "sha512": "H6ZsQzxYw/6k2DfEQRXdC+vQ6obd6Uba3uGJrnJ2vG4PRXjQZ7seB13JdCfE72abp8E6Fk3gGgDzfJiLZi5ZpQ==",
       "type": "package",
       "path": "microsoft.extensions.platformabstractions/1.1.0",
       "files": [
@@ -13300,23 +13300,39 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\User\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\Mehdi\\.nuget\\packages\\": {},
+>>>>>>> Mehdi
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
       "projectPath": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectName": "WebApplication1",
+      "projectPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\Mehdi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+>>>>>>> Mehdi
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Mehdi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Mehdi
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13377,7 +13393,11 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
       "message": "Problem reading the cache file D:\\Tim Oosterlee\\Documents\\Vanuit Bureaublad\\Project C WebShop\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\WebApplication1.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
+      "message": "Problem reading the cache file C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\WebApplication1.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+>>>>>>> Mehdi
     },
     {
       "code": "NU1701",
