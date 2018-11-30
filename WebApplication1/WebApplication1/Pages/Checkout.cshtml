@@ -6,7 +6,6 @@
     int i = 0;
     bool completed = false;
 }
-<div id="paypal-button-container"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
     // Render the PayPal button
@@ -62,28 +61,10 @@
             return actions.payment.execute()
                 .then(function () {
                     window.alert('Payment Complete!');
-                    window.location.replace("https://localhost:44358");
-
+                    document.getElementById("aform").submit();
                 });
         }
     }, '#paypal-button-container');
-</script>
-<script>
-
-
-
-    function guid() {
-        return "ss-s-s-s-sss".replace(/s/g, s4);
-    }
-
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-
-    guid()
-
 </script>
 
 
@@ -104,35 +85,46 @@
         </tr>
     </thead>
     <tbody>
-        <form asp-page="AddKey" method="post" asp-page-handler="AddKey">
+        <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
 
             @foreach (var item in Model._Products)
             {
                 @while (i < item.quantity)
                 {
 
-            <tr>
-                <td></td>
-                <td>@item.product.ResponseName</td>
-                <td>@item.product.PriceFinal</td>
-                <td>@item.quantity</td>
-                <td>@Guid.NewGuid()</td>
-                <td></td>
-                @*<input type="hidden" name="productid" value="@item.product.ID" />*@
-                @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
-                @*<input type="hidden" name="userid" value="@Model.id)" />*@
+                    <tr>
+                        <td></td>
+                        <td>@item.product.ResponseName</td>
+                        <td>@item.product.PriceFinal</td>
+                        <td>@item.quantity</td>
+                        @*<td>@Guid.NewGuid()</td>*@
+                        <td></td>
+                        @*<input type="hidden" name="productid" value="@item.product.ID" />*@
+                        @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
+                        @*<input type="hidden" name="userid" value="@Model.id)" />*@
 
-            </tr>
+                    </tr>
 
                     i = i + 1;
                 }
                 i = 0;
             }
-            <input type="submit" value="Add to DB" class="btn btn-default" />
+            <input type="submit" value="Add to DB" name="myForm" class="btn btn-default" />
 
         </form>
-</tbody>
+    </tbody>
 </table>
+
+<div id="paypal-button-container"></div>
+@*@if (!User.Identity.IsAuthenticated)
+{
+    <div class="form-group">
+        <label asp-for="Input.Email"></label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+}*@
+
 
 
 

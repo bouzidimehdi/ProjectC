@@ -8,18 +8,15 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-<h2>OrderHistory</h2>
+<h2>Order History</h2>
 <table class="table">
     <thead>
         <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Key[0].License)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Key[0].UserID)
-                </th>
             <th>
-                @Html.DisplayNameFor(model => model.Key[0].Products)
+               Product name
             </th>
             <th></th>
         </tr>
@@ -32,10 +29,7 @@
                 @Html.DisplayFor(modelItem => item.License)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Products.ID)
+                @Html.DisplayFor(modelItem => item.Products.ResponseName)
             </td>
         </tr>
 }

@@ -13,9 +13,12 @@ namespace WebApplication1.Pages
     public class OrderHistoryModel : PageModel
     {
         private readonly WebApplication1.Data.ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrderHistoryModel(WebApplication1.Data.ApplicationDbContext context)
+
+        public OrderHistoryModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -23,9 +26,11 @@ namespace WebApplication1.Pages
 
         public async Task OnGetAsync()
         {
-
-            Key = await _context.Key
-                .Include(k => k.Products).ToListAsync();
+           
+            
+                Key = await _context.Key
+                    .Include(k => k.Products).Where(k => k.UserID == _userManager.GetUserId(User)).ToListAsync();
+            
         }
     }
 }
