@@ -71,9 +71,9 @@ namespace WebApplication1.Pages.Admin
             }
 
             StatusMessage = $"You have updated this product: {Product.QueryName} !";
-            //return Page();
+            return Page();
             //return RedirectToPage("Account/Manage/AdminEditProduct");
-            return RedirectToPage("/Admin/Admin");
+            //return RedirectToPage("/Admin/Admin");
         }
 
         private bool ProductExists(int productid)
