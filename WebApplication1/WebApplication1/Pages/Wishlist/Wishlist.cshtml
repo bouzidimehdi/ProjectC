@@ -43,7 +43,7 @@
                     <td>
                         <form asp-page="../ShoppingCartController" method="post">
                             <input type="hidden" name="productid" value="@item.Product.ID" />
-                            <input type="submit" value="Add to Cart" class="btn btn-success btn-sm" id="Fav_AddToCart"/>
+                            <input type="submit" value="Add to Cart" class="btn btn-success btn-sm" id="Fav_AddToCart" onclick="this.disabled = true;this.form.submit()"/>
                         </form>
                      </td>
                 </tr>

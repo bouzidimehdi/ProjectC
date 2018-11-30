@@ -8,10 +8,10 @@
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <div class="container">
-        @Html.Partial("_StatusMessage", Model.StatusMessage)
-        <h2>TestCreateProduct</h2>
+        <div id="HideStatus">@Html.Partial("_StatusMessage", Model.StatusMessage2)</div>
+        <h2>Admin-Create</h2>
 
-        <h4>Product</h4>
+        <h4>New Product</h4>
         <hr />
         <div class="row">
             <div class="col-md-4">
@@ -91,6 +91,11 @@ else
         window.location.replace("https://localhost:44358")
     </script>
 }
+<script>
+    function hidediv() {
+        document.getElementById("HideStatus").style.display = "none";
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

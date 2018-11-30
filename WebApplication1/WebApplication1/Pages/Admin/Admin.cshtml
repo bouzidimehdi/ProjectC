@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Admin";
 }
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+
+<div>@Html.Partial("_StatusMessage", Model.StatusMessage1)</div>
+<div>@Html.Partial("_StatusMessage", Model.StatusMessage2)</div>
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="btn">Create new product</a>

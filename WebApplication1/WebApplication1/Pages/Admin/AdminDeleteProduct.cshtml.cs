@@ -22,7 +22,7 @@ namespace WebApplication1.Pages.Admin
         public Product Product { get; set; }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage1 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? productid)
         {
@@ -56,7 +56,7 @@ namespace WebApplication1.Pages.Admin
                 await _context.SaveChangesAsync();
             }
 
-            StatusMessage = $"You permanently deleted {Product.QueryName} from the database";
+            StatusMessage1 = $"You permanently deleted {Product.QueryName} from the database";
             //return RedirectToPage();
             return RedirectToPage("/Admin/Admin");
             
