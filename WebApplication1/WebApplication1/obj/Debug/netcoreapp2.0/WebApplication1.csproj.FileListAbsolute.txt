@@ -82,3 +82,15 @@ C:\Users\Tim Oosterlee\Desktop\Jaar2_Project_Webshop\Groep4_ProjectC_twee\WebApp
 C:\Users\Tim Oosterlee\Desktop\Jaar2_Project_Webshop\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.pdb
 C:\Users\Mehdi\Desktop\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.csprojAssemblyReference.cache
 C:\Users\Mehdi\Desktop\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.0\WebApplication1.deps.json
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.0\WebApplication1.runtimeconfig.json
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.0\WebApplication1.runtimeconfig.dev.json
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.0\WebApplication1.dll
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.0\WebApplication1.pdb
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.csprojAssemblyReference.cache
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.csproj.CoreCompileInputs.cache
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.AssemblyInfoInputs.cache
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.AssemblyInfo.cs
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.dll
+D:\Tim Oosterlee\Documents\ProjectC\Groep4_ProjectC_twee\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.0\WebApplication1.pdb
