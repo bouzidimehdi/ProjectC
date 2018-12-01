@@ -30,6 +30,12 @@ namespace WebApplication1.Pages.Admin
         
         public async Task<IActionResult> OnGetAsync(int? productid)
         {
+            // Check if the user is logged in and authorised
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
             if (productid == null)
             {
                 return NotFound();
@@ -47,6 +53,12 @@ namespace WebApplication1.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // Check if the user is logged in and authorised
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

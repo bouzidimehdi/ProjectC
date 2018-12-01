@@ -41,37 +41,40 @@ namespace WebApplication1.Pages.Admin
 
         public async Task OnGetAsync(int productid)
         {
-            //var query = (from alluser in _context.Users
-            //             select alluser).ToList();
-            //_users = query;
-            
-            Users = await _context.Users.AsNoTracking().ToListAsync();
+            // Check if the user is logged in and authorised
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
 
-            // get products ( test )
-            var AmountActionGenre = (from products in _context.Product
-                         where products.GenreIsAction == true
-                         select products).ToList();
+                //var query = (from alluser in _context.Users
+                //             select alluser).ToList();
+                //_users = query;
 
-            var AmountAdventureGenre = (from products in _context.Product
-                          where products.GenreIsAdventure == true
-                          select products).ToList();
-            var AmountMMOGenre = (from products in _context.Product
-                          where products.GenreIsMassivelyMultiplayer == true
-                          select products).ToList();
-            var AmountRacingGenre = (from products in _context.Product
-                          where products.GenreIsRacing == true
-                          select products).ToList();
+                Users = await _context.Users.AsNoTracking().ToListAsync();
 
-            ActionGenre = AmountActionGenre;
-            MMO = AmountMMOGenre;
-            Adven = AmountAdventureGenre;
-            Racer = AmountRacingGenre;
+                // get products ( test )
+                var AmountActionGenre = (from products in _context.Product
+                    where products.GenreIsAction == true
+                    select products).ToList();
 
-            
+                var AmountAdventureGenre = (from products in _context.Product
+                    where products.GenreIsAdventure == true
+                    select products).ToList();
+                var AmountMMOGenre = (from products in _context.Product
+                    where products.GenreIsMassivelyMultiplayer == true
+                    select products).ToList();
+                var AmountRacingGenre = (from products in _context.Product
+                    where products.GenreIsRacing == true
+                    select products).ToList();
 
-            Message = "Your application description page.";
+                ActionGenre = AmountActionGenre;
+                MMO = AmountMMOGenre;
+                Adven = AmountAdventureGenre;
+                Racer = AmountRacingGenre;
+
+
+
+                Message = "Your application description page.";
+            }
         }
-
-
     }
 }

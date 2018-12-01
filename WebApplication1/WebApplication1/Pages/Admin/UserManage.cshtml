@@ -31,5 +31,14 @@
 }
 else
 {
-    <p>You at the wrong place</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-6" style="margin-top:10em;margin-bottom:10em;">
+                <p>You are lost go to<a asp-page="/Index" class="btn btn-info">Home</a></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.location.replace("https://localhost:44358")
+    </script>
 }

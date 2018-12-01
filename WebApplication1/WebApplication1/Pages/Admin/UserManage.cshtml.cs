@@ -34,34 +34,39 @@ namespace WebApplication1.Pages.Admin
         public void OnGetDelete(string UserID)
         {
 
-            ApplicationUser user = _userManager.FindByIdAsync(UserID).Result;
-            Shopping_card Shopping_card = _context.Shopping_card.Where(shoping => shoping.User_ID == UserID)
-                                          .FirstOrDefault();
-            if (Shopping_card != null)
+            // Check if the user is logged in and authorised
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
-                List<Shopping_card_Product> Shopping_card_Products = _context.Shopping_Card_Products
-                    .Where(product => product.Shopping_card_ID == Shopping_card.ID)
-                    .ToList();
 
-                if (Shopping_card_Products.Count() > 0)
+                ApplicationUser user = _userManager.FindByIdAsync(UserID).Result;
+                Shopping_card Shopping_card = _context.Shopping_card.Where(shoping => shoping.User_ID == UserID)
+                    .FirstOrDefault();
+                if (Shopping_card != null)
                 {
-                    // Remove all items from the users shoppingcard.
-                    foreach (var item in Shopping_card_Products)
+                    List<Shopping_card_Product> Shopping_card_Products = _context.Shopping_Card_Products
+                        .Where(product => product.Shopping_card_ID == Shopping_card.ID)
+                        .ToList();
+
+                    if (Shopping_card_Products.Count() > 0)
                     {
-                        _context.Shopping_Card_Products.Remove(item);
+                        // Remove all items from the users shoppingcard.
+                        foreach (var item in Shopping_card_Products)
+                        {
+                            _context.Shopping_Card_Products.Remove(item);
+                        }
                     }
+
+                    // Remove the shoppingcard of the user.
+                    _context.Shopping_card.Remove(Shopping_card);
                 }
 
-                // Remove the shoppingcard of the user.
-                _context.Shopping_card.Remove(Shopping_card);
+
+                // Remove the user from database.
+                var task = Task.Run(async () => { await _userManager.DeleteAsync(user); });
+                task.Wait();
+
+                Users = _context.Users.AsNoTracking().ToList();
             }
-            
-
-            // Remove the user from database.
-            var task = Task.Run(async () => { await _userManager.DeleteAsync(user); });
-            task.Wait();
-
-            Users = _context.Users.AsNoTracking().ToList();
         }
     }
 }
