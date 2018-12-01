@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
+using System.Web;
+
 
 namespace WebApplication1.Pages.Admin
 {
@@ -15,8 +17,11 @@ namespace WebApplication1.Pages.Admin
 
         // all users
         public IList<ApplicationUser> Users { get; private set; }
-        // all products
-        public IList<Product> _Products { get; set; }
+
+        public IList<Product> ActionGenre { get; set; }
+        public IList<Product> MMO { get; set; }
+        public IList<Product> Adven { get; set; }
+        public IList<Product> Racer { get; set; }
 
         public AdminModel(ApplicationDbContext context)
         {
@@ -25,23 +30,44 @@ namespace WebApplication1.Pages.Admin
         public string Message { get; set; }
 
         // nodig voor create/update/delete algemeen scherm om naar toe te kunnen gaan.
+
+        // Delete
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage1 { get; set; }
+        // create
+        [TempData]
+        public string StatusMessage2 { get; set; }
+
 
         public async Task OnGetAsync(int productid)
         {
             //var query = (from alluser in _context.Users
             //             select alluser).ToList();
             //_users = query;
-
+            
             Users = await _context.Users.AsNoTracking().ToListAsync();
 
             // get products ( test )
-            var query = (from products in _context.Product
-                where products.ID > 13160
-                select products).ToList();
+            var AmountActionGenre = (from products in _context.Product
+                         where products.GenreIsAction == true
+                         select products).ToList();
 
-            _Products = query;
+            var AmountAdventureGenre = (from products in _context.Product
+                          where products.GenreIsAdventure == true
+                          select products).ToList();
+            var AmountMMOGenre = (from products in _context.Product
+                          where products.GenreIsMassivelyMultiplayer == true
+                          select products).ToList();
+            var AmountRacingGenre = (from products in _context.Product
+                          where products.GenreIsRacing == true
+                          select products).ToList();
+
+            ActionGenre = AmountActionGenre;
+            MMO = AmountMMOGenre;
+            Adven = AmountAdventureGenre;
+            Racer = AmountRacingGenre;
+
+            
 
             Message = "Your application description page.";
         }

@@ -19,7 +19,7 @@ namespace WebApplication1.Pages.Admin
 
         //public string ReturnUrl { get; set; }
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage2 { get; set; }
 
         public AdminCreateProductModel(ApplicationDbContext context)
         {
@@ -84,7 +84,7 @@ namespace WebApplication1.Pages.Admin
                 var result = _context.Product.Add(product);
                 await _context.SaveChangesAsync();
 
-                StatusMessage = $"{product.QueryName} has been added to the database!";
+                StatusMessage2 = $"{product.QueryName} has been added to the database!";
                 return RedirectToPage("/Admin/Admin");
             }
             return Page();
