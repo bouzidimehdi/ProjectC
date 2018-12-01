@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -91,6 +92,20 @@ namespace WebApplication1.Pages
                     }
                     i = -1;
                 }
+
+                // Cookie instellingen.
+                CookieOptions cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(14),
+                    HttpOnly = true
+                };
+
+                // Split characters:
+                // - between productID and quantity
+                // + between Produts in shopping card.
+                // Tuple<ProductID, Quantity
+
+                Response.Cookies.Append("ShoppingCart", "", cookieOptions);
             }
 
             if (!ModelState.IsValid)

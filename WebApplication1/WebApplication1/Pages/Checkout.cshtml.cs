@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -71,16 +72,28 @@ namespace WebApplication1.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int Id)
+        public async Task<IActionResult> OnPostDeleteAsync(int? Id)
         {
-            var products = await _context.Shopping_Card_Products.FindAsync(Id);
-
-            if (products != null)
+            if (User.Identity.IsAuthenticated)
             {
+                if (Id == null)
+                {
+                    return NotFound();
+                }
+                var products = await _context.Shopping_Card_Products.FindAsync(Id);
 
-                _context.Shopping_Card_Products.Remove(products);
-                await _context.SaveChangesAsync();
+                if (products != null)
+                {
+
+                    _context.Shopping_Card_Products.Remove(products);
+                    await _context.SaveChangesAsync();
+                }
             }
+            else
+            {
+                
+            }
+            
             return RedirectToPage();
         }
 

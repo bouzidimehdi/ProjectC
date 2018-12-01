@@ -58,6 +58,66 @@ namespace WebApplication1.Searchengine
         }
 
         /// <summary>
+        /// Filter all the stop words out of the search filter.
+        /// </summary>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        private SearchQuery[] FilterStopWords(SearchQuery[] words)
+        {
+            foreach (SearchQuery word in words)
+            {
+                // Filteren van de stop woorden.
+                int k = 0;
+
+                // Filter alle nummers als niet querable.
+                double num;
+                if (double.TryParse(word.search_query, out num)) words[k].queryable = false;
+
+                if (word.search_query == "the") words[k].search_query = "";
+                if (word.search_query == "of") words[k].search_query = "";
+                if (word.search_query == "de") words[k].search_query = "";
+                if (word.search_query == "een") words[k].search_query = "";
+                if (word.search_query == "het") words[k].search_query = "";
+                if (word.search_query == "a") words[k].search_query = "";
+                if (word.search_query == "an") words[k].search_query = "";
+                if (word.search_query == "by") words[k].search_query = "";
+                if (word.search_query == "to") words[k].search_query = "";
+                if (word.search_query == "on") words[k].search_query = "";
+
+                k++;
+            }
+
+            return words;
+        }
+
+        /// <summary>
+        /// Filter and order all the information
+        /// </summary>
+        /// <param name="descending"></param>
+        /// <param name="results"></param>
+        /// <param name="filter_by_selector"></param>
+        /// <param name="order_by_selector"></param>
+        private IOrderedEnumerable<Product_search> FilterAndOrderProductData(bool descending, List<Product_search> results, Func<Product_search, bool> filter_by_selector, Func<Product_search, object> order_by_selector)
+        {
+            IOrderedEnumerable<Product_search> array_results_tmp;
+            // Zet de producten op volgorde van 
+            if (descending)
+            {
+                array_results_tmp = results
+                    .Where(filter_by_selector)
+                    .OrderByDescending(order_by_selector);
+            }
+            else
+            {
+                array_results_tmp = results
+                    .Where(filter_by_selector)
+                    .OrderBy(order_by_selector);
+            }
+
+            return array_results_tmp;
+        }
+
+        /// <summary>
         /// De main zoek functie.
         /// </summary>
         /// <param name="searchquery"></param>
@@ -81,26 +141,7 @@ namespace WebApplication1.Searchengine
 
 
             // Filteren van de stop woorden.
-            int k = 0;
-            foreach (SearchQuery word in words)
-            {
-                // Filter alle nummers als niet querable.
-                double num;
-                if (double.TryParse(word.search_query, out num)) words[k].queryable = false;
-
-                if (word.search_query == "the") words[k].search_query = "";
-                if (word.search_query == "of") words[k].search_query = "";
-                if (word.search_query == "de") words[k].search_query = "";
-                if (word.search_query == "een") words[k].search_query = "";
-                if (word.search_query == "het") words[k].search_query = "";
-                if (word.search_query == "a") words[k].search_query = "";
-                if (word.search_query == "an") words[k].search_query = "";
-                if (word.search_query == "by") words[k].search_query = "";
-                if (word.search_query == "to") words[k].search_query = "";
-                if (word.search_query == "on") words[k].search_query = "";
-
-                k++;
-            }
+            words = FilterStopWords(words);
 
             // Zoek alle producten op die in een word bevat dat in de title staat.
             List<IQueryable> result_query_list = new List<IQueryable>();
@@ -161,21 +202,8 @@ namespace WebApplication1.Searchengine
                 }
             }
 
-            IOrderedEnumerable<Product_search> array_results_tmp;
-            // Zet de producten op volgorde van 
-            if (descending)
-            {
-                array_results_tmp = results
-                                    .Where(filter_by_selector)
-                                    .OrderByDescending(order_by_selector);
-            }
-            else
-            {
-                array_results_tmp = results
-                                    .Where(filter_by_selector)
-                                    .OrderBy(order_by_selector);
-            }
-            
+            // Order and filter all the list.
+            IOrderedEnumerable<Product_search> array_results_tmp = FilterAndOrderProductData(descending, results, filter_by_selector, order_by_selector);
 
             Product_search[] array_results = array_results_tmp
                                                 .Skip(Page_index * page_size)
