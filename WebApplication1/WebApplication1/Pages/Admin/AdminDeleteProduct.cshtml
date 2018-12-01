@@ -16,52 +16,52 @@
             <br />
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Product.ResponseName)
+                    Name of the Game
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Product.ResponseName)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Product.GenreIsAction)
+                    Image
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Product.GenreIsAction)
+                    @Html.DisplayFor(model => model.Product.HeaderImage)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Product.GenreIsAdventure)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Product.GenreIsAdventure)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Product.GenreIsRacing)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Product.GenreIsRacing)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Product.GenreIsMassivelyMultiplayer)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Product.GenreIsMassivelyMultiplayer)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Product.PriceFinal)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Product.PriceFinal)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Product.AboutText)
+                    Information about the product
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Product.AboutText)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Product.HeaderImage)
+                    Price of the product
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Product.HeaderImage)
+                    @Html.DisplayFor(model => model.Product.PriceFinal)
+                </dd>
+                <dt>
+                   Action
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Product.GenreIsAction)
+                </dd>
+                <dt>
+                    Adventure
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Product.GenreIsAdventure)
+                </dd>
+                <dt>
+                    Racing
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Product.GenreIsRacing)
+                </dd>
+                <dt>
+                    MassivelyMultiplayer ( MMO )
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Product.GenreIsMassivelyMultiplayer)
                 </dd>
             </dl>
 
