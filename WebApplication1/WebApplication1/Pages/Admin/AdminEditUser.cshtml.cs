@@ -120,7 +120,7 @@ namespace WebApplication1.Pages.Admin
         public async Task<IActionResult> OnGetAsync(string UserID, string status)
         {
             // Check if the user is logged in and authorised
-            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
             {
                 return Page();
             }
