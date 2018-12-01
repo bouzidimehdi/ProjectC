@@ -4,10 +4,11 @@
     ViewData["Title"] = "UserManage";
 }
 
-<h2>UserManage</h2>
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
+    <h2>UserManage</h2>
     <a asp-page="AdminCreateUser" class="btn" id="AdminCreateUserButton">Create User</a>
+    <a asp-page="Admin" class="btn">Back</a>
     <table class="table">
         <tr>
             <th>Email</th>
@@ -21,7 +22,7 @@
                 <tr>
                     <td>@item.Email</td>
                     <td>@item.LastName</td>
-                    <td><a asp-page="./TestEdit" asp-route-id="@item.Id">edit</a></td>
+                    <td><a asp-page="AdminEditUser" asp-route-UserID="@item.Id">edit</a></td>
                     <td><a asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a></td>
                 </tr>
             }
