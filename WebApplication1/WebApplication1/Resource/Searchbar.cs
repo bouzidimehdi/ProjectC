@@ -64,6 +64,8 @@ namespace WebApplication1.Searchengine
         /// <returns></returns>
         private SearchQuery[] FilterStopWords(SearchQuery[] words)
         {
+            List<SearchQuery> listWords = new List<SearchQuery>();
+
             foreach (SearchQuery word in words)
             {
                 // Filteren van de stop woorden.
@@ -84,10 +86,15 @@ namespace WebApplication1.Searchengine
                 if (word.search_query == "to") words[k].search_query = "";
                 if (word.search_query == "on") words[k].search_query = "";
 
+                if (word.search_query != "")
+                {
+                    listWords.Add(word);
+                }
+
                 k++;
             }
 
-            return words;
+            return listWords.ToArray();
         }
 
         /// <summary>
@@ -126,6 +133,10 @@ namespace WebApplication1.Searchengine
         /// <returns></returns>
         public Option<Search_Page<Product_search>> search(string searchquery, int page_size, int Page_index, Func<Product_search, object> order_by_selector, Func<Product_search, bool> filter_by_selector, bool descending)
         {
+            if (searchquery == null || searchquery == "")
+            {
+                return new Empty<Search_Page<Product_search>>();
+            }
             // Maak de zoek item tekst kleiner.
             searchquery = searchquery.ToLower();
 
@@ -149,7 +160,7 @@ namespace WebApplication1.Searchengine
             foreach (SearchQuery word in words)
             {
                 // Als de word veld niet leeg is of queryable is dan wordt er gezocht op dat word.
-                if (word.search_query != "" && word.queryable)
+                if (word.queryable)
                 {
                     var query = from p in _context.Product
                         where p.QueryName.Contains(word.search_query)

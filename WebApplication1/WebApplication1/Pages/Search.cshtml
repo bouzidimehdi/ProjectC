@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="form-group col-md-6 text-right">
                                             <label>Max</label>
-                                            <input type="number" onchange="checkMinRealTime()" name="max" class="form-control" id="max" placeholder="€1,0000" value="@(Model._Max != null ? Model._Max : 0)">
+                                            <input type="number" onchange="checkMinRealTime()" name="max" class="form-control" id="max" placeholder="€0" value="@(Model._Max != null ? Model._Max : 0)">
                                         </div>
                                         <input type="hidden" value="@(!Model.Products_page.empty ? Model.Products_page.data.Index : 0) " name="page_index" />
                                         <input type="hidden" value="@Model.page_size" name="page_size" />
@@ -108,9 +108,23 @@
                         <th style="text-align:right;">
                             Order by :
                             <select aria-labelledby="dropdownMenuButton" name="order" id="Search_OrderByDropDown">
-                                <option id="Search_Relevantie">Relevantie</option>
-                                <option id="Search_HightoLow">Price (High to low)</option>
-                                <option id="Search_LowtoHigh">Price (Low to High)</option>
+                                @if (Model._order == "Price (High to low)")
+                                {
+                                    <option id="Search_Relevantie">Relevantie</option>
+                                    <option id="Search_HightoLow" selected>Price (High to low)</option>
+                                    <option id="Search_LowtoHigh">Price (Low to High)</option>
+                                } else if (Model._order == "Price (Low to High)")
+                                {
+                                    <option id="Search_Relevantie">Relevantie</option>
+                                    <option id="Search_HightoLow">Price (High to low)</option>
+                                    <option id="Search_LowtoHigh" selected>Price (Low to High)</option>
+                                }
+                                else
+                                {
+                                    <option id="Search_Relevantie" selected>Relevantie</option>
+                                    <option id="Search_HightoLow">Price (High to low)</option>
+                                    <option id="Search_LowtoHigh">Price (Low to High)</option>
+                                }
                             </select>
 
                         </th>
