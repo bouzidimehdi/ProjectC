@@ -7,7 +7,7 @@
 
 <!---<h2>Search</h2>-->
 <div class="container">
-    <form method="post" asp-page-handler="page" onsubmit="return checkmin()">
+    <form method="get" asp-page-handler="page" onsubmit="return checkmin()">
         <div class="row">
             <div class="col-md-3">
                 <table class="table">
@@ -192,7 +192,7 @@
                                     if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages)
                                     {
                                         <li class="page-item">
-                                            <a id="Search_Pagination_Pages" class="page-link" style="color:#16262E; border-color:#16262E !important;" href="search?search=@Model.Products_page.data.SearchQuery&page_size=50&page_index=@page_index">
+                                            <a id="Search_Pagination_Pages" class="page-link" style="color:#16262E; border-color:#16262E !important;" href="search?search=@Model.Products_page.data.SearchQuery&page_size=50&page_index=@page_index@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")@((Model._order != null) ? "&order=" + Model._order : "")">
                                                 @page_index
                                             </a>
                                         </li>

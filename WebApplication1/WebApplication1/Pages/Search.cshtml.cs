@@ -106,15 +106,71 @@ namespace WebApplication1.Pages
             _searchquery = Search;
         }
 
-        public void OnGet(string Search, int page_index, int page_size)
+        public void OnGet(string Search, int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer, string order)
         {
             // check if user is an admin ( if not then Admin = false)
             var Admin = User.IsInRole("Admin");
             IsAdmin = Admin;
 
+            bool descending = false;
+            _order = order;
+
+            Func<Product_search, bool> filter = p => true;
+            Func<Product_search, bool> filterMinMax = p => true;
+            Func<Product_search, bool> filterAdventure = p => true;
+            Func<Product_search, bool> filterRacing = p => true;
+            Func<Product_search, bool> filterShooter = p => true;
+            Func<Product_search, bool> filterMultiplayer = p => true;
+            Func<Product_search, object> filterorder = p => p.points;
+            if (min != null && max != null && min != 0 && max != 0)
+            {
+                _Min = min.GetValueOrDefault();
+                _Max = max.GetValueOrDefault();
+                filterMinMax = P => min <= P.PriceFinal && max >= P.PriceFinal;
+            }
+
+            if (Adventure == "1")
+            {
+                _Adventure = Adventure;
+                filterAdventure = P => P.GenreIsMassivelyMultiplayer;
+            }
+
+            if (Racing == "1")
+            {
+                _Racing = Racing;
+                filterRacing = P => P.GenreIsRacing;
+            }
+
+            if (actie == "1")
+            {
+                _actie = actie;
+                filterShooter = p => p.GenreIsAction;
+            }
+
+            if (Multiplayer == "1")
+            {
+                _Multiplayer = Multiplayer;
+                filterMultiplayer = p => p.GenreIsMassivelyMultiplayer;
+            }
+            filter = p => filterAdventure(p) && filterMinMax(p) && filterRacing(p) && filterShooter(p) && filterMultiplayer(p);
             Searchbar Searchbar = new Searchbar(_context);
 
-            Products_page = Searchbar.search(Search, page_size, page_index, p => p.points, p => true, false);
+            if (order == "Price (High to low)")
+            {
+
+                descending = true;
+                filterorder = p => p.PriceFinal;
+            }
+            else if (order == "Price (Low to High)")
+            {
+                filterorder = p => p.PriceFinal;
+            }
+            else
+            {
+                descending = true;
+            }
+
+            Products_page = Searchbar.search(Search, page_size, page_index, filterorder, filter, descending);
             _searchquery = Search;
         }
     }

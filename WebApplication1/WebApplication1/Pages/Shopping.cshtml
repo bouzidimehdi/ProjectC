@@ -158,7 +158,7 @@
                                 if (page_index > -1 && page_index <= Model.Products_page.data.TotalPages - 1 && page_index >= 0)
                                 {
                                     <li class="page-item">
-                                        <a id="Products_Pagination_Pages" class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")">
+                                        <a id="Products_Pagination_Pages" class="page-link" href="Shopping?handler=page&page_index=@page_index&page_size=50@((Model._Adventure == "1") ? "&Adventure=1" : "")@((Model._Racing == "1") ? "&Racing=1" : "")@((Model._actie == "1") ? "&actie=1" : "")@((Model._Multiplayer == "1") ? "&Multiplayer=1" : "")@((Model._Max != null) ? "&max=" + Model._Max.ToString() : "")@((Model._Min != null) ? "&min=" + Model._Min : "")@((Model._order != null) ? "&order=" + Model._order : "")">
                                             @page_index
                                         </a>
                                     </li>
