@@ -43,7 +43,7 @@ namespace WebApplication1.Pages.Admin
             {
                 return NotFound();
             }
-            
+            StatusMessage1 = null;
             return Page();
         }
 
