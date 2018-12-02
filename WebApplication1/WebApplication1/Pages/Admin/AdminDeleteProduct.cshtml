@@ -8,7 +8,7 @@
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <div class="container">
-        <div id="HideStatus">"@Html.Partial("_StatusMessage", Model.StatusMessage1)</div>
+        <div id="HideStatus">@Html.Partial("_StatusMessage", Model.StatusMessage1)</div>
         <h2>Admin-Delete Product: @Model.Product.ResponseName</h2>
 
         <h3>Are you sure you want to delete this?</h3>

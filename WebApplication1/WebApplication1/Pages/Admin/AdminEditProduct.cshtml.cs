@@ -88,7 +88,7 @@ namespace WebApplication1.Pages.Admin
                 GenreIsMassivelyMultiplayer = Product.GenreIsMassivelyMultiplayer,
                 GenreIsRacing = Product.GenreIsRacing,
             };
-            
+            StatusMessage = null;
             return Page();
         }
 
