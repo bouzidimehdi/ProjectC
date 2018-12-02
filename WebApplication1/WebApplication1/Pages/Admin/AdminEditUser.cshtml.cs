@@ -91,7 +91,6 @@ namespace WebApplication1.Pages.Admin
             [RegularExpression(@"^[0-9]+$", ErrorMessage = "Please enter a valid house number")]
             public string HouseNumber { get; set; }
 
-            [Required]
             [Display(Name = "Email address")]
             [EmailAddress]
             public string Email { get; set; }
@@ -162,8 +161,8 @@ namespace WebApplication1.Pages.Admin
                 Street = user.Street,
                 Zip = user.Zip,
                 HouseNumber = user.HouseNumber,
-                //DOB = user.DOB,
                 Email = user.Email,
+                //DOB = user.DOB,
                 PhoneNumber = user.PhoneNumber,
                 userid = user.Id
             };
@@ -240,12 +239,12 @@ namespace WebApplication1.Pages.Admin
             //    user.DOB = Input.DOB;
             //}
 
-            if (Input.Email != user.Email)
+            /*if (Input.Email != user.Email)
             {
                 IdentityResult setEmailResult;
                 if (user.Email == null)
                 {
-                    setEmailResult = await _userManager.SetEmailAsync(user, Input.Email); //TODO: Fix email problem
+                    setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
                 }
                 else
                 {
@@ -257,7 +256,7 @@ namespace WebApplication1.Pages.Admin
                 {
                     throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
                 }
-            }
+            }*/
 
             if (Input.ConfirmEmail != user.EmailConfirmed)
             {
