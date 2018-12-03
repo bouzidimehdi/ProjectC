@@ -114,16 +114,11 @@
                   <div class="row" style="float:right; padding-right:15px;">
                       @if (Model._Products.Count > 0)
                       {
-                          @if (Model.YourCart != null)
-                          {
-
-                      <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
-                          <input type="submit" value="Clear Cart" class="btn btn-danger" id="Cart_Clear_Cart" onkeypress="hidediv()">&nbsp;&nbsp;
-                          @*<input type="submit" value="delete the whole cart" />*@
-                      </form>
-                          }
-
-                                  <a class="btn btn-primary float-right" asp-page="Checkout" id="Cart_Checkout">Proceed to Checkout</a>
+                          <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
+                              <input type="submit" value="Clear Cart" class="btn btn-danger" id="Cart_Clear_Cart" onkeypress="hidediv()" />&nbsp;&nbsp;
+                              @*<input type="submit" value="delete the whole cart" />*@
+                          </form>
+                          <a class="btn btn-primary float-right" asp-page="Checkout" id="Cart_Checkout">Proceed to Checkout</a>
                       }
                   </div>
 

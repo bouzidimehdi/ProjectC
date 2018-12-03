@@ -123,6 +123,12 @@ namespace WebApplication1.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            // Check if the user is logged in and authorised
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
             ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {

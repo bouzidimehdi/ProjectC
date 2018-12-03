@@ -1,8 +1,7 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,27 +9,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Data;
 using WebApplication1.Services;
 
-namespace WebApplication1.Pages.Account.Manage
+namespace WebApplication1.Pages.Admin
 {
-    public partial class IndexModel : PageModel
+    public class AdminEditUserModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
         private readonly IEmailSender _emailSender;
 
-        public IndexModel(
+        public AdminEditUserModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _context = context;
         }
-
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
+
+        public ApplicationUser gebruiker { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -44,40 +47,40 @@ namespace WebApplication1.Pages.Account.Manage
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
             [Display(Name = "Name")]
-            [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            [RegularExpression(@"^[A-Za-zÃ€-Ã¿ ]+$", ErrorMessage = "Please only enter letters")]
             public string Name { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
             [Display(Name = "Last name")]
-            [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            [RegularExpression(@"^[A-Za-zÃ€-Ã¿ ]+$", ErrorMessage = "Please only enter letters")]
             public string LastName { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Country")]
-            [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            [RegularExpression(@"^[A-Za-zÃ€-Ã¿ ]+$", ErrorMessage = "Please only enter letters")]
             public string Country { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
             [Display(Name = "City")]
-            [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            [RegularExpression(@"^[A-Za-zÃ€-Ã¿ ]+$", ErrorMessage = "Please only enter letters")]
             public string City { get; set; }
 
             [StringLength(8, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
             [DataType(DataType.Text)]
             [Display(Name = "Zip")]
-            //[RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            //[RegularExpression(@"^[A-Za-zÃ€-Ã¿ ]+$", ErrorMessage = "Please only enter letters")]
             public string Zip { get; set; }
 
             [Required]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
             [Display(Name = "Street")]
-            [RegularExpression(@"^[A-Za-zÀ-ÿ ]+$", ErrorMessage = "Please only enter letters")]
+            [RegularExpression(@"^[A-Za-zÃ€-Ã¿ ]+$", ErrorMessage = "Please only enter letters")]
 
             public string Street { get; set; }
 
@@ -88,8 +91,20 @@ namespace WebApplication1.Pages.Account.Manage
             [RegularExpression(@"^[0-9]+$", ErrorMessage = "Please enter a valid house number")]
             public string HouseNumber { get; set; }
 
+            [Display(Name = "Email address")]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "Send Verification email")]
+            public bool VerificationEmail { get; set; }
+
+            [Required]
+            [Display(Name = "Confirm user there e-mail")]
+            public bool ConfirmEmail { get; set; }
+
+            [Required]
+            public string userid { get; set; }
 
             [Phone]
             [Display(Name = "Phone number")]
@@ -101,12 +116,38 @@ namespace WebApplication1.Pages.Account.Manage
             //public DateTime DOB { get; set; }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string UserID, string status)
         {
-            var user = await _userManager.GetUserAsync(User);
+            // Check if the user is logged in and authorised
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
+            ApplicationUser user;
+            if (UserID != null)
+            {
+                user = (from u in _context.Users
+                    where u.Id == UserID
+                    select u).FirstOrDefault();
+            }
+            else
+            {
+                user = (from u in _context.Users
+                    where u.Id == Input.userid
+                    select u).FirstOrDefault();
+            }
+
+            gebruiker = user;
+
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user.");
+            }
+
+            if (status != null)
+            {
+                StatusMessage = status;
             }
 
             Username = user.UserName;
@@ -120,9 +161,10 @@ namespace WebApplication1.Pages.Account.Manage
                 Street = user.Street,
                 Zip = user.Zip,
                 HouseNumber = user.HouseNumber,
-                //DOB = user.DOB,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                //DOB = user.DOB,
+                PhoneNumber = user.PhoneNumber,
+                userid = user.Id
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -132,15 +174,24 @@ namespace WebApplication1.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // Check if the user is logged in and authorised
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            ApplicationUser user = (from u in _context.Users
+                                    where u.Id == Input.userid
+                                    select u).FirstOrDefault();
+
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user.");
             }
 
             if (Input.Name != user.Name)
@@ -150,7 +201,7 @@ namespace WebApplication1.Pages.Account.Manage
 
 
             if (Input.LastName != user.LastName)
-            {  
+            {
                 user.LastName = Input.LastName;
             }
 
@@ -190,12 +241,40 @@ namespace WebApplication1.Pages.Account.Manage
 
             /*if (Input.Email != user.Email)
             {
-                var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
+                IdentityResult setEmailResult;
+                if (user.Email == null)
+                {
+                    setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
+                }
+                else
+                {
+                    var emailtoken = await _userManager.GenerateChangeEmailTokenAsync(user, Input.Email);
+                    setEmailResult = await _userManager.ChangeEmailAsync(user, Input.Email, emailtoken);
+                }
+                
                 if (!setEmailResult.Succeeded)
                 {
                     throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
                 }
             }*/
+
+            if (Input.ConfirmEmail != user.EmailConfirmed)
+            {
+                if (Input.ConfirmEmail)
+                {
+                    var EmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var setEmailResult = await _userManager.ConfirmEmailAsync(user, EmailToken);
+                    if (!setEmailResult.Succeeded)
+                    {
+                        throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
+                    }
+                }
+                else
+                {
+                    user.EmailConfirmed = false;
+                }
+                
+            }
 
             if (Input.PhoneNumber != user.PhoneNumber)
             {
@@ -210,21 +289,31 @@ namespace WebApplication1.Pages.Account.Manage
 
 
             StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+
+            return Redirect("AdminEditUser?UserID=" + user.Id + "&status=" + StatusMessage);
         }
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
+
+        public async Task<IActionResult> OnPostSendVerificationEmailAsync(string UserID)
         {
+            // Check if the user is logged in and authorised
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
+            ApplicationUser user = (from u in _context.Users
+                where u.Id == UserID
+                select u).FirstOrDefault();
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{UserID}'.");
             }
-            await _userManager.UpdateAsync(user);
 
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -232,7 +321,8 @@ namespace WebApplication1.Pages.Account.Manage
             await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl);
 
             StatusMessage = "Verification email sent. Please check your email.";
-            return RedirectToPage();
+
+            return Redirect("AdminEditUser?UserID=" + user.Id + "&status=" + StatusMessage);
         }
     }
 }

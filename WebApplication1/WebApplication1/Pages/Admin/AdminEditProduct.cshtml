@@ -87,28 +87,25 @@
             <a asp-page="/Admin/Admin" class="btn btn-primary">Back to Admin-panel</a>
         </div>
     </div>
+    <script>
+        function hidediv() {
+            document.getElementById("HideStatus").style.display = "none";
+        }
+    </script>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
 }
 else
 {
     <div class="container">
         <div class="row">
             <div class="col-6" style="margin-top:10em;margin-bottom:10em;">
-                <p>You are lost go to <a asp-page="/Index" class="btn btn-info">Home</a></p>
+                <p>You are lost go to<a asp-page="/Index" class="btn btn-info">Home</a></p>
             </div>
         </div>
     </div>
     <script>
         window.location.replace("https://localhost:44358")
     </script>
-}
-
-<script>
-    function hidediv() {
-        document.getElementById("HideStatus").style.display = "none";
-    }
-</script>
-
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

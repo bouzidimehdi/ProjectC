@@ -8,7 +8,6 @@
 @Html.Partial("_StatusMessage", Model.StatusMessage)
 <div class="row">
     <div class="col-md-6">
-        <a asp-page="/Account/Manage/OrderHistory"> asdf</a>
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -310,7 +309,7 @@
                 @if (Model.IsEmailConfirmed)
                 {
                     <div class="input-group">
-                        <input asp-for="Input.Email" class="form-control" />
+                        <input asp-for="Input.Email" disabled class="form-control" />
                         <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
                     </div>
                 }
