@@ -64,6 +64,9 @@ namespace WebApplication1.Pages
 
         public void OnGetPage(int page_index, int page_size, int? min, int? max, string Adventure, string Racing, string actie, string Multiplayer, string order)
         {
+            var Admin = User.IsInRole("Admin");
+            IsAdmin = Admin;
+
             bool descending = true;
             _order = order;
 

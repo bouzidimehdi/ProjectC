@@ -14,7 +14,7 @@
                 <h3 class="display-5" style="text-decoration:white; color:#16262E!important; ">@Model.product.ResponseName</h3>
                 <p class="ellipsis lead" style="font-size:0.8em; color:#16262E!important; ">@Model.product.AboutText</p>
                 <hr class="my-4">
-                <p style="color:#16262E!important;" >Price: € @Model.product.PriceFinal<br />Recommendation count:  @Model.product.RecommendationCount</p>
+                @*<p style="color:#16262E!important;" >Price: € @Model.product.PriceFinal<br />Recommendation count:  @Model.product.RecommendationCount</p>*@
 
                 <form asp-page="ShoppingCartController" method="post">
                     <input type="hidden" name="productid" value="@Model.product.ID" />
