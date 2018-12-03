@@ -6,24 +6,8 @@
 
 <a asp-page="./AdminCreateProduct">Create new product</a>
 
-<table class="table">
-    <tr>
-        <th>Email</th>
-        <th>Lastname</th>
-    </tr>
-    @{
-        foreach (var item in Model.Users)
-        {
-    <tr>
-        <td>@item.Email</td>
-        <td>@item.LastName</td>
-        <a href="~/Pages/Account/Manage/Admin.cshtml">~/Pages/Account/Manage/Admin.cshtml</a>
-        <td><a asp-page="./TestEdit" asp-route-id="@item.Id">edit</a></td>
-    </tr>
-        }
-    }
-</table>
 
+wordt niet meer gebruikt
 
 
     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))

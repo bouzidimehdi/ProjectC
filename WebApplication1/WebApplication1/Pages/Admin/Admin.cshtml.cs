@@ -30,8 +30,14 @@ namespace WebApplication1.Pages.Admin
         public string Message { get; set; }
 
         // nodig voor create/update/delete algemeen scherm om naar toe te kunnen gaan.
+
+        // Delete
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage1 { get; set; }
+        // create
+        [TempData]
+        public string StatusMessage2 { get; set; }
+
 
         public async Task OnGetAsync(int productid)
         {

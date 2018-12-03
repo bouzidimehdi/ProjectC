@@ -8,8 +8,8 @@
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <div class="container">
-        @Html.Partial("_StatusMessage", Model.StatusMessage)
-        <h2>AdminEditProduct</h2>
+        <div id="HideStatus">@Html.Partial("_StatusMessage", Model.StatusMessage)</div>
+        <h2>Admin Edit Product: @Model.Input.ResponseName</h2>
 
         <h4>Product</h4>
         <hr />
@@ -20,25 +20,40 @@
                     <input type="hidden" asp-for="Product.ID" />
                     <div class="form-group">
                         @*vraag me af of het nodig is, voorheen werd het op null gezet als het er niet stond -> kijk hier naar*@
-                        <input type="hidden" asp-for="Product.QueryName" class="form-control" data-val="true" />
+                        <input type="hidden" asp-for="Product.QueryName" onkeypress="hidediv()" class="form-control" data-val="true" />
                         <span asp-validation-for="Product.QueryName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Product.ResponseName" class="control-label"></label>
-                        <input asp-for="Product.ResponseName" class="form-control" id="name" data-val="true" data-val-required="The Response field is required." />
-                        <span asp-validation-for="Product.ResponseName" class="text-danger"></span>
+                        <label asp-for="Input.ResponseName" class="control-label"></label>
+                        <input asp-for="Input.ResponseName" onkeypress="hidediv()" class="form-control" id="name"  />
+                        <span asp-validation-for="Input.ResponseName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.HeaderImage" class="control-label"></label>
+                        <input asp-for="Input.HeaderImage" onkeypress="hidediv()" class="form-control"  />
+                        <span asp-validation-for="Input.HeaderImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.AboutText" class="control-label"></label>
+                        <input asp-for="Input.AboutText" onkeypress="hidediv()" class="form-control" />
+                        <span asp-validation-for="Input.AboutText" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.PriceFinal" class="control-label">Price of the product *</label>
+                        <input asp-for="Input.PriceFinal" onkeypress="hidediv()" class="form-control" />
+                        <span asp-validation-for="Input.PriceFinal" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input asp-for="Product.GenreIsAction" /> @Html.DisplayNameFor(model => model.Product.GenreIsAction)
+                                <input asp-for="Input.GenreIsAction" /> Action
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input asp-for="Product.GenreIsAdventure" /> @Html.DisplayNameFor(model => model.Product.GenreIsAdventure)
+                                <input asp-for="Input.GenreIsAdventure" /> Adventure
                             </label>
                         </div>
                     </div>
@@ -46,37 +61,22 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input asp-for="Product.GenreIsRacing" /> @Html.DisplayNameFor(model => model.Product.GenreIsRacing)
+                                <input asp-for="Input.GenreIsRacing" /> Racing
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input asp-for="Product.GenreIsMassivelyMultiplayer" /> @Html.DisplayNameFor(model => model.Product.GenreIsMassivelyMultiplayer)
+                                <input asp-for="Input.GenreIsMassivelyMultiplayer" /> MassivelyMultiplayer ( MMO )
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label asp-for="Product.PriceFinal" class="control-label"></label>
-                        <input asp-for="Product.PriceFinal" class="form-control" data-val="true" data-val-required="The Price field is required." data-val-range="Price has to be between 0 and 9.999" data-val-range-max="9999" data-val-range-min="0" />
-                        <span asp-validation-for="Product.PriceFinal" class="text-danger"></span>
-                    </div>
+
 
                     <div class="form-group">
-                        <label asp-for="Product.AboutText" class="control-label"></label>
-                        <input asp-for="Product.AboutText" class="form-control" data-val="true" data-val-required="The Abouttext field is required." />
-                        <span asp-validation-for="Product.AboutText" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Product.HeaderImage" class="control-label"></label>
-                        <input asp-for="Product.HeaderImage" class="form-control" data-val="true" data-val-url="Invalid file type, use image in form of http:// or https:// or FTP URL" />
-                        <span asp-validation-for="Product.HeaderImage" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                        <input type="submit" value="Save" class="btn btn-default" onclick="this.disabled = true;this.form.submit()" id="AdminSaveEdit" onkeypress="hidediv()" />
                     </div>
                 </form>
             </div>
@@ -97,7 +97,16 @@ else
             </div>
         </div>
     </div>
+    <script>
+        window.location.replace("https://localhost:44358")
+    </script>
 }
+
+<script>
+    function hidediv() {
+        document.getElementById("HideStatus").style.display = "none";
+    }
+</script>
 
 
 @section Scripts {

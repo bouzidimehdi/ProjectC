@@ -18,7 +18,7 @@
 
                 <form asp-page="ShoppingCartController" method="post">
                     <input type="hidden" name="productid" value="@Model.product.ID" />
-                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddToCart"/>
+                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddToCart" onclick="this.disabled = true;this.form.submit()"/>
                 </form>
 
                 <br />
@@ -30,7 +30,7 @@
                         <input type="hidden" name="wish" value="@Model.Wishlistitems.Product_ID" />
                         <input type="hidden" name="id" value="@Model.Wishlistitems.User_ID" />
 
-                        <input type="submit" value="Remove from Favorites" class="btn btn-danger btn-lg" role="button" id="Prodinf_RemoveFav" />
+                        <input type="submit" value="Remove from Favorites" class="btn btn-danger btn-lg" role="button" id="Prodinf_RemoveFav" onclick="this.disabled = true;this.form.submit()"/>
                     </form>
                 }
                 else
@@ -39,7 +39,7 @@
                     {
                         <form asp-page="Wishlist/MakeWishList" method="post">
                             <input type="hidden" name="productid" value="@Model.product.ID" />
-                            <input type="submit" value="Add to Favorites" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddFav" />
+                            <input type="submit" value="Add to Favorites" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddFav" onclick="this.disabled = true;this.form.submit()"/>
                         </form>
                     }
 

@@ -53,6 +53,10 @@ namespace WebApplication1.Pages
                 }
 
                 Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid, id);
+                if(Shopping_card_Product == null)
+                {
+                    return RedirectToPage("/ShoppingCart");
+                }
                 if (Shopping_card_Product.quantity != -1)
                 {
                     Shopping_card_Product.quantity -= 1;
@@ -64,6 +68,7 @@ namespace WebApplication1.Pages
                         await _context.SaveChangesAsync();
                     }
                 }
+                
             }
             else // Wordt uitgevoerd als de gebruik niet is ingelogd.
             {
@@ -111,6 +116,7 @@ namespace WebApplication1.Pages
                 {
                     return NotFound();
                 }
+
 
                 Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid1, id1);
                 _context.Shopping_Card_Products.Remove(Shopping_card_Product);

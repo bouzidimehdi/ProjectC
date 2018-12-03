@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Admin";
 }
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+
+<div>@Html.Partial("_StatusMessage", Model.StatusMessage1)</div>
+<div>@Html.Partial("_StatusMessage", Model.StatusMessage2)</div>
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="btn">Create new product</a>
@@ -13,13 +15,14 @@
     <h3>@Model.Message</h3>
     <p>Use this area to provide additional information.</p>
 
-    <div class="container">
-     <div class="col">
+    @*<div class="container" >
+        <div class="col" >
             <div class="col-md-6">
                 <canvas id="myChart" width="200" height="200"></canvas>
             </div>
-       </div> 
-    </div>
+        </div>
+     </div>*@
+
 }
 else
 {
