@@ -325,21 +325,36 @@
                         </div>
                     </div>
                 }
-                <div class="form-group">
-                    <label asp-for="Input.ConfirmEmail"></label>
-                    <div class="input-group">
-                        @if (Model.gebruiker.EmailConfirmed)
-                        {
-                            <input asp-for="Input.ConfirmEmail" checked class="form-control" />
-                        }
-                        else
-                        {
-                            <input asp-for="Input.ConfirmEmail" class="form-control" />
-                        }
+            <div class="form-group">
+                <label asp-for="Input.ConfirmEmail"></label>
+                <div class="input-group">
+                    @if (Model.gebruiker.EmailConfirmed)
+                    {
+                        <input asp-for="Input.ConfirmEmail" checked class="form-control" />
+                    }
+                    else
+                    {
+                        <input asp-for="Input.ConfirmEmail" class="form-control" />
+                    }
 
-                        <span asp-validation-for="Input.ConfirmEmail" class="text-danger"></span>
-                    </div>
+                    <span asp-validation-for="Input.ConfirmEmail" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="Input.AdminRole"></label>
+                    @if (Model.IsInRoleAdmin)
+                    {
+                        <input asp-for="Input.AdminRole" checked class="form-control" />
+                    }
+                    else
+                    {
+                        <input asp-for="Input.AdminRole" class="form-control" />
+                    }
+
+                    <span asp-validation-for="Input.AdminRole" class="text-danger"></span>
+                </div>
+            </div>
 
                 <div class="form-group">
                     <label asp-for="Input.PhoneNumber"></label>

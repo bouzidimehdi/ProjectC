@@ -32,6 +32,7 @@ namespace WebApplication1.Pages.Admin
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
+        public bool IsInRoleAdmin { get; set; }
 
         public ApplicationUser gebruiker { get; set; }
 
@@ -106,6 +107,9 @@ namespace WebApplication1.Pages.Admin
             [Required]
             public string userid { get; set; }
 
+            [Display(Name = "Does this user have an Admin Role?")]
+            public bool AdminRole { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -139,6 +143,7 @@ namespace WebApplication1.Pages.Admin
             }
 
             gebruiker = user;
+            IsInRoleAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 
             if (user == null)
             {
@@ -188,6 +193,8 @@ namespace WebApplication1.Pages.Admin
             ApplicationUser user = (from u in _context.Users
                                     where u.Id == Input.userid
                                     select u).FirstOrDefault();
+
+            IsInRoleAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 
             if (user == null)
             {
@@ -276,6 +283,18 @@ namespace WebApplication1.Pages.Admin
                 
             }
 
+            if (Input.AdminRole != IsInRoleAdmin)
+            {
+                if (Input.AdminRole)
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, "Admin");
+                }
+            }
+
             if (Input.PhoneNumber != user.PhoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
@@ -288,7 +307,7 @@ namespace WebApplication1.Pages.Admin
             await _userManager.UpdateAsync(user);
 
 
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "The profile has been updated";
 
             return Redirect("AdminEditUser?UserID=" + user.Id + "&status=" + StatusMessage);
         }
@@ -320,7 +339,7 @@ namespace WebApplication1.Pages.Admin
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
             await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl);
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Verification email sent..";
 
             return Redirect("AdminEditUser?UserID=" + user.Id + "&status=" + StatusMessage);
         }
