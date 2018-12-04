@@ -33,7 +33,6 @@
         <canvas id="Top5PriceChart" width="100" height="100"></canvas>
     </div>
 
-    <p> @Model.Top5HighestPrice[2].PriceFinal dit is de prijs van @Model.Top5HighestPrice[2].ResponseName</p>
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
@@ -83,12 +82,11 @@
                     label: 'Price €',
 
                     data: [ /*7,6,5,4,3*/
-
-                            @Model.Top5HighestPrice[0].PriceFinal,
-                            @Model.Top5HighestPrice[1].PriceFinal,
-                            @Model.Top5HighestPrice[2].PriceFinal,
-                            @Model.Top5HighestPrice[3].PriceFinal,
-                            @Model.Top5HighestPrice[4].PriceFinal ],
+                        Math.round(@Model.Top5HighestPrice[0].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[1].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[2].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[3].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[4].PriceFinal) ],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
