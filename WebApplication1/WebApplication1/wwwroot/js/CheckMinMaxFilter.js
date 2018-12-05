@@ -1,8 +1,11 @@
 ﻿function checkmin() {
-    var minimum = document.getElementById("min").value;
-    var maximum = document.getElementById("max").value;
+    var minimum = parseInt(document.getElementById("min").value, 10);
+    var maximum = parseInt(document.getElementById("max").value, 10);
 
-    if ((parseInt(minimum) < parseInt(maximum) && parseInt(minimum) > 0 && parseInt(maximum) > 1) || (parseInt(minimum) == 0  && parseInt(maximum) == 0)) {
+    console.log("Minimum value: " + minimum);
+    console.log("Maximum value: " + maximum);
+
+    if ((minimum < maximum && minimum > 0 && maximum > 1) || (minimum == 0  && maximum == 0) || minimum.isNaN() || maximum.isNaN) {
         return true;
     } else {
         alert("The minimum value cannot be higher then the maximum value!");

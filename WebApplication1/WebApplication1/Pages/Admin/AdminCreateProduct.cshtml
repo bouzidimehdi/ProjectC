@@ -77,6 +77,15 @@
             <a asp-page="/Admin/Admin">Back to Admin-panel</a>
         </div>
     </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <script>
+        function hidediv() {
+            document.getElementById("HideStatus").style.display = "none";
+        }
+    </script>
 }
 else
 {
@@ -90,13 +99,4 @@ else
     <script>
         window.location.replace("https://localhost:44358")
     </script>
-}
-<script>
-    function hidediv() {
-        document.getElementById("HideStatus").style.display = "none";
-    }
-</script>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
