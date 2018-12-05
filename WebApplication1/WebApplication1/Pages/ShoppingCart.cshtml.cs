@@ -37,6 +37,13 @@ namespace WebApplication1.Pages
                     select shop;
                 YourCart = query2.FirstOrDefault();
 
+                if (YourCart == null)
+                {
+                    YourCart = new Shopping_card() {User_ID = id};
+                    _context.Add(YourCart);
+                    _context.SaveChanges();
+                }
+
                 var query = from shopping in _context.Shopping_card
                     where shopping.User_ID == id
                     let shoppingProducts = (

@@ -17,8 +17,8 @@ namespace WebApplication1.Pages
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ShoppingCartModel> _logger;
-        public string id { get; set; }  
-        
+        public string id { get; set; }
+        public FirstnameLastnameEmail EmailKey;
 
         // Product
         public Product product;
@@ -33,8 +33,11 @@ namespace WebApplication1.Pages
         //public List<Shopping_card_Product> hopping_Card_Products { get; set; }
 
         public Shopping_card YourCart { get; set; }
-        public void OnGet()
+        public void OnGet(string FirstName, string LastName, string Email)
         {
+            //Store FirstName, LastName and Email in an class
+            EmailKey = new FirstnameLastnameEmail() {Email = Email, Firstname = FirstName, Lastname = LastName};
+
             if (User.Identity.IsAuthenticated)
             {
                 id = _userManager.GetUserId(User);
@@ -100,5 +103,11 @@ namespace WebApplication1.Pages
       
     }
 
+    public class FirstnameLastnameEmail
+    {
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+    }
 
 }
