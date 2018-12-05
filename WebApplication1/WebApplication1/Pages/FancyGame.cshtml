@@ -8,56 +8,55 @@
 
 <div id="myNav" class="overlay">
     <div class="inner-overlay">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-    <div class="overlay-content">
-        <div class="row">
-            <div class="col">
-                <img id="coin1" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer;" onclick="ShowText1()">
-            </div>                                                                   
-            <div class="col">                                                        
-                <img id="coin2" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer; " onclick="ShowText2()">
-            </div>                                                                   
-            <div class="col">                                                        
-                <img id="coin3" src="https://cdn.smct.co/11916-374.png" alt="" style="cursor:pointer; " onclick="ShowText3()">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h3 id="headertext" style="color:white;padding-left:120px;padding-top:50px;margin-bottom:-60px">You have three chances to receive a discount code!</h3>
+        <div class="overlay-content">
+            <div class="row">
+                <div class="col">
+                    <img id="coin1" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer;" onclick="ShowText1()">
+                </div>
+                <div class="col">
+                    <img id="coin2" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer; " onclick="ShowText2()">
+                </div>
+                <div class="col">
+                    <img id="coin3" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer; " onclick="ShowText3()">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div id="coinclick1" style="color:white;display:none">Sorry try again!</div>
-            </div>
-            <div class="col">
-                <div id="coinclick2" style="color:white;display:none">Well Done ! You've found the discount code!
-                    <div>
-                    <button class="btn btn-success" id="claimcode">code here</button>
+            <div class="row">
+                <div class="col">
+                    <div id="coinclick1" style="color:white;display:none">Sorry try again!</div>
+                </div>
+                <div class="col">
+                    <div id="coinclick2" style="color:white;display:none">
+                        Well Done ! You've found the discount code!
+                        <div>
+                            <button class="btn btn-success" id="claimcode">code here</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div id="coinclick3" style="color:white; display:none">Sorry try again!</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col">
-                <div id="HiddenCode"  style="color:white;visibility:hidden;margin-top:20px">
-                    <h4>ABCDaFG</h4>
-                    <div>Use this coupon code in your shoppingcart!</div>    
-                    <div><a asp-page="/ShoppingCart" class="btn btn-success">Use it Now!</a></div>
+                <div class="col">
+                    <div id="coinclick3" style="color:white; display:none">Sorry try again!</div>
                 </div>
             </div>
-            <div class="col">
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col">
+                    <div id="HiddenCode" style="color:white;visibility:hidden;margin-top:20px">
+                        <h4>ABCDaFG</h4>
+                        <div>Use this coupon code in your shoppingcart!</div>
+                        <div><a asp-page="/ShoppingCart" class="btn btn-success">Use it Now!</a></div>
+                    </div>
+                </div>
+                <div class="col">
+                </div>
             </div>
         </div>
     </div>
-  </div>
 </div>
 
 
-
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-
 
 
 
@@ -102,18 +101,18 @@
 </script>
 <style>
     /*.overlay {
-        background-color: rgba(0,0,0,0.6);
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow-y: scroll;
-        box-sizing: border-box;
-        z-index: 99999999999;
-    }*/
+            background-color: rgba(0,0,0,0.6);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: scroll;
+            box-sizing: border-box;
+            z-index: 99999999999;
+        }*/
     .overlay {
         /* Height & width depends on how you want to reveal the overlay (see JS below) */
         height: 100%;
@@ -123,11 +122,12 @@
         left: 0;
         top: 0;
         /*background-color: rgb(0,0,0); /* Black fallback color */
-       /* background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+        /* background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
         background-color: rgba(0,0,0,0.6);
         overflow-x: hidden; /* Disable horizontal scroll */
         transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-        }
+    }
+
     .inner-overlay {
         /* Height & width depends on how you want to reveal the overlay (see JS below) */
         height: 75%;
@@ -138,12 +138,13 @@
         top: 100px;
         /*background-color: rgb(0,0,0); /* Black fallback color */
         /* background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
-        background-color: rgba(123,0,0,0.6);
+        background-color: rgba(255,255,255,0.6);
         overflow-x: hidden; /* Disable horizontal scroll */
         transition: 3.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-        border-radius:8px;
+        border-radius: 8px;
         animation: FadeIn 1s ease-in both
-        }
+    }
+
     .overlay-content {
         position: relative;
         top: 25%;
@@ -151,22 +152,26 @@
         text-align: center;
         margin-top: 30px;
     }
+
     .overlay .closebtn {
         position: absolute;
         top: 20px;
         right: 45px;
         font-size: 60px;
     }
+
     #coin1, #coin2, #coin3 {
         animation: coin-rotate 5s both infinite;
-
     }
-    #coin2{
+
+    #coin2 {
         animation-delay: 0.4s;
     }
+
     #coin3 {
         animation-delay: 0.9s;
     }
+
     @@keyframes coin-rotate {
         0% {
             transform: rotateY(0);
@@ -182,20 +187,16 @@
     }
 
     @@keyframes FadeIn {
-     0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0,-100%,0);
-        transform: translate3d(0,-100%,0);
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0,-100%,0);
+            transform: translate3d(0,-100%,0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
     }
-    100% {
-        opacity: 1;
-        -webkit-transform: none;
-        transform: none;
-    }
-}
-    
-
-
-
 </style>
-
