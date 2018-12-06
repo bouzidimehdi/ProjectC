@@ -16,13 +16,22 @@
     <h3>@Model.Message</h3>
     <p>Use this area to provide additional information.</p>
 
-    @*<div class="container" >
-           <div class="col" >
-               <div class="col-md-6">
-                   <canvas id="myChart" width="200" height="200"></canvas>
-               </div>
-           </div>
-        </div>*@
+    <div class="container">
+        <div class="col">
+            <div class="col-md-3">
+                <canvas id="myChart" width="100" height="100"></canvas>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <canvas id="AdminvsUsers" width="100" height="100"></canvas>
+        </div>
+        <div class="col-md-3">
+            <canvas id="AllOrders" width="100" height="100"></canvas>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <canvas id="Top5PriceChart" width="100" height="100"></canvas>
+    </div>
 
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -50,6 +59,128 @@
             },
             options: {
                 scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById("Top5PriceChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["@Model.Top5HighestPrice[0].ResponseName",
+                         "@Model.Top5HighestPrice[1].ResponseName",
+                         "@Model.Top5HighestPrice[2].ResponseName",
+                         "@Model.Top5HighestPrice[3].ResponseName",
+                         "@Model.Top5HighestPrice[4].ResponseName"],
+                datasets: [{
+                    label: 'Price €',
+
+                    data: [ /*7,6,5,4,3*/
+                        Math.round(@Model.Top5HighestPrice[0].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[1].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[2].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[3].PriceFinal),
+                        Math.round(@Model.Top5HighestPrice[4].PriceFinal) ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(75, 192, 20, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 20, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById("AdminvsUsers").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Amount'
+                ],
+                datasets: [
+                {
+                    label: 'Users',
+                    data: [@Model.UserMinusAdmin],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                    bordercolor: ['rgba(255,99,132,1)']
+
+                },
+                {
+                    label: 'Admins',
+                    data: [@Model.Admins.Count()],
+                    backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+                    bordercolor: ['rgba(54, 162, 235, 1)']
+                }
+
+                ]
+            },
+            options: {
+
+                scales: {
+                    xAxes: [{stacked: true}],
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById("AllOrders").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Ordered Products"],
+                datasets: [{
+                    label: 'Amount',
+                    data: [@Model.AllOrders.Count()],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            min: 0
+                        }
+                    }],
                     yAxes: [{
                         ticks: {
                             beginAtZero:true
