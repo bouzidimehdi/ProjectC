@@ -49,7 +49,7 @@
                         {
                             amount: {
                                 total: '0.01',
-                                currency: 'USD'
+                                currency: 'EUR'
                             }
                         }
                     ]
@@ -92,18 +92,21 @@
                 @while (i < item.quantity)
                 {
 
-                    <tr>
-                        <td></td>
-                        <td>@item.product.ResponseName</td>
-                        <td>@item.product.PriceFinal</td>
-                        <td>@item.quantity</td>
-                        @*<td>@Guid.NewGuid()</td>*@
-                        <td></td>
-                        @*<input type="hidden" name="productid" value="@item.product.ID" />*@
-                        @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
-                        @*<input type="hidden" name="userid" value="@Model.id)" />*@
+            <tr>
+                <td></td>
+                <td>@item.product.ResponseName</td>
+                <td>@item.product.PriceFinal</td>
+                <td>@item.quantity</td>
+                @*<td>@Guid.NewGuid()</td>*@
+                <td></td>
+                @*<input type="hidden" name="productid" value="@item.product.ID" />*@
+                @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
+                @*<input type="hidden" name="userid" value="@Model.id)" />*@
+                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
 
-                    </tr>
+            </tr>
 
                     i = i + 1;
                 }

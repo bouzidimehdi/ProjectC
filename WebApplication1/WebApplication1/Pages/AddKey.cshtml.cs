@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication1.Data;
 using WebApplication1.Resource;
+using WebApplication1.Services;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApplication1.Pages
@@ -17,14 +18,16 @@ namespace WebApplication1.Pages
     {
         private readonly WebApplication1.Data.ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
         public string mehdiid { get; set; }
         int i = -1;
         public IList<Shopping_card_Product> proptabtab { get; set; }
 
-        public AddKeyModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public AddKeyModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
+            _emailSender = emailSender;
 
         }
 
@@ -39,7 +42,7 @@ namespace WebApplication1.Pages
         [BindProperty]
         public Key Key { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(string userid, string license, int productid)
+        public async Task<IActionResult> OnPostAsync(string email, string firstname, string lastname)
         {
 
             var id = _userManager.GetUserId(User);
@@ -51,6 +54,7 @@ namespace WebApplication1.Pages
                                 where cartprd.Shopping_card_ID == cartid.ID && cartid.User_ID == id
                                 select cartprd);
                 proptabtab = fullcart.ToList();
+                List<Key> keys = new List<Key>();
 
                 foreach (var item in proptabtab)
                 {
@@ -63,10 +67,26 @@ namespace WebApplication1.Pages
                             ProductID = item.Product_ID
                         };
                         _context.Key.Add(keyz);
+                        keys.Add(keyz);
                         i = i + 1;
                     }
                     i = -1;
                 }
+
+                // From List keys to only key array
+                EmailKeyArray[] EmailKey = new EmailKeyArray[keys.Count];
+
+                for (int j = 0; j < keys.Count; j++)
+                {
+                    EmailKey[j] = new EmailKeyArray();
+                    EmailKey[j].Key = keys[j].License;
+                    EmailKey[j].ProductName = (from p in _context.Product
+                        where p.ID == keys[j].ProductID
+                        select p.ResponseName).FirstOrDefault();
+                }
+
+                // Send the E-mail
+                EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
 
                 _context.Shopping_Card_Products.RemoveRange(fullcart);
 
@@ -76,22 +96,39 @@ namespace WebApplication1.Pages
             {
                 string cookieshoping = Request.Cookies["ShoppingCart"];
                 List<shoppingCart_cookie> shoppingcartlist = Cookie.Cookiereader_shoppingcart(cookieshoping);
+                List<Key> keys = new List<Key>();
 
-                foreach (shoppingCart_cookie itemm in shoppingcartlist)
+                foreach (shoppingCart_cookie item in shoppingcartlist)
                 {
-                    while (i < itemm.Quantity - 1)
+                    while (i < item.Quantity - 1)
                     {
                         Key keyz = new Key()
                         {
                             //UserID = id,
                             License = Guid.NewGuid().ToString(),
-                            ProductID = itemm.ProductID
+                            ProductID = item.ProductID
                         };
                         _context.Key.Add(keyz);
+                        keys.Add(keyz);
                         i = i + 1;
                     }
                     i = -1;
                 }
+
+                // From List keys to only key array
+                EmailKeyArray[] EmailKey = new EmailKeyArray[keys.Count];
+
+                for (int j = 0; j < keys.Count; j++)
+                {
+                    EmailKey[j] = new EmailKeyArray();
+                    EmailKey[j].Key = keys[j].License;
+                    EmailKey[j].ProductName = (from p in _context.Product
+                                                where p.ID == keys[j].ProductID
+                                                select p.ResponseName).FirstOrDefault();
+                }
+
+                // Send the E-mail
+                EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
 
                 // Cookie instellingen.
                 CookieOptions cookieOptions = new CookieOptions
@@ -114,7 +151,13 @@ namespace WebApplication1.Pages
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Index");
+            return RedirectToPage("FinishCheckout");
         }
+    }
+
+    public class EmailKeyArray
+    {
+        public string Key { get; set; }
+        public string ProductName { get; set; }
     }
 }
