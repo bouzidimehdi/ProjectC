@@ -181,10 +181,27 @@
         }
     </style>
 
+
+    @* Dit is de popup minigame *@
+    @{
+        string couponCode;
+        string allowedchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        char[] chars = new char[9];
+        Random rd = new Random();
+
+
+        for (int i = 0; i < 9; i++)
+        {
+            chars[i] = allowedchars[rd.Next(0, allowedchars.Length)];
+        }
+
+        couponCode = new string(chars);
+
+    }
     <div id="myNav" class="overlay">
         <div class="inner-overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <h3 id="headertext"style="color:white;padding-left:120px;padding-top:50px;margin-bottom:-60px">You have three chances to receive a discount code!</h3>
+            <h3 id="headertext" style="color:white;padding-left:120px;padding-top:50px;margin-bottom:-60px">You have three chances to receive a discount code!</h3>
             <div class="overlay-content">
                 <div class="row">
                     <div class="col">
@@ -218,9 +235,13 @@
                     </div>
                     <div class="col">
                         <div id="HiddenCode" style="color:white;visibility:hidden;margin-top:20px">
-                            <h4>ABCDaFG</h4>
+                            <h4>@couponCode</h4>
                             <div>Use this coupon code in your shoppingcart!</div>
-                            <div><a asp-page="/ShoppingCart" class="btn btn-success">Use it Now!</a></div>
+                            <form asp-page="/Contact" method="get">
+                                <input type="hidden" name="CouponCode" value="@couponCode" />
+                                <input type="submit" class="btn btn-success" value="To the Contact page!" />
+                            </form>
+                            @*<div><a asp-page="/ShoppingCart" class="btn btn-success">Use it Now!</a></div>*@
                         </div>
                     </div>
                     <div class="col">
@@ -367,3 +388,39 @@
             }
         }
     </style>
+
+    <script type="text/JavaScript">
+
+        $(document).ready(function () {
+
+            if ((readCookie('Pop-up-Cookie') != null)) {
+                $('.overlay').hide();
+               
+            }
+            if ((readCookie('Pop-up-Cookie') == null)) {
+                createCookie('Pop-up-Cookie', true, 1)
+            }
+            return false;
+        })
+
+        function createCookie(name, value, days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            document.cookie = name + "=" + value + "; expires=" + expires + "; path=/";
+
+            //  $.cookie(name, value, { expires: days });
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+    </script>
