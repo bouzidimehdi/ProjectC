@@ -18,6 +18,7 @@
                     <ul class="dropdown-menu dropdown-menu-right ">
                         <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
                         <a asp-page="/Account/Manage/Index" class="dropdown-item" id="NavProfile">My profile</a>
+                        <a asp-page="/orderhistory" class="dropdown-item" id="NavProfile">Order History</a>
                         @if (User.IsInRole("Admin"))
                         {
                             <a asp-page="/Admin/Admin" class="dropdown-item" id="NavAdmin">Admin</a>

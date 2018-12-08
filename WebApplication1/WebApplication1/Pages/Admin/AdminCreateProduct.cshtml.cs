@@ -19,7 +19,7 @@ namespace WebApplication1.Pages.Admin
 
         //public string ReturnUrl { get; set; }
         [TempData]
-        public string StatusMessage { get; set; }
+        public string StatusMessage2 { get; set; }
 
         public AdminCreateProductModel(ApplicationDbContext context)
         {
@@ -66,6 +66,12 @@ namespace WebApplication1.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // Check if the user is logged in and authorised
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
             if (ModelState.IsValid)
             {
                 Product product = new Product()
@@ -81,10 +87,10 @@ namespace WebApplication1.Pages.Admin
                     GenreIsMassivelyMultiplayer = Input.GenreIsMassivelyMultiplayer,
                     GenreIsRacing = Input.GenreIsRacing,
                 };
-                var result = _context.Product.Add(product);
+                _context.Product.Add(product);
                 await _context.SaveChangesAsync();
 
-                StatusMessage = $"{product.QueryName} has been added to the database!";
+                StatusMessage2 = $"{product.QueryName} has been added to the database!";
                 return RedirectToPage("/Admin/Admin");
             }
             return Page();

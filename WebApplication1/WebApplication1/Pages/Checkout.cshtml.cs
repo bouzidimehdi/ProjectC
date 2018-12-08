@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,6 +17,8 @@ namespace WebApplication1.Pages
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ShoppingCartModel> _logger;
+        public string id { get; set; }
+        public FirstnameLastnameEmail EmailKey;
 
         // Product
         public Product product;
@@ -30,11 +33,14 @@ namespace WebApplication1.Pages
         //public List<Shopping_card_Product> hopping_Card_Products { get; set; }
 
         public Shopping_card YourCart { get; set; }
-        public void OnGet()
+        public void OnGet(string FirstName, string LastName, string Email)
         {
+            //Store FirstName, LastName and Email in an class
+            EmailKey = new FirstnameLastnameEmail() {Email = Email, Firstname = FirstName, Lastname = LastName};
+
             if (User.Identity.IsAuthenticated)
             {
-                string id = _userManager.GetUserId(User);
+                id = _userManager.GetUserId(User);
                 var query2 = from shop in _context.Shopping_card
                              where shop.User_ID == id
                              select shop;
@@ -69,21 +75,39 @@ namespace WebApplication1.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int Id)
+        public async Task<IActionResult> OnPostDeleteAsync(int? Id)
         {
-            var products = await _context.Shopping_Card_Products.FindAsync(Id);
-
-            if (products != null)
+            if (User.Identity.IsAuthenticated)
             {
+                if (Id == null)
+                {
+                    return NotFound();
+                }
+                var products = await _context.Shopping_Card_Products.FindAsync(Id);
 
-                _context.Shopping_Card_Products.Remove(products);
-                await _context.SaveChangesAsync();
+                if (products != null)
+                {
+
+                    _context.Shopping_Card_Products.Remove(products);
+                    await _context.SaveChangesAsync();
+                }
             }
+            else
+            {
+                
+            }
+            
             return RedirectToPage();
         }
 
       
     }
 
+    public class FirstnameLastnameEmail
+    {
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+    }
 
 }

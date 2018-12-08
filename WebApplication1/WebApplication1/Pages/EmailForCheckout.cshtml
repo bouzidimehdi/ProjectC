@@ -1,0 +1,36 @@
+﻿@page
+@model WebApplication1.Pages.EmailForCheckoutModel
+@{
+    ViewData["Title"] = "Information check";
+}
+
+<h4>We need same extra information before we can proceed to checkout.</h4>
+
+<form method="post">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Proceed to checkout</button>
+</form>

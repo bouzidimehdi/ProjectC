@@ -33,17 +33,17 @@
                         <form asp-page="DeleteItemWishList" method="post">
                             <input type="hidden" name="wish" value="@item.Product_ID" />
                             <input type="hidden" name="id" value="@item.User_ID" />
-                            <button type="submit" id ="Fav_DeleteFromFav"class="close float-left align-self-lg-center" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="submit" id ="Fav_DeleteFromFav"class="close float-left align-self-lg-center" title="Remove this product" aria-label="Close" onclick="this.disabled = true;this.form.submit()"><span aria-hidden="true">&times;</span></button>
                         </form>
                         <span style="margin-left:10px; "></span>
-                        <img src="@item.Product.HeaderImage" style="width:15%; height:15%;" alt="We could not load your image" />
+                        <img src="@item.Product.HeaderImage" style="width:200px; height:100px;" alt="We could not load your image" />
                         @item.Product.ResponseName
                     </td>
                     <td>€ @item.Product.PriceFinal</td>
                     <td>
                         <form asp-page="../ShoppingCartController" method="post">
                             <input type="hidden" name="productid" value="@item.Product.ID" />
-                            <input type="submit" value="Add to Cart" class="btn btn-success btn-sm" id="Fav_AddToCart"/>
+                            <input type="submit" value="Add to Cart" class="btn btn-success btn-sm" id="Fav_AddToCart" onclick="this.disabled = true;this.form.submit()"/>
                         </form>
                      </td>
                 </tr>

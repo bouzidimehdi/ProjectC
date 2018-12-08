@@ -53,6 +53,10 @@ namespace WebApplication1.Pages
                 }
 
                 Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid, id);
+                if(Shopping_card_Product == null)
+                {
+                    return RedirectToPage("/ShoppingCart");
+                }
                 if (Shopping_card_Product.quantity != -1)
                 {
                     Shopping_card_Product.quantity -= 1;
@@ -64,6 +68,7 @@ namespace WebApplication1.Pages
                         await _context.SaveChangesAsync();
                     }
                 }
+                
             }
             else // Wordt uitgevoerd als de gebruik niet is ingelogd.
             {
@@ -112,6 +117,7 @@ namespace WebApplication1.Pages
                     return NotFound();
                 }
 
+
                 Shopping_card_Product = await _context.Shopping_Card_Products.FindAsync(cartid1, id1);
                 _context.Shopping_Card_Products.Remove(Shopping_card_Product);
                 await _context.SaveChangesAsync();
@@ -149,16 +155,37 @@ namespace WebApplication1.Pages
 
         public async Task<IActionResult> OnPostDeletecartAsync()
         {
-            var id = _userManager.GetUserId(User);
-            var fullcart = from cartprd in _context.Shopping_Card_Products
-                           from cartid in _context.Shopping_card
-                           where cartprd.Shopping_card_ID == cartid.ID && cartid.User_ID == id
-                           select cartprd;
+            if (User.Identity.IsAuthenticated) // Wordt uitgevoerd als de gebuiker is ingelogd.
+            {
+                var id = _userManager.GetUserId(User);
+                var fullcart = from cartprd in _context.Shopping_Card_Products
+                    from cartid in _context.Shopping_card
+                    where cartprd.Shopping_card_ID == cartid.ID && cartid.User_ID == id
+                    select cartprd;
 
                 //_context.Shopping_Card_Products.Where(s => s.Shopping_card_ID == Shopping_card.ID);
-            _context.Shopping_Card_Products.RemoveRange(fullcart);
-            await _context.SaveChangesAsync();
-            return RedirectToPage("./ShoppingCart");
+                _context.Shopping_Card_Products.RemoveRange(fullcart);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./ShoppingCart");
+            }
+            else
+            {
+                // Cookie instellingen.
+                CookieOptions cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(14),
+                    HttpOnly = true
+                };
+
+                // Split characters:
+                // - between productID and quantity
+                // + between Produts in shopping card.
+                // Tuple<ProductID, Quantity
+
+                Response.Cookies.Append("ShoppingCart", "", cookieOptions);
+
+                return RedirectToPage("./ShoppingCart");
+            }
         }
     }
 }

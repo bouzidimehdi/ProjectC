@@ -112,6 +112,9 @@ namespace WebApplication1.Pages.Admin
 
             [Display(Name = "Confirm the email of the user")]
             public bool ConfirmEmail { get; set; }
+
+            [Display(Name = "Does this user have an Admin Role?")]
+            public bool AdminRole { get; set; }
         }
 
 
@@ -123,6 +126,12 @@ namespace WebApplication1.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            // Check if the user is logged in and authorised
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return Page();
+            }
+
             ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
@@ -147,7 +156,12 @@ namespace WebApplication1.Pages.Admin
                     string EmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     EmailConfirmResult = await _userManager.ConfirmEmailAsync(user, EmailToken);
                 }
-                
+
+                if (Input.AdminRole)
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+
                 if (result.Succeeded || result.Succeeded && EmailConfirmResult.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -159,6 +173,7 @@ namespace WebApplication1.Pages.Admin
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(Url.GetLocalUrl(returnUrl));
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

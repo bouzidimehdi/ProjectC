@@ -47,8 +47,8 @@
                                     
                                 </form>
                             }
-                           else
-                           {
+                            else
+                            {
                                <form asp-page="deleteproduct" method="post" class="d-inline align-middle ">
                                    <input type="hidden" name="id" value="@item.product.ID" />
                                    <input type="submit" value="-" class="btn btn-light btn-sm" id="Cart_Decrease_QuantityCookie" />
@@ -59,7 +59,7 @@
                                    <input type="submit" value="+" class="btn btn-light btn-sm" id="Cart_Add_QuantityCookie"/>
                                     
                                </form>
-                           }
+                            }
                         }
                     </td>
                     <td>
@@ -68,25 +68,25 @@
                     <td>
                         @{if (Model.YourCart != null)
                             {
-                                <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
+                                <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem" id="OneTimeClick">
                                     <input type="hidden" name="id1" value="@item.product.ID" />
                                     <input type="hidden" name="cartid1" value="@Model.YourCart.ID" />
                                     <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                    <button type="submit" id="DeleteProductUser" class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button  type="submit" id="DeleteProductUser" class="close float-lg-left" title="Remove this product" aria-label="Close" onclick="this.disabled = true;this.form.submit()"><span aria-hidden="true">&times;</span></button>
                                 </form>
-                             }
-                          else
-                          {
+                            }
+                            else
+                            {
                               <form asp-page="deleteproduct" method="post" asp-page-handler="Deleteitem">
                                   <input type="hidden" name="id1" value="@item.product.ID" />
                                   <!--<input type="submit" value="Delete from cart" class="btn-danger">-->
-                                  <button type="submit" id="Cart_DeleteProductCookie"class="close float-lg-left" title="Remove this product" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="submit" id="Cart_DeleteProductCookie"class="close float-lg-left" title="Remove this product" aria-label="Close" onclick="this.disabled = true;this.form.submit()"><span aria-hidden="true">&times;</span></button>
                               </form>
-                          }
+                            }
                         }
                     </td>
                 </tr>
-                }
+                            }
              </tbody>
         </table>
     </div>
@@ -94,8 +94,9 @@
            
           <div class="row">
               <div class="col-md-6">
--
-
+                  <h2 style="font-family: 'Rubik', sans-serif; font-weight:900;">
+                      Enter your Coupon Code here!<br /> and receive a discount</h2>
+                      <input type="text" placeholder="Enter your code here!" style="border-radius:6px;" />
               </div>
 
               <div class="col-md-6" style="padding-bottom: 10px">
@@ -103,33 +104,36 @@
                   <table class="table">
                       <tbody>
                           <tr>
-                              <th>Total</th>
-                              <td>Total: € @total</td>
+                              <th>Sub Total</th>
+                              <td> € @total</td>
                           </tr>
-
-
+                          <tr>
+                              <th> Discount:  </th>
+                              <td> € 5</td>
+                          </tr>
+                          <tr>
+                              <th>Total</th>
+                              <td> € @(total-5)</td>
+                         </tr>
                       </tbody>
 
                   </table>
                   <div class="row" style="float:right; padding-right:15px;">
                       @if (Model._Products.Count > 0)
                       {
-                          @if (Model.YourCart != null)
-                          {
-
-                      <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
-                          <input type="submit" value="Clear Cart" class="btn btn-danger" id="Cart_Clear_Cart">&nbsp;&nbsp;
-                          @*<input type="submit" value="delete the whole cart" />*@
-                      </form>
-                          }
-
-                                  <a class="btn btn-primary float-right" asp-page="Checkout" id="Cart_Checkout">Proceed to Checkout</a>
+                          <form asp-page="deleteproduct" method="post" asp-page-handler="Deletecart">
+                              <input type="submit" value="Clear Cart" class="btn btn-danger" id="Cart_Clear_Cart" onkeypress="hidediv()" />&nbsp;&nbsp;
+                              @*<input type="submit" value="delete the whole cart" />*@
+                          </form>
+                          <a class="btn btn-primary float-right" asp-page="EmailForCheckout" id="Cart_Checkout">Proceed to Checkout</a>
                       }
                   </div>
 
               </div>
           </div>
 </div>
+
+
 
 <style>
     .container  {
