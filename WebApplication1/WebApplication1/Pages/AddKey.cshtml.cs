@@ -20,8 +20,9 @@ namespace WebApplication1.Pages
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         public string mehdiid { get; set; }
-        int i = -1;
-        public IList<Shopping_card_Product> proptabtab { get; set; }
+        int i = 0;
+        //public IList<Shopping_card_Product> proptabtab { get; set; }
+        public List<ResponseShopingCart> proptabtab { get; set; }
 
         public AddKeyModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
@@ -53,7 +54,20 @@ namespace WebApplication1.Pages
                                 from cartid in _context.Shopping_card
                                 where cartprd.Shopping_card_ID == cartid.ID && cartid.User_ID == id
                                 select cartprd);
-                proptabtab = fullcart.ToList();
+                //proptabtab = fullcart.ToList();
+
+                var query = from shopping in _context.Shopping_card
+                            where shopping.User_ID == id
+                            let shoppingProducts = (
+                                from shoppingProdutstable in _context.Shopping_Card_Products
+                                from Products in _context.Product
+                                where shoppingProdutstable.Shopping_card_ID == shopping.ID &&
+                                      shoppingProdutstable.Product_ID == Products.ID
+                                select new ResponseShopingCart() { product = Products, quantity = shoppingProdutstable.quantity + 1 }
+                            ).ToList()
+                            select shoppingProducts;
+                proptabtab = query.FirstOrDefault();
+
                 List<Key> keys = new List<Key>();
 
                 foreach (var item in proptabtab)
@@ -64,13 +78,14 @@ namespace WebApplication1.Pages
                         {
                             UserID = id,
                             License = Guid.NewGuid().ToString(),
-                            ProductID = item.Product_ID
+                            ProductID = item.product.ID,
+                            Price = item.product.PriceFinal
                         };
                         _context.Key.Add(keyz);
                         keys.Add(keyz);
                         i = i + 1;
                     }
-                    i = -1;
+                    i = 0;
                 }
 
                 // From List keys to only key array
@@ -86,7 +101,7 @@ namespace WebApplication1.Pages
                 }
 
                 // Send the E-mail
-                EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
+               // EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
 
                 _context.Shopping_Card_Products.RemoveRange(fullcart);
 
@@ -128,7 +143,7 @@ namespace WebApplication1.Pages
                 }
 
                 // Send the E-mail
-                EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
+               // EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
 
                 // Cookie instellingen.
                 CookieOptions cookieOptions = new CookieOptions

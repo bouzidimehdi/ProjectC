@@ -34,6 +34,8 @@ namespace WebApplication1.Pages.Admin
 
         // Alle orders die ooit zijn gemaakt in de database ( alle keys)
         public IList<Key> AllOrders { get; set; }
+        public float SumOfOrders { get; set; }
+
 
         public AdminModel(ApplicationDbContext context)
         {
@@ -85,11 +87,13 @@ namespace WebApplication1.Pages.Admin
                 // Haal de totale ordered producten op uit de database
                  AllOrders = await _context.Key
                                             .ToListAsync();
+                // Sum products price from key
+                SumOfOrders = AllOrders.Sum(t => t.Price);
 
                 // Count all products
                 TotalProducts =  _context.Product.Count();
 
-
+                
 
                 Message = "Your application description page.";
             }
