@@ -21,15 +21,15 @@ namespace WebApplication1.Pages.Admin
         public IList<ApplicationUser> UnregisteredUsers { get; private set; }
 
         // Grafiek voor genres
-        public IList<Product> ActionGenre { get; set; }
-        public IList<Product> MMO { get; set; }
-        public IList<Product> Adven { get; set; }
-        public IList<Product> Racer { get; set; }
+            //public IList<Product> ActionGenre { get; set; }
+            //public IList<Product> MMO { get; set; }
+            //public IList<Product> Adven { get; set; }
+            //public IList<Product> Racer { get; set; }
 
         // Count total products
-        public int TotalProducts { get; set; }
+             // public int TotalProducts { get; set; }
         // Grafiek voor Top 5 duurste producten
-        public IList<Product> Top5HighestPrice { get; set; }
+            //public IList<Product> Top5HighestPrice { get; set; }
 
 
         // Alle orders die ooit zijn gemaakt in de database ( alle keys)
@@ -65,24 +65,24 @@ namespace WebApplication1.Pages.Admin
 
 
                 // Haalt alle genres op uit de database om te gebruiken in grafiek
-                ActionGenre = await (from products in _context.Product
-                    where products.GenreIsAction == true
-                    select products).ToListAsync();
-                Adven = await (from products in _context.Product
-                    where products.GenreIsAdventure == true
-                    select products).ToListAsync();
-                 MMO = await (from products in _context.Product
-                    where products.GenreIsMassivelyMultiplayer == true
-                    select products).ToListAsync();
-                 Racer = await (from products in _context.Product
-                    where products.GenreIsRacing == true
-                    select products).ToListAsync();
+                    //ActionGenre = await (from products in _context.Product
+                    //    where products.GenreIsAction == true
+                    //    select products).ToListAsync();
+                    //Adven = await (from products in _context.Product
+                    //    where products.GenreIsAdventure == true
+                    //    select products).ToListAsync();
+                    // MMO = await (from products in _context.Product
+                    //    where products.GenreIsMassivelyMultiplayer == true
+                    //    select products).ToListAsync();
+                    // Racer = await (from products in _context.Product
+                    //    where products.GenreIsRacing == true
+                    //    select products).ToListAsync();
 
                // Top 5 hoogste prijzen van producten in de shop
-                     Top5HighestPrice =  await _context.Product
-                                        .OrderByDescending(t => t.PriceFinal)
-                                        .Take(5)
-                                        .ToListAsync();
+                     //Top5HighestPrice =  await _context.Product
+                     //                   .OrderByDescending(t => t.PriceFinal)
+                     //                   .Take(5)
+                     //                   .ToListAsync();
                
                 // Haal de totale ordered producten op uit de database
                  AllOrders = await _context.Key
@@ -91,7 +91,7 @@ namespace WebApplication1.Pages.Admin
                 SumOfOrders = AllOrders.Sum(t => t.Price);
 
                 // Count all products
-                TotalProducts =  _context.Product.Count();
+                //TotalProducts =  _context.Product.Count();
 
                 
 

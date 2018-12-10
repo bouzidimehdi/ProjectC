@@ -19,28 +19,19 @@
     <div class="container">
         <div class="col">
             <div class="col-md-3">
-                <canvas id="myChart" width="100" height="100"></canvas>
-            </div>
-            <div class="col-md-3">
                 <canvas id="UsersGraph" width="100" height="100"></canvas>
             </div>
         </div>
 
     </div>
-    <div class="col-md-3">
-        <canvas id="Top5PriceChart" width="100" height="100"></canvas>
-    </div>
+   
 
     <div class="card">
         <div class="card-body">
             <p>Total users : @(Model.UnregisteredUsers.Count() + Model.RegisteredUsers.Count()) </p>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <p>Total Products : @Model.TotalProducts  </p>
-        </div>
-    </div>
+   
     <div class="card">
         <div class="card-body">
             <p>Total Orders : @Model.AllOrders.Count()  </p>
@@ -52,44 +43,6 @@
         </div>
     </div>
 
-
-
-
-    <script>
-var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-    labels: ["Adventure", "Action", "MMO", "Racing"],
-                datasets: [{
-        label: 'Genres',
-                    data: [@Model.Adven.Count(), @Model.ActionGenre.Count(), @Model.MMO.Count(), @Model.Racer.Count()],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero:true
-                        }
-            }]
-                }
-    }
-});
-    </script>
     <script>
         var ctx = document.getElementById("UsersGraph").getContext('2d');
         var myChart = new Chart(ctx, {
@@ -123,54 +76,7 @@ var ctx = document.getElementById("myChart").getContext('2d');
             }
         });
     </script>
-    <script>
-        var ctx = document.getElementById("Top5PriceChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["@Model.Top5HighestPrice[0].ResponseName",
-                         "@Model.Top5HighestPrice[1].ResponseName",
-                         "@Model.Top5HighestPrice[2].ResponseName",
-                         "@Model.Top5HighestPrice[3].ResponseName",
-                         "@Model.Top5HighestPrice[4].ResponseName"],
-                datasets: [{
-                    label: 'Price €',
-
-                    data: [ /*7,6,5,4,3*/
-                        Math.round(@Model.Top5HighestPrice[0].PriceFinal),
-                        Math.round(@Model.Top5HighestPrice[1].PriceFinal),
-                        Math.round(@Model.Top5HighestPrice[2].PriceFinal),
-                        Math.round(@Model.Top5HighestPrice[3].PriceFinal),
-                        Math.round(@Model.Top5HighestPrice[4].PriceFinal) ],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(75, 192, 20, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(75, 192, 20, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
+   
 
 
 
