@@ -15,23 +15,27 @@ namespace WebApplication1.Pages.Admin
     {
         private readonly ApplicationDbContext _context;
 
-        // all users
-        public IList<ApplicationUser> Users { get; private set; }
-        public IList<IdentityRole> Admins { get; set; }
+        // all registered users
+        public IList<ApplicationUser> RegisteredUsers { get; private set; }
+        // all unregistered users
+        public IList<ApplicationUser> UnregisteredUsers { get; private set; }
 
         // Grafiek voor genres
-        public IList<Product> ActionGenre { get; set; }
-        public IList<Product> MMO { get; set; }
-        public IList<Product> Adven { get; set; }
-        public IList<Product> Racer { get; set; }
+            //public IList<Product> ActionGenre { get; set; }
+            //public IList<Product> MMO { get; set; }
+            //public IList<Product> Adven { get; set; }
+            //public IList<Product> Racer { get; set; }
 
+        // Count total products
+             // public int TotalProducts { get; set; }
         // Grafiek voor Top 5 duurste producten
-        public IList<Product> Top5HighestPrice { get; set; }
+            //public IList<Product> Top5HighestPrice { get; set; }
 
-        // aantal Users - admins
-        public int UserMinusAdmin { get; set; }
+
         // Alle orders die ooit zijn gemaakt in de database ( alle keys)
         public IList<Key> AllOrders { get; set; }
+        public float SumOfOrders { get; set; }
+
 
         public AdminModel(ApplicationDbContext context)
         {
@@ -49,48 +53,47 @@ namespace WebApplication1.Pages.Admin
         public string StatusMessage2 { get; set; }
 
 
-        public async Task OnGetAsync(int productid)
+        public async Task OnGetAsync()
         {
             // Check if the user is logged in and authorised
             if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
 
-                // Haalt alle users op
-                Users = await _context.Users.AsNoTracking().ToListAsync();
-                // Haalt alle admins op
-                Admins = await _context.Roles.ToListAsync();
-                // Haal op de totale hoeveelheid gebruikers vs admins
-                UserMinusAdmin = Users.Count() - Admins.Count();
+                // Haalt alle registered users op 
+                RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true).ToListAsync();
+                UnregisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == false).ToListAsync();
+
 
                 // Haalt alle genres op uit de database om te gebruiken in grafiek
-                ActionGenre = await (from products in _context.Product
-                    where products.GenreIsAction == true
-                    select products).ToListAsync();
-                Adven = await (from products in _context.Product
-                    where products.GenreIsAdventure == true
-                    select products).ToListAsync();
-                 MMO = await (from products in _context.Product
-                    where products.GenreIsMassivelyMultiplayer == true
-                    select products).ToListAsync();
-                 Racer = await (from products in _context.Product
-                    where products.GenreIsRacing == true
-                    select products).ToListAsync();
+                    //ActionGenre = await (from products in _context.Product
+                    //    where products.GenreIsAction == true
+                    //    select products).ToListAsync();
+                    //Adven = await (from products in _context.Product
+                    //    where products.GenreIsAdventure == true
+                    //    select products).ToListAsync();
+                    // MMO = await (from products in _context.Product
+                    //    where products.GenreIsMassivelyMultiplayer == true
+                    //    select products).ToListAsync();
+                    // Racer = await (from products in _context.Product
+                    //    where products.GenreIsRacing == true
+                    //    select products).ToListAsync();
 
                // Top 5 hoogste prijzen van producten in de shop
-                     Top5HighestPrice =  await _context.Product
-                                        .OrderByDescending(t => t.PriceFinal)
-                                        .Take(5)
-                                        .ToListAsync();
+                     //Top5HighestPrice =  await _context.Product
+                     //                   .OrderByDescending(t => t.PriceFinal)
+                     //                   .Take(5)
+                     //                   .ToListAsync();
                
                 // Haal de totale ordered producten op uit de database
                  AllOrders = await _context.Key
                                             .ToListAsync();
+                // Sum products price from key
+                SumOfOrders = AllOrders.Sum(t => t.Price);
+
+                // Count all products
+                //TotalProducts =  _context.Product.Count();
+
                 
-
-
-                //
-
-
 
                 Message = "Your application description page.";
             }
