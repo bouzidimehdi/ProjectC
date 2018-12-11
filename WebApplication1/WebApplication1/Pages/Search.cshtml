@@ -107,7 +107,7 @@
                     <tr>
                         <th style="text-align:right;">
                             Order by :
-                            <select aria-labelledby="dropdownMenuButton" name="order" id="Search_OrderByDropDown">
+                            <select aria-labelledby="dropdownMenuButton" name="order" id="Search_OrderByDropDown" onchange="this.form.submit()">
                                 @if (Model._order == "Price (High to low)")
                                 {
                                     <option id="Search_Relevantie">Relevantie</option>

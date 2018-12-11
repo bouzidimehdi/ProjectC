@@ -101,7 +101,6 @@ namespace WebApplication1.Pages
             {
                 descending = true;
             }
-
             Products_page = Searchbar.search(Search, page_size, page_index, filterorder, filter, descending);
             _searchquery = Search;
         }
