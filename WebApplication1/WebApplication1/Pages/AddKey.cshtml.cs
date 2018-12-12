@@ -101,7 +101,7 @@ namespace WebApplication1.Pages
                 }
 
                 // Send the E-mail
-               // EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
+                _emailSender.SendKeysToEmailAsync(email, EmailKey, firstname, lastname);
 
                 _context.Shopping_Card_Products.RemoveRange(fullcart);
 
@@ -143,7 +143,7 @@ namespace WebApplication1.Pages
                 }
 
                 // Send the E-mail
-               // EmailSenderExtensions.SendKeysToEmailAsync(_emailSender, email, EmailKey, firstname, lastname);
+                _emailSender.SendKeysToEmailAsync(email, EmailKey, firstname, lastname);
 
                 // Cookie instellingen.
                 CookieOptions cookieOptions = new CookieOptions
