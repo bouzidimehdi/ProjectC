@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WebApplication1.Data
 {
@@ -9,6 +10,7 @@ namespace WebApplication1.Data
         public bool Sold { get; set; }
         public int ProductID { get; set; }
         public string UserID { get; set; }
+        public DateTime OrderDate { get; set;  }
         public Product Products { get; set; }
         public List<Orderd_Product> OrderdProducts { get; set; }
         public Factuur_Producten FactuurProducten { get; set; }
