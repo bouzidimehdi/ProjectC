@@ -12,5 +12,6 @@ namespace WebApplication1.Data
         public Product Products { get; set; }
         public List<Orderd_Product> OrderdProducts { get; set; }
         public Factuur_Producten FactuurProducten { get; set; }
+        public float Price { get; set; }
     }
 }

@@ -13,7 +13,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="https://images8.alphacoders.com/387/387547.jpg"  alt="First slide" style="height:600px; object-fit:cover; border-radius:0px;">
+                <img class="d-block w-100" src="https://images8.alphacoders.com/387/387547.jpg" alt="First slide" style="height:600px; object-fit:cover; border-radius:0px;">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 style="text-align:left; font-family: 'Rubik', sans-serif;">DOTA 2</h1>
                     <h2 style="text-align:left;">"One of the best games<br /> anyone has ever played,<br /> hands down!"<br /><br /><a href="/Productinfo?id=24"><button type="button" class="btn btn-warning btn-round" style="font-family:'Rubik', sans-serif; font-weight:900;">MORE</button></a><br /><br /><br /><br /><br /></h2>
@@ -81,7 +81,7 @@
         <div class="col text-center">
             <h2 style="font-family: 'Rubik', sans-serif; color:white; text-align:center;">MONKEY.</h2>
             <h5 style="color:white; text-align:center;">These are just a few games in the spotlight. Check out all our games in the store!</h5>
-            <a href="shopping"><button type="button" class="btn btn-warning btn-lg center-block" style="margin-top:30px;">TO SHOP</button></a>
+            <a href="shopping" class="btn btn-warning btn-lg center-block" style="margin-top:30px;">TO SHOP</a>
 
         </div>
     </div>
@@ -180,3 +180,247 @@
             height: 100%;
         }
     </style>
+
+
+    @* Dit is de popup minigame *@
+    @{
+        string couponCode;
+        string allowedchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        char[] chars = new char[9];
+        Random rd = new Random();
+
+
+        for (int i = 0; i < 9; i++)
+        {
+            chars[i] = allowedchars[rd.Next(0, allowedchars.Length)];
+        }
+
+        couponCode = new string(chars);
+
+    }
+    <div id="myNav" class="overlay">
+        <div class="inner-overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <h3 id="headertext" style="color:white;padding-left:120px;padding-top:50px;margin-bottom:-60px">You have three chances to receive a discount code!</h3>
+            <div class="overlay-content">
+                <div class="row">
+                    <div class="col">
+                        <img id="coin1" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer;" onclick="ShowText1()">
+                    </div>
+                    <div class="col">
+                        <img id="coin2" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer; " onclick="ShowText2()">
+                    </div>
+                    <div class="col">
+                        <img id="coin3" src="~/images/MonkeyCoin.png" width="170" height="171" alt="" style="cursor:pointer; " onclick="ShowText3()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="coinclick1" style="color:white;display:none">Sorry try again!</div>
+                    </div>
+                    <div class="col">
+                        <div id="coinclick2" style="color:white;display:none">
+                            Well Done ! You've found the discount code!
+                            <div>
+                                <button class="btn btn-success" id="claimcode">code here</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="coinclick3" style="color:white; display:none">Sorry try again!</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <div id="HiddenCode" style="color:white;visibility:hidden;margin-top:20px">
+                            <h4>@couponCode</h4>
+                            <div>Use this coupon code in your shoppingcart!</div>
+                            <form asp-page="/Contact" method="get">
+                                <input type="hidden" name="CouponCode" value="@couponCode" />
+                                <input type="submit" class="btn btn-success" value="To the Contact page!" />
+                            </form>
+                            @*<div><a asp-page="/ShoppingCart" class="btn btn-success">Use it Now!</a></div>*@
+                        </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        /* Open when someone clicks on the span element */
+        function openNav() {
+            document.getElementById("myNav").style.display = "block";
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        /* Close when someone clicks on the "x" symbol inside the overlay */
+        function closeNav() {
+            document.getElementById("myNav").style.display = "none";
+        }
+
+        function ShowText1() {
+            document.getElementById("coinclick1").style.display = "block";
+            document.getElementById("coin1").style.animation = "0s ease 0s 1 normal none running none";
+        }
+        function ShowText2() {
+            document.getElementById("coinclick2").style.display = "block";
+            document.getElementById("coin2").style.animation = "0s ease 0s 1 normal none running none";
+        }
+        function ShowText3() {
+            document.getElementById("coinclick3").style.display = "block";
+            document.getElementById("coin3").style.animation = "0s ease 0s 1 normal none running none";
+
+        }
+        var x = document.getElementById("claimcode")
+        x.onclick = function () {
+            var code = document.getElementById("HiddenCode");
+            code.style.visibility = "visible";
+            x.style.display = "none";
+            var coinclick = document.getElementById("coinclick2");
+            coinclick.style.display = "none";
+
+        }
+    </script>
+    <style>
+        /*.overlay {
+            background-color: rgba(0,0,0,0.6);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: scroll;
+            box-sizing: border-box;
+            z-index: 99999999999;
+        }*/
+        .overlay {
+            /* Height & width depends on how you want to reveal the overlay (see JS below) */
+            height: 100%;
+            width: 100%;
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            /*background-color: rgb(0,0,0); /* Black fallback color */
+            /* background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+            background-color: rgba(0,0,0,0.6);
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+        }
+
+        .inner-overlay {
+            /* Height & width depends on how you want to reveal the overlay (see JS below) */
+            height: 75%;
+            width: 60%;
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 400px;
+            top: 100px;
+            /*background-color: rgb(0,0,0); /* Black fallback color */
+            /* background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+            background-color: rgba(255,255,255,0.6);
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 3.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+            border-radius: 8px;
+            animation: FadeIn 1s ease-in both
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+        }
+
+        #coin1, #coin2, #coin3 {
+            animation: coin-rotate 5s both infinite;
+        }
+
+        #coin2 {
+            animation-delay: 0.4s;
+        }
+
+        #coin3 {
+            animation-delay: 0.9s;
+        }
+
+        @@keyframes coin-rotate {
+            0% {
+                transform: rotateY(0);
+            }
+
+            50% {
+                transform: rotateY(180deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        @@keyframes FadeIn {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0,-100%,0);
+                transform: translate3d(0,-100%,0);
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+    </style>
+
+    <script type="text/JavaScript">
+
+        $(document).ready(function () {
+
+            if ((readCookie('Pop-up-Cookie') != null)) {
+                $('.overlay').hide();
+               
+            }
+            if ((readCookie('Pop-up-Cookie') == null)) {
+                createCookie('Pop-up-Cookie', true, 1)
+            }
+            return false;
+        })
+
+        function createCookie(name, value, days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            document.cookie = name + "=" + value + "; expires=" + expires + "; path=/";
+
+            //  $.cookie(name, value, { expires: days });
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+    </script>
