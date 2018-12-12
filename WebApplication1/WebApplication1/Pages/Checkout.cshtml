@@ -15,10 +15,11 @@
 
         // Specify the style of the button
         style: {
-            layout: 'vertical',  // horizontal | vertical
+            layout: 'horizontal',  // horizontal | vertical
             size: 'medium',    // medium | large | responsive
             shape: 'rect',      // pill | rect
-            color: 'gold'       // gold | blue | silver | white | black
+            color: 'gold',
+            fundingicons: false
         },
 
         // Specify allowed and disallowed funding sources
@@ -67,66 +68,120 @@
     }, '#paypal-button-container');
 </script>
 
-
-<h2>Checkout</h2>
-@*@if (Model.YourCart == null)
-    {
-        <br />
-        <h6>Oops! Your Cart is empty!</h6>
-        return;
-    }*@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Your key(s)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
-
-            @foreach (var item in Model._Products)
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Checkout</h2>
+        </div>
+        @*@if (Model.YourCart == null)
             {
-                @*@while (i < item.quantity)
-                {*@
+                <br />
+                <h6>Oops! Your Cart is empty!</h6>
+                return;
+            }*@
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    @*<th>Your key(s)</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
 
-            <tr>
-                <td>@item.product.ResponseName</td>
-                <td>@(item.product.PriceFinal * item.quantity)</td>
-                <td>@item.quantity</td>
-                @*<td>@Guid.NewGuid()</td>*@
-                <td></td>
-                @*<input type="hidden" name="productid" value="@item.product.ID" />*@
-                @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
-                @*<input type="hidden" name="userid" value="@Model.id)" />*@
-                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
-                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
-                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+                    @foreach (var item in Model._Products)
+                    {
+                        totalz = totalz += (item.product.PriceFinal * item.quantity);
 
-            </tr>
+                        @*@while (i < item.quantity)
+                            {*@
 
-                    @*i = i + 1;
-                }
-                i = 0;*@
-            }
-            @*<input type="submit" value="Add to DB" name="myForm" class="btn btn-default" />*@
+                        <tr>
+                            <td>@item.product.ResponseName</td>
+                            <td>@(item.product.PriceFinal * item.quantity)</td>
+                            <td>@item.quantity</td>
+                            @*<td>@Guid.NewGuid()</td>*@
+                            @*<input type="hidden" name="productid" value="@item.product.ID" />*@
+                            @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
+                            @*<input type="hidden" name="userid" value="@Model.id)" />*@
+                            <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                            <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                            <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
 
-        </form>
-    </tbody>
-</table>
+                        </tr>
 
-<div id="paypal-button-container"></div>
-@*@if (!User.Identity.IsAuthenticated)
-{
-    <div class="form-group">
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        @*i = i + 1;
+                            }
+                            i = 0;*@
+                    }
+                    @*<input type="submit" value="Add to DB" name="myForm" class="btn btn-default" />*@
+
+                </form>
+            </tbody>
+        </table>
     </div>
-}*@
 
+
+
+    <div class="row" style="padding-top:50px;">
+        <div class="col-md-6">
+            <h2>Apply code</h2>
+            <p>Apply your coupon code for a nice discount!</p>
+            <input type="text" name="name" value="" class="form-control" style="width:75%;" placeholder="Enter your code"/>
+        </div>
+
+        <div class="col-md-6" style="padding-bottom: 10px">
+            <h2>Order summary</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Total</th>
+                        <td>@totalz</td>
+                    </tr>
+                    <tr>
+                        <th>Subtotal</th>
+                        <td> @totalz</td>
+                    </tr>
+                    <tr>
+                        <td><div id="paypal-button-container"></div></td>
+                        <td>
+
+                                <a class="btn btn-primary float-right" asp-page="ShoppingCart" id="Cart_Checkout">Return to cart</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+        @*@if (!User.Identity.IsAuthenticated)
+            {
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            }*@
+
+</div>
+
+<style>
+    .container {
+        margin-top: 1.5em;
+    }
+
+    .border {
+        border-width: 1px !important
+    }
+
+    paypal-button-logo-color-black{
+        display:none !important;
+    }
+</style>
 
 
 
