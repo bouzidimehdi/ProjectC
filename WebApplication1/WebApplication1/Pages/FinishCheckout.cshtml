@@ -4,10 +4,31 @@
     ViewData["Title"] = "FinishCheckout";
 }
 
-<h2>Done</h2>
+<div class="alert alert-success">Thanks, we've received your order! 😎</div>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6">
+            <section style="width:90%; text-align:center; margin:0 auto; padding-top:20px; padding-bottom:200px;">
 
-<p>
-    Thank your for your purchase by Monkey.<br/>
-    To continue shopping click below.<br/>
-    <a asp-page="index" class="btn">Continue shopping</a>
-</p>
+                <h6 class="h3">Order placed</h6>
+
+
+                <p>
+                    Thanks for shopping at Monkey. Your key(s) and order information have been sent to your email address.<br /><br />
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <p>You can always retrieve your keys through your order history:</p><br />
+                    <a asp-page="Orderhistory" class="btn">Continue shopping</a>
+
+                }
+                else
+                {
+                    <a asp-page="Shopping" class="btn">Continue shopping</a>
+                }
+                </section>
+            </div>
+            <div class="col"></div>
+
+        </div>
+        </div>
