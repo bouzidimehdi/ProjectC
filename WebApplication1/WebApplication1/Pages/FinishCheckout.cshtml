@@ -3,32 +3,59 @@
 @{
     ViewData["Title"] = "FinishCheckout";
 }
+<body onload="changeColor()">
 
-<div class="alert alert-success">Thanks, we've received your order! 😎</div>
-<div class="container">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-6">
-            <section style="width:90%; text-align:center; margin:0 auto; padding-top:20px; padding-bottom:200px;">
-
-                <h6 class="h3">Order placed</h6>
-
-
-                <p>
-                    Thanks for shopping at Monkey. Your key(s) and order information have been sent to your email address.<br /><br />
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                    <p>You can always retrieve your keys through your order history:</p><br />
-                    <a asp-page="Orderhistory" class="btn">Continue shopping</a>
-
-                }
-                else
-                {
-                    <a asp-page="Shopping" class="btn">Continue shopping</a>
-                }
-                </section>
-            </div>
+    <div class="alert alert-success">Thanks, we've received your order! 😎</div>
+    <div class="container">
+        <div class="row">
             <div class="col"></div>
+            <div class="col-8">
+                <section style="width:100%; text-align:center; margin:0 auto; padding-top:20px; padding-bottom:200px;">
 
-        </div>
-        </div>
+                    <h6 class="h3">Order placed</h6>
+
+
+                    <p>
+                        Thanks for shopping at Monkey. Your order information has been sent to your email address.
+                        Due to security reasons, your key(s) will be generated in the next 20 seconds:<br />
+                        <table style="width:100%;">
+                            <thead class="table"><tr><th>Product</th><th>Status</th><th>License</th></tr></thead>
+                            <tbody>
+                                @foreach (var item in Model.Key)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Products.ResponseName)
+                                        </td>
+                                        <td class="text-warning" id="status">Processing</td>
+                                        <td>xxxx_xxxx_xxxx_xxxx</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table><br /><br />
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                            <p>You can always retrieve your key(s) through your order history:</p><br />
+                            <a asp-page="Orderhistory" class="btn">Order History</a>
+
+                        }
+                        else
+                        {
+                            <a asp-page="Shopping" class="btn">Continue shopping</a>
+                        }
+                        </section>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </body>
+
+<script>
+    setInterval(changeColor, 5000);
+
+    function changeColor() {
+        document.getElementById("status").className = "text-success";
+    };
+
+    console.log(document.getElementsByClassName("text-warning").length);
+</script>
