@@ -79,7 +79,8 @@ namespace WebApplication1.Pages
                             UserID = id,
                             License = Guid.NewGuid().ToString(),
                             ProductID = item.product.ID,
-                            Price = item.product.PriceFinal
+                            Price = item.product.PriceFinal,
+                            OrderDate = DateTime.Now
                         };
                         _context.Key.Add(keyz);
                         keys.Add(keyz);

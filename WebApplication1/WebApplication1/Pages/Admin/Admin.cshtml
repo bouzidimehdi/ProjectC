@@ -21,17 +21,23 @@
             <div class="col-md-3">
                 <canvas id="UsersGraph" width="100" height="100"></canvas>
             </div>
+            <div class="col">
+                <canvas id="MonthlyOrders" width="300" height="100"></canvas>
+            </div>
+            <div class="col">
+                <canvas id="MonthlySales" width="300" height="100"></canvas>
+            </div>
         </div>
 
     </div>
-   
+
 
     <div class="card">
         <div class="card-body">
             <p>Total users : @(Model.UnregisteredUsers.Count() + Model.RegisteredUsers.Count()) </p>
         </div>
     </div>
-   
+
     <div class="card">
         <div class="card-body">
             <p>Total Orders : @Model.AllOrders.Count()  </p>
@@ -50,7 +56,7 @@
             data: {
                 labels: ["Unregistered Users", "Registered Users"],
                 datasets: [{
-
+                    
                     data: [@Model.UnregisteredUsers.Count(),@Model.RegisteredUsers.Count()],
                     backgroundColor: [
 
@@ -72,11 +78,142 @@
                             beginAtZero:true
                         }
                     }]
+                    
+                   
                 }
             }
         });
     </script>
-   
+    <script>
+        var ctx = document.getElementById("MonthlyOrders").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+
+            data: {
+                labels: ["January", "Februari", "March", "April", "May", "June", "July", "August", "September", "Oktober","November","December"],
+                datasets: [{
+                    label: "Monthly Orders #",
+                    data: 
+                    [@Model.AllOrdersAll[0].Count(),
+                    @Model.AllOrdersAll[1].Count(),
+                    @Model.AllOrdersAll[2].Count(),
+                    @Model.AllOrdersAll[3].Count(),
+                    @Model.AllOrdersAll[4].Count(),
+                    @Model.AllOrdersAll[5].Count(),
+                    @Model.AllOrdersAll[6].Count(),
+                    @Model.AllOrdersAll[7].Count(),
+                    @Model.AllOrdersAll[8].Count(),
+                    @Model.AllOrdersAll[9].Count(),
+                    @Model.AllOrdersAll[10].Count(),
+                    @Model.AllOrdersAll[11].Count()     ],
+
+                    backgroundColor: [
+
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(124, 100, 86, 0.2)',
+                        'rgba(50, 240, 192, 0.2)',
+
+                        'rgba(254, 206, 86, 0.2)',
+                        'rgba(73, 192, 192, 0.2)',
+                        'rgba(123, 100, 86, 0.2)',
+                        'rgba(49, 240, 192, 0.2)',
+
+                        'rgba(253, 206, 86, 0.2)',
+                        'rgba(76, 192, 192, 0.2)',
+                        'rgba(125, 100, 86, 0.2)',
+                        'rgba(51, 240, 192, 0.2)'
+
+                    ],
+                    borderColor: [
+
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(124, 100, 86, 1)',
+                        'rgba(50, 240, 192, 1)',
+
+                        'rgba(254, 206, 86, 1)',
+                        'rgba(74, 192, 192, 1)',
+                        'rgba(123, 100, 86, 1)',
+                        'rgba(49, 240, 192, 1)',
+
+                        'rgba(253, 206, 86, 1)',
+                        'rgba(76, 192, 192, 1)',
+                        'rgba(125, 100, 86, 1)',
+                        'rgba(51, 240, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+               
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById("MonthlySales").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+
+            data: {
+                labels: ["January", "Februari", "March", "April", "May", "June", "July", "August", "September", "Oktober","November","December"],
+                datasets: [{
+                    label: "Monthly Sales €",
+                    data:      [Math.round(@Model.AllOrdersSales[0].Sum()),
+                            Math.round(@Model.AllOrdersSales[1].Sum()),
+                            Math.round(@Model.AllOrdersSales[2].Sum()),
+                            Math.round(@Model.AllOrdersSales[3].Sum()),
+                            Math.round(@Model.AllOrdersSales[4].Sum()),
+                            Math.round(@Model.AllOrdersSales[5].Sum()),
+                            Math.round(@Model.AllOrdersSales[6].Sum()),
+                            Math.round(@Model.AllOrdersSales[7].Sum()),
+                            Math.round(@Model.AllOrdersSales[8].Sum()),
+                            Math.round(@Model.AllOrdersSales[9].Sum()),
+                            Math.round(@Model.AllOrdersSales[10].Sum()),
+                            Math.round(@Model.AllOrdersSales[11].Sum())],
+                    backgroundColor: "rgba(255, 206, 86, 0.2)"
+
+                    
+                    //backgroundColor: [
+
+                    //    'rgba(255, 206, 86, 0.2)',
+                    //    'rgba(75, 192, 192, 0.2)',
+                    //    'rgba(124, 100, 86, 0.2)',
+                    //    'rgba(50, 240, 192, 0.2)',
+
+                    //    'rgba(254, 206, 86, 0.2)',
+                    //    'rgba(73, 192, 192, 0.2)',
+                    //    'rgba(123, 100, 86, 0.2)',
+                    //    'rgba(49, 240, 192, 0.2)',
+
+                    //    'rgba(253, 206, 86, 0.2)',
+                    //    'rgba(76, 192, 192, 0.2)',
+                    //    'rgba(125, 100, 86, 0.2)',
+                    //    'rgba(51, 240, 192, 0.2)'
+
+                    //],                    
+                 
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
 
 
 
