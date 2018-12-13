@@ -13,10 +13,26 @@
     <a asp-page="../Index" class="btn">Home</a>
 
     <h2>@ViewData["Title"]</h2>
-    <h3>@Model.Message</h3>
-    <p>Use this area to provide additional information.</p>
 
     <div class="container">
+        <div class="col">
+            <form method="post" id="JaarFilter">
+                <label asp-for="Input.jaar"></label>
+                <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
+                    @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
+                    {
+                        if (Model.Input.jaar == i)
+                        {
+                            <option value="@i" selected>@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+            </form>
+        </div>
         <div class="col">
             <div class="col-md-3">
                 <canvas id="UsersGraph" width="100" height="100"></canvas>
@@ -40,12 +56,12 @@
 
     <div class="card">
         <div class="card-body">
-            <p>Total Orders : @Model.AllOrders.Count()  </p>
+            <p>Orders selected year : @Model.AllOrders.Count()  </p>
         </div>
     </div>
     <div class="card">
         <div class="card-body">
-            <p>Sales: @Model.SumOfOrders  </p>
+            <p>Sales selected year: @Model.SumOfOrders  </p>
         </div>
     </div>
 
