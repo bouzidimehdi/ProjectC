@@ -134,7 +134,7 @@
 
         <div class="row" style="margin-bottom:50px;">
             <div class="col">
-                <Label type="number" id="Points">Your Points: 100</label>
+                <Label type="number" id="Points">Your Points: @Model.NewPoints</label>
             </div>
         </div>
         <div class="row" style="margin-bottom:50px;">
@@ -142,7 +142,10 @@
                something
             </div>
             <div class="col-3">
-                <button>spend points here</button>
+                <form asp-page-handler="Increase" method="post">
+                <input type="hidden" name="Points" value="@Model.NewPoints" />
+                <input type="submit"  value="Increase by 10"/>
+                </form>
             </div>
             <div class="col-3">
                 some stuff here

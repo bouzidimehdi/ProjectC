@@ -27,8 +27,11 @@ namespace WebApplication1.Pages
         public List<ResponseShopingCart> _Products;
 
         public Shopping_card YourCart { get; set; }
+        public int Points { get; set; }
+        public int NewPoints { get; set; }
         public void OnGet()
         {
+            Points = 100;
             if (User.Identity.IsAuthenticated)
             {
                 string id = _userManager.GetUserId(User);
@@ -86,9 +89,17 @@ namespace WebApplication1.Pages
                 _context.Shopping_Card_Products.Remove(products);
                 await _context.SaveChangesAsync();
             }
+            return Page();
+
+
+        }
+
+        public  async Task<IActionResult> OnPostIncrease(int Points)
+        {
+            Points = Points + 10;
+            NewPoints = Points;
+
             return RedirectToPage();
-
-
         }
 
     }
