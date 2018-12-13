@@ -12112,7 +12112,7 @@
       ]
     },
     "System.Security.Cryptography.Xml/4.4.2": {
-      "sha512": "1m+fKVrApgKYMRuE0MF0vGjqy4XqAp1rCtyAzMXhJajMDDytMh/rHk9hp4M7KKk3QQZoWJUvyUY7xcw74w+JiQ==",
+      "sha512": "q9Dren/YP5jhRCkDvLfuaPpMTQzP97ANvzq/OoGgwK8YdLRSTABS9oW5/23OKoM2DRCuBrh4qaecD2YNhPtuzQ==",
       "type": "package",
       "path": "system.security.cryptography.xml/4.4.2",
       "files": [
@@ -13300,23 +13300,39 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mehdi\\.nuget\\packages\\": {},
+<<<<<<< Updated upstream
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\Dion\\.nuget\\packages\\": {},
+>>>>>>> Stashed changes
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+<<<<<<< Updated upstream
+      "projectUniqueName": "D:\\Tim Oosterlee\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
-      "packagesPath": "C:\\Users\\Mehdi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mehdi\\Desktop\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+      "projectPath": "D:\\Tim Oosterlee\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\Tim Oosterlee\\Documents\\ProjectC\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+=======
+      "projectUniqueName": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectName": "WebApplication1",
+      "projectPath": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\Dion\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\Dion\\Stack\\Git\\Groep4_ProjectC_twee\\WebApplication1\\WebApplication1\\obj\\",
+>>>>>>> Stashed changes
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Mehdi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+<<<<<<< Updated upstream
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Dion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Stashed changes
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

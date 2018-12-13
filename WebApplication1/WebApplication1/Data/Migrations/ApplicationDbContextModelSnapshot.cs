@@ -278,6 +278,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("License");
 
+                    b.Property<DateTime>("OrderDate");
+
                     b.Property<float>("Price");
 
                     b.Property<int>("ProductID");

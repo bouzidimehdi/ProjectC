@@ -64,7 +64,7 @@ namespace WebApplication1.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string gRecaptchaResponse, string returnUrl = null)
         {
             ReturnUrl = returnUrl;
 
@@ -84,16 +84,23 @@ namespace WebApplication1.Pages.Account
                     await _signInManager.SignOutAsync();
                     return Page();
                 }
-                
-                    if (result.Succeeded)
+
+                if (result.Succeeded)
                     {
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(Url.GetLocalUrl(returnUrl));
                     }
-            }
-               
-            
 
+                if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError("", "You are locked out from youre account please contact customer support");
+                    await _signInManager.SignOutAsync();
+                    return Page();
+                }
+            }
+
+
+            ModelState.AddModelError("", "You password is not correct");
             // If we got this far, something failed, redisplay form
             return Page();
         }

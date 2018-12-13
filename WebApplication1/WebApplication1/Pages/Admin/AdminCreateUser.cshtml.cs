@@ -52,7 +52,7 @@ namespace WebApplication1.Pages.Admin
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Text)]
             [Display(Name = "Last name *")]
-            [RegularExpression(@"^[A-Za-z�-�]+$", ErrorMessage = "Please only enter letters")]
+            [RegularExpression(@"^[a-zA-Z ]*$", ErrorMessage = "Please only enter letters")]
             public string LastName { get; set; }
 
             [Required]

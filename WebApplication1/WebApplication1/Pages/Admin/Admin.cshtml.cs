@@ -36,6 +36,9 @@ namespace WebApplication1.Pages.Admin
         public IList<Key> AllOrders { get; set; }
         public float SumOfOrders { get; set; }
 
+        public List<Key>[] AllOrdersAll { get; set; }
+        public List<float>[] AllOrdersSales { get; set; }
+
 
         public AdminModel(ApplicationDbContext context)
         {
@@ -90,10 +93,22 @@ namespace WebApplication1.Pages.Admin
                 // Sum products price from key
                 SumOfOrders = AllOrders.Sum(t => t.Price);
 
-                // Count all products
-                //TotalProducts =  _context.Product.Count();
+                AllOrdersAll = new List<Key>[12];
 
-                
+                for (int i = 0; i < 12; i++)
+                {
+                    AllOrdersAll[i] = (from key in _context.Key
+                                       where key.OrderDate.Month == (i + 1)
+                                       select key).ToList();
+                }
+
+                AllOrdersSales = new List<float>[12];
+                for (int i = 0; i < 12; i++)
+                {
+                    AllOrdersSales[i] = (from key in _context.Key
+                                       where key.OrderDate.Month == (i + 1)
+                                       select key.Price).ToList();
+                }
 
                 Message = "Your application description page.";
             }
