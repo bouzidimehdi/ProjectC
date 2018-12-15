@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,14 @@ namespace WebApplication1.Pages.Admin
         public List<Key>[] AllOrdersAll { get; set; }
         public List<float>[] AllOrdersSales { get; set; }
 
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        public class InputModel
+        {
+            [Required]
+            public int jaar { get; set; }
+        }
 
         public AdminModel(ApplicationDbContext context)
         {
@@ -55,8 +64,7 @@ namespace WebApplication1.Pages.Admin
         [TempData]
         public string StatusMessage2 { get; set; }
 
-
-        public async Task OnGetAsync()
+        public async Task OnPostAsync()
         {
             // Check if the user is logged in and authorised
             if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
@@ -66,30 +74,9 @@ namespace WebApplication1.Pages.Admin
                 RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true).ToListAsync();
                 UnregisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == false).ToListAsync();
 
-
-                // Haalt alle genres op uit de database om te gebruiken in grafiek
-                    //ActionGenre = await (from products in _context.Product
-                    //    where products.GenreIsAction == true
-                    //    select products).ToListAsync();
-                    //Adven = await (from products in _context.Product
-                    //    where products.GenreIsAdventure == true
-                    //    select products).ToListAsync();
-                    // MMO = await (from products in _context.Product
-                    //    where products.GenreIsMassivelyMultiplayer == true
-                    //    select products).ToListAsync();
-                    // Racer = await (from products in _context.Product
-                    //    where products.GenreIsRacing == true
-                    //    select products).ToListAsync();
-
-               // Top 5 hoogste prijzen van producten in de shop
-                     //Top5HighestPrice =  await _context.Product
-                     //                   .OrderByDescending(t => t.PriceFinal)
-                     //                   .Take(5)
-                     //                   .ToListAsync();
-               
                 // Haal de totale ordered producten op uit de database
-                 AllOrders = await _context.Key
-                                            .ToListAsync();
+                AllOrders = await _context.Key.Where(k => k.OrderDate.Year == Input.jaar)
+                    .ToListAsync();
                 // Sum products price from key
                 SumOfOrders = AllOrders.Sum(t => t.Price);
 
@@ -98,19 +85,62 @@ namespace WebApplication1.Pages.Admin
                 for (int i = 0; i < 12; i++)
                 {
                     AllOrdersAll[i] = (from key in _context.Key
-                                       where key.OrderDate.Month == (i + 1)
-                                       select key).ToList();
+                        where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                        select key).ToList();
                 }
 
                 AllOrdersSales = new List<float>[12];
                 for (int i = 0; i < 12; i++)
                 {
                     AllOrdersSales[i] = (from key in _context.Key
-                                       where key.OrderDate.Month == (i + 1)
-                                       select key.Price).ToList();
+                        where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                        select key.Price).ToList();
                 }
 
-                Message = "Your application description page.";
+                var test = 1;
+            }
+        }
+
+        public async Task OnGetAsync()
+        {
+            // Zet het standaard jaar neer.
+            Input = new InputModel()
+            {
+                jaar = DateTime.Now.Year
+            };
+
+            // Check if the user is logged in and authorised
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+
+                // Haalt alle registered users op 
+                RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true).ToListAsync();
+                UnregisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == false).ToListAsync();
+
+                // Haal de totale ordered producten op uit de database
+                AllOrders = await _context.Key.Where(k => k.OrderDate.Year == Input.jaar)
+                    .ToListAsync();
+                // Sum products price from key
+                SumOfOrders = AllOrders.Sum(t => t.Price);
+
+                AllOrdersAll = new List<Key>[12];
+
+                for (int i = 0; i < 12; i++)
+                {
+                    AllOrdersAll[i] = (from key in _context.Key
+                        where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                        select key).ToList();
+                }
+
+                AllOrdersSales = new List<float>[12];
+                for (int i = 0; i < 12; i++)
+                {
+                    AllOrdersSales[i] = (from key in _context.Key
+                        where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                        select key.Price).ToList();
+                }
+
+                var test = 1;
             }
         }
     }
