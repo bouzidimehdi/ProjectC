@@ -6,64 +6,90 @@
 
 <div>@Html.Partial("_StatusMessage", Model.StatusMessage1)</div>
 <div>@Html.Partial("_StatusMessage", Model.StatusMessage2)</div>
+
+
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="btn">Create new product</a>
-    <a asp-page="UserManage" id="ManageUserredirict" class="btn">User Management</a>
-    <a asp-page="../Index" class="btn">Home</a>
+<div class="container-fluid" style="padding-top:20px;">
+    <div class="row">
+        <div class="col-md-2" style="height:100%;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="nav-link">Create new product</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-page="UserManage" id="ManageUserredirict" class="nav-link">User Management</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-page="../Index" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Total users : @(Model.UnregisteredUsers.Count() + Model.RegisteredUsers.Count()) </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Orders selected year : @Model.AllOrders.Count()  </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Sales selected year: @Model.SumOfOrders  </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <canvas id="UsersGraph" width="100" height="100"></canvas>
+        </div>
+        <div class="col-6">
+            <canvas id="MonthlyOrders" style="width:100%; height:100%;"></canvas>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <canvas id="MonthlySales" width="300" height="100"></canvas>
+        </div>
 
-    <h2>@ViewData["Title"]</h2>
 
-    <div class="container">
-        <div class="col">
-            <form method="post" id="JaarFilter">
-                <label asp-for="Input.jaar"></label>
-                <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
-                    @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
+        @*<form method="post" id="JaarFilter">
+            <label asp-for="Input.jaar"></label>
+            <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
+                @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
+                {
+                    if (Model.Input.jaar == i)
                     {
-                        if (Model.Input.jaar == i)
-                        {
-                            <option value="@i" selected>@i</option>
-                        }
-                        else
-                        {
-                            <option value="@i">@i</option>
-                        }
+                        <option value="@i" selected>@i</option>
                     }
-                </select>
-            </form>
-        </div>
-        <div class="col">
-            <div class="col-md-3">
-                <canvas id="UsersGraph" width="100" height="100"></canvas>
-            </div>
-            <div class="col">
-                <canvas id="MonthlyOrders" width="300" height="100"></canvas>
-            </div>
-            <div class="col">
-                <canvas id="MonthlySales" width="300" height="100"></canvas>
-            </div>
-        </div>
+                    else
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+        </form>*@
+
 
     </div>
 
 
-    <div class="card">
-        <div class="card-body">
-            <p>Total users : @(Model.UnregisteredUsers.Count() + Model.RegisteredUsers.Count()) </p>
-        </div>
-    </div>
 
-    <div class="card">
-        <div class="card-body">
-            <p>Orders selected year : @Model.AllOrders.Count()  </p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <p>Sales selected year: @Model.SumOfOrders  </p>
-        </div>
-    </div>
+
+
+
+
+    </div>   
 
     <script>
         var ctx = document.getElementById("UsersGraph").getContext('2d');
@@ -72,7 +98,7 @@
             data: {
                 labels: ["Unregistered Users", "Registered Users"],
                 datasets: [{
-                    
+
                     data: [@Model.UnregisteredUsers.Count(),@Model.RegisteredUsers.Count()],
                     backgroundColor: [
 
@@ -94,8 +120,8 @@
                             beginAtZero:true
                         }
                     }]
-                    
-                   
+
+
                 }
             }
         });
@@ -109,7 +135,7 @@
                 labels: ["January", "Februari", "March", "April", "May", "June", "July", "August", "September", "Oktober","November","December"],
                 datasets: [{
                     label: "Monthly Orders #",
-                    data: 
+                    data:
                     [@Model.AllOrdersAll[0].Count(),
                     @Model.AllOrdersAll[1].Count(),
                     @Model.AllOrdersAll[2].Count(),
@@ -162,7 +188,7 @@
                 }]
             },
             options: {
-               
+
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -196,7 +222,7 @@
                             Math.round(@Model.AllOrdersSales[11].Sum())],
                     backgroundColor: "rgba(255, 206, 86, 0.2)"
 
-                    
+
                     //backgroundColor: [
 
                     //    'rgba(255, 206, 86, 0.2)',
@@ -214,8 +240,8 @@
                     //    'rgba(125, 100, 86, 0.2)',
                     //    'rgba(51, 240, 192, 0.2)'
 
-                    //],                    
-                 
+                    //],
+
                 }]
             },
             options: {
