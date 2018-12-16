@@ -24,7 +24,7 @@ namespace WebApplication1.Pages
         public async Task OnGetAsync()
         {
             Key = await _context.Key
-                    .Include(k => k.Products).ToListAsync();
+                    .Include(k => k.Products).Where(k => k.OrderDate > DateTime.Now.AddHours(-24)).ToListAsync();
         }
     }
 }
