@@ -6,42 +6,90 @@
 
 <div>@Html.Partial("_StatusMessage", Model.StatusMessage1)</div>
 <div>@Html.Partial("_StatusMessage", Model.StatusMessage2)</div>
+
+
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="btn">Create new product</a>
-    <a asp-page="UserManage" id="ManageUserredirict" class="btn">User Management</a>
-    <a asp-page="../Index" class="btn">Home</a>
-
-    <h2>@ViewData["Title"]</h2>
-    <h3>@Model.Message</h3>
-    <p>Use this area to provide additional information.</p>
-
-    <div class="container">
-        <div class="col">
-            <div class="col-md-3">
-                <canvas id="UsersGraph" width="100" height="100"></canvas>
+<div class="container-fluid" style="padding-top:20px;">
+    <div class="row">
+        <div class="col-md-2" style="height:100%;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a asp-page="AdminCreateProduct" id="CreateProductAdminButton" class="nav-link">Create new product</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-page="UserManage" id="ManageUserredirict" class="nav-link">User Management</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-page="../Index" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Total users : @(Model.UnregisteredUsers.Count() + Model.RegisteredUsers.Count()) </p>
+                </div>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Orders selected year : @Model.AllOrders.Count()  </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Sales selected year: @Model.SumOfOrders  </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <canvas id="UsersGraph" width="100" height="100"></canvas>
+        </div>
+        <div class="col-6">
+            <canvas id="MonthlyOrders" style="width:100%; height:100%;"></canvas>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <canvas id="MonthlySales" width="300" height="100"></canvas>
+        </div>
+
+
+        @*<form method="post" id="JaarFilter">
+            <label asp-for="Input.jaar"></label>
+            <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
+                @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
+                {
+                    if (Model.Input.jaar == i)
+                    {
+                        <option value="@i" selected>@i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+        </form>*@
+
 
     </div>
-   
 
-    <div class="card">
-        <div class="card-body">
-            <p>Total users : @(Model.UnregisteredUsers.Count() + Model.RegisteredUsers.Count()) </p>
-        </div>
-    </div>
-   
-    <div class="card">
-        <div class="card-body">
-            <p>Total Orders : @Model.AllOrders.Count()  </p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <p>Sales: @Model.SumOfOrders  </p>
-        </div>
-    </div>
+
+
+
+
+
+
+    </div>   
 
     <script>
         var ctx = document.getElementById("UsersGraph").getContext('2d');
@@ -72,11 +120,142 @@
                             beginAtZero:true
                         }
                     }]
+
+
                 }
             }
         });
     </script>
-   
+    <script>
+        var ctx = document.getElementById("MonthlyOrders").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+
+            data: {
+                labels: ["January", "Februari", "March", "April", "May", "June", "July", "August", "September", "Oktober","November","December"],
+                datasets: [{
+                    label: "Monthly Orders #",
+                    data:
+                    [@Model.AllOrdersAll[0].Count(),
+                    @Model.AllOrdersAll[1].Count(),
+                    @Model.AllOrdersAll[2].Count(),
+                    @Model.AllOrdersAll[3].Count(),
+                    @Model.AllOrdersAll[4].Count(),
+                    @Model.AllOrdersAll[5].Count(),
+                    @Model.AllOrdersAll[6].Count(),
+                    @Model.AllOrdersAll[7].Count(),
+                    @Model.AllOrdersAll[8].Count(),
+                    @Model.AllOrdersAll[9].Count(),
+                    @Model.AllOrdersAll[10].Count(),
+                    @Model.AllOrdersAll[11].Count()     ],
+
+                    backgroundColor: [
+
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(124, 100, 86, 0.2)',
+                        'rgba(50, 240, 192, 0.2)',
+
+                        'rgba(254, 206, 86, 0.2)',
+                        'rgba(73, 192, 192, 0.2)',
+                        'rgba(123, 100, 86, 0.2)',
+                        'rgba(49, 240, 192, 0.2)',
+
+                        'rgba(253, 206, 86, 0.2)',
+                        'rgba(76, 192, 192, 0.2)',
+                        'rgba(125, 100, 86, 0.2)',
+                        'rgba(51, 240, 192, 0.2)'
+
+                    ],
+                    borderColor: [
+
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(124, 100, 86, 1)',
+                        'rgba(50, 240, 192, 1)',
+
+                        'rgba(254, 206, 86, 1)',
+                        'rgba(74, 192, 192, 1)',
+                        'rgba(123, 100, 86, 1)',
+                        'rgba(49, 240, 192, 1)',
+
+                        'rgba(253, 206, 86, 1)',
+                        'rgba(76, 192, 192, 1)',
+                        'rgba(125, 100, 86, 1)',
+                        'rgba(51, 240, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById("MonthlySales").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+
+            data: {
+                labels: ["January", "Februari", "March", "April", "May", "June", "July", "August", "September", "Oktober","November","December"],
+                datasets: [{
+                    label: "Monthly Sales €",
+                    data:      [Math.round(@Model.AllOrdersSales[0].Sum()),
+                            Math.round(@Model.AllOrdersSales[1].Sum()),
+                            Math.round(@Model.AllOrdersSales[2].Sum()),
+                            Math.round(@Model.AllOrdersSales[3].Sum()),
+                            Math.round(@Model.AllOrdersSales[4].Sum()),
+                            Math.round(@Model.AllOrdersSales[5].Sum()),
+                            Math.round(@Model.AllOrdersSales[6].Sum()),
+                            Math.round(@Model.AllOrdersSales[7].Sum()),
+                            Math.round(@Model.AllOrdersSales[8].Sum()),
+                            Math.round(@Model.AllOrdersSales[9].Sum()),
+                            Math.round(@Model.AllOrdersSales[10].Sum()),
+                            Math.round(@Model.AllOrdersSales[11].Sum())],
+                    backgroundColor: "rgba(255, 206, 86, 0.2)"
+
+
+                    //backgroundColor: [
+
+                    //    'rgba(255, 206, 86, 0.2)',
+                    //    'rgba(75, 192, 192, 0.2)',
+                    //    'rgba(124, 100, 86, 0.2)',
+                    //    'rgba(50, 240, 192, 0.2)',
+
+                    //    'rgba(254, 206, 86, 0.2)',
+                    //    'rgba(73, 192, 192, 0.2)',
+                    //    'rgba(123, 100, 86, 0.2)',
+                    //    'rgba(49, 240, 192, 0.2)',
+
+                    //    'rgba(253, 206, 86, 0.2)',
+                    //    'rgba(76, 192, 192, 0.2)',
+                    //    'rgba(125, 100, 86, 0.2)',
+                    //    'rgba(51, 240, 192, 0.2)'
+
+                    //],
+
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
 
 
 

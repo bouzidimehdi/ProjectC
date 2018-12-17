@@ -32,9 +32,9 @@ namespace WebApplication1.Services
                 listofKeys = listofKeys + Key.Key + Key.ProductName + "<br>";
             }
 
-            return emailSender.SendEmailAsync(email, "Youre purchase",
-                "Thank you for youre purchase by Monkey.<br>" +
-                "Youre key's will be listed below:<br>" +
+            return emailSender.SendEmailAsync(email, "Your purchase",
+                "Thank you for your purchase by Monkey.<br>" +
+                "Your keys will be listed below:<br>" +
                 listofKeys);
         }
     }
