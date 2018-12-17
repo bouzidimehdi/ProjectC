@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication1.Data;
 using WebApplication1.Resource;
 using WebApplication1.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApplication1.Pages
 {
@@ -107,7 +106,6 @@ namespace WebApplication1.Pages
                 _context.Shopping_Card_Products.RemoveRange(fullcart);
 
             }
-
             else
             {
                 string cookieshoping = Request.Cookies["ShoppingCart"];
@@ -116,13 +114,15 @@ namespace WebApplication1.Pages
 
                 foreach (shoppingCart_cookie item in shoppingcartlist)
                 {
-                    while (i < item.Quantity - 1)
+                    while (i < item.Quantity)
                     {
                         Key keyz = new Key()
                         {
                             //UserID = id,
                             License = Guid.NewGuid().ToString(),
-                            ProductID = item.ProductID
+                            ProductID = item.ProductID,
+                            Price = 0,
+                            OrderDate = DateTime.Now
                         };
                         _context.Key.Add(keyz);
                         keys.Add(keyz);
