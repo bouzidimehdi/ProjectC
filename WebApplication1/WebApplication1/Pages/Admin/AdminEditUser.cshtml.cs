@@ -101,7 +101,7 @@ namespace WebApplication1.Pages.Admin
             public bool VerificationEmail { get; set; }
 
             [Required]
-            [Display(Name = "Confirm user there e-mail")]
+            [Display(Name = "Confirm user's e-mail")]
             public bool ConfirmEmail { get; set; }
 
             [Required]

@@ -7,11 +7,11 @@
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    @Html.Partial("_StatusMessage", Model.StatusMessage)
+    <div class="container" style="margin-top:1em;margin-bottom:1em;width:50%;">
     <h2>AdminReadUser</h2>
     <a asp-page="UserManage" class="btn">Back</a>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <form method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -332,31 +332,33 @@
                     <div class="input-group">
                         @if (Model.gebruiker.EmailConfirmed)
                         {
-                            <input asp-for="Input.ConfirmEmail" checked class="form-control" disabled/>
+                            <input asp-for="Input.ConfirmEmail" checked class="checkbox" style="width:2em;height:2em;" disabled/>
                         }
                         else
                         {
-                            <input asp-for="Input.ConfirmEmail" class="form-control" disabled/>
+                            <input asp-for="Input.ConfirmEmail"  class="checkbox" style="width:2em;height:2em;" disabled/>
                         }
 
                         <span asp-validation-for="Input.ConfirmEmail" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="row">
+                
                     <div class="form-group">
                         <label asp-for="Input.AdminRole"></label>
+                        <div class="input-group">
                         @if (Model.IsInRoleAdmin)
                         {
-                            <input asp-for="Input.AdminRole" checked class="form-control" disabled />
+                            <input asp-for="Input.AdminRole" checked class="checkbox" style="width:2em;height:2em;"disabled />
                         }
                         else
                         {
-                            <input asp-for="Input.AdminRole" class="form-control" disabled />
+                            <input asp-for="Input.AdminRole" class="checkbox" style="width:2em;height:2em;" disabled />
                         }
 
                         <span asp-validation-for="Input.AdminRole" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
+                
 
                 <div class="form-group">
                     <label asp-for="Input.PhoneNumber"></label>
@@ -372,6 +374,7 @@
                 <button type="submit" class="btn btn-default">Save</button>
             </form>
         </div>
+    </div>
     </div>
 
     @section Scripts {
