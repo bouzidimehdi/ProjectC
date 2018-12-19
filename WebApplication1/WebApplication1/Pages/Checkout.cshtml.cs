@@ -19,6 +19,7 @@ namespace WebApplication1.Pages
         private readonly ILogger<ShoppingCartModel> _logger;
         public string id { get; set; }
         public FirstnameLastnameEmail EmailKey;
+        public ApplicationUser _User;
 
         // Product
         public Product product;
@@ -28,6 +29,7 @@ namespace WebApplication1.Pages
             _context = context;
             _userManager = userManager;
             _logger = logger;
+
         }
         public List<ResponseShopingCart> _Products;
         //public List<Shopping_card_Product> hopping_Card_Products { get; set; }
@@ -41,6 +43,7 @@ namespace WebApplication1.Pages
             if (User.Identity.IsAuthenticated)
             {
                 id = _userManager.GetUserId(User);
+                _User = _userManager.GetUserAsync(User).Result;
                 var query2 = from shop in _context.Shopping_card
                              where shop.User_ID == id
                              select shop;
