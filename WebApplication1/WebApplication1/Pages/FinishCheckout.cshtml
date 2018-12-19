@@ -24,12 +24,13 @@
                             <tbody>
                                 @foreach (var item in Model.Key)
                                 {
+                                    
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Products.ResponseName)
                                     </td>
                                     <td class="text-warning" id="status">Processing</td>
-                                    <td class="text-info">xxxx_xxxx_xxxx_xxxx</td>
+                                    <td class="text-info" id="">xxxx_xxxx_xxxx_xxxx</td>
                                 </tr>
                                     }
                                 </tbody>
@@ -71,24 +72,24 @@
             ja[i].innerHTML = 'Processed';
         }
 
+       
 
 
-
-      @foreach (var item in Model.Key) {
+      @for (var i = 0; i < Model.Key.Count; i++){
            <text>
 
-        for (i in license) {
-            console.log(license[i]);
+        /*for (i in license) {
+            console.log(license[i]);*/
 
-            license[i].innerHTML = "@item.License";
-        }
+            license[@i].innerHTML = "@Model.Key[i].License";
+       // }
         
           </text>
-              }
+       }
     }
 
 
-    setTimeout(function () { intervalFunc(); },1000);
+    setTimeout(function () { intervalFunc(); },10000);
 
 </script>
 =======

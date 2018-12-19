@@ -44,11 +44,11 @@ namespace WebApplication1.Pages
             [Display(Name = "Email *")]
             public string Email { get; set; }
         }
-        public async void OnGetAsync()
+        public void OnGet()
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _userManager.GetUserAsync(User);
+                var user = _userManager.GetUserAsync(User).Result;
                 Input.Email = user.Email;
                 Input.FirstName = user.Name;
                 Input.LastName = user.LastName;
