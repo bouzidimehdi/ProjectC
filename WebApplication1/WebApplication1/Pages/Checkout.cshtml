@@ -3,8 +3,7 @@
 @using static AddKeyModel
 @{
     float totalz = 0;
-    int i = 0;
-    bool completed = false;
+    
 }
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -92,6 +91,7 @@
                     @foreach (var item in Model._Products)
                     {
                         totalz += (item.product.PriceFinal * item.quantity);
+                        
 
                         <tr>
                             <td>@item.product.ResponseName</td>
@@ -132,6 +132,7 @@
 
             <script>
                 function UpdatePoints() {
+
                     var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
                     var Total = parseFloat(@totalz);
 
@@ -143,7 +144,12 @@
                         document.getElementById("Discount").innerHTML = Discount;
                     }
 
-                    document.getElementById("Subtotal").innerHTML = Total - Discount;
+                    if (PointsSpend != 0) {
+                        document.getElementById("Subtotal").innerHTML = Total - Discount;
+                    }
+                    else {
+                        document.getElementById("Subtotal").innerHTML = @(totalz);
+                    }
                 }
             </script>
         }
