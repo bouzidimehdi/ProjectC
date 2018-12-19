@@ -134,9 +134,10 @@
                 function UpdatePoints() {
 
                     var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
-                    var Total = parseFloat(@totalz);
+                    var Total = parseFloat("@totalz.ToString()");
 
-                    var Discount = (Math.round((PointsSpend + Total) ** 1.8) / 1000);
+                    var Discount = Math.round(((PointsSpend + Total) ** 1.8 / 1000) * 100) / 100;
+                    var Total = Math.round((Total - Discount) * 100 ) / 100
 
                     if (PointsSpend == 0) {
                         document.getElementById("Discount").innerHTML = 0;
@@ -145,10 +146,10 @@
                     }
 
                     if (PointsSpend != 0) {
-                        document.getElementById("Subtotal").innerHTML = Total - Discount;
+                        document.getElementById("Subtotal").innerHTML = Total;
                     }
                     else {
-                        document.getElementById("Subtotal").innerHTML = @(totalz);
+                        document.getElementById("Subtotal").innerHTML = "@totalz";
                     }
                 }
             </script>
