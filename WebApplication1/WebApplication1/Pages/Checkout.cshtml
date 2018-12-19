@@ -136,7 +136,7 @@
                     var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
                     var Total = parseFloat("@totalz.ToString()");
 
-                    var Discount = Math.round(((PointsSpend + Total) ** 1.8 / 1000) * 100) / 100;
+                    var Discount = Math.round((Math.pow((PointsSpend + Total), 1.8) / 1000) * 100) / 100;
                     var Total = Math.round((Total - Discount) * 100 ) / 100
 
                     if (PointsSpend == 0) {
