@@ -45,6 +45,7 @@ namespace WebApplication1.Pages.Admin
 
         public List<Key>[] AllOrdersAll { get; set; }
         public List<float>[] AllOrdersSales { get; set; }
+        public List<float>[] AllOrdersSalesWeek { get; set; }
 
         [BindProperty] public InputModel Input { get; set; }
 
@@ -145,6 +146,8 @@ namespace WebApplication1.Pages.Admin
 
                     var test = 1;
                 }
+
+                var test = 1;
             }
         }
     }
