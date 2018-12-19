@@ -105,7 +105,7 @@
     </div>
     <div class="row" style="padding-top:50px;">
 
-        @if (User.Identity.IsAuthenticated && Model._User.TPunten > 0)
+        @if (User.Identity.IsAuthenticated && Model._User.TPunten >= 0)
         {
             <div class="col-md-6">
                 <h2>Points Discount</h2>
@@ -135,7 +135,7 @@
                     var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
                     var Total = parseFloat(@totalz);
 
-                    var Discount = ((PointsSpend + Total) ^ 1.8) / 1000;
+                    var Discount = (Math.round((PointsSpend + Total) ** 1.8) / 1000);
 
                     if (PointsSpend == 0) {
                         document.getElementById("Discount").innerHTML = 0;

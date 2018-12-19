@@ -144,10 +144,10 @@ namespace WebApplication1.Pages.Admin
                             select key.Price).ToList();
                     }
 
-                    var test = 1;
+                    
                 }
 
-                var test = 1;
+                
             }
         }
     }
