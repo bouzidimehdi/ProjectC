@@ -96,36 +96,11 @@ namespace WebApplication1.Data
                 .WithMany(User => User.Orders)
                 .HasForeignKey(Order => Order.User_ID);
 
-            // Make relation between Order and Factuur
-            builder.Entity<Order>()
-                .HasOne(Order => Order.Factuur)
-                .WithOne(Factuur => Factuur.Order)
-                .HasForeignKey<Order>(Order => Order.Factuur_ID);
-
-            // Make relation between Order and Orderd_Product
-            builder.Entity<Orderd_Product>()
-                .HasOne(Orderd_Product => Orderd_Product.Order)
-                .WithMany(Order => Order.OrderdProducts)
-                .HasForeignKey(Orderd_Product => Orderd_Product.Order_ID);
-
-            // Make relation between Orderd_Product and Key
-            builder.Entity<Orderd_Product>()
-                .HasOne(Orderd_Product => Orderd_Product.Key)
-                .WithMany(Key => Key.OrderdProducts)
-                .HasForeignKey(Orderd_Product => Orderd_Product.Key_ID);
-
-            // Make relation between Factuur and Factuur_Producten
-            builder.Entity<Factuur_Producten>()
-                .HasOne(Factuur_Producten => Factuur_Producten.Factuur)
-                .WithMany(Factuur => Factuur.FactuurProductens)
-                .HasForeignKey(Factuur_Producten => Factuur_Producten.Factuur_ID);
-
-            // Make relation between Factuur_Producten and key
-            builder.Entity<Factuur_Producten>()
-                .HasOne(Factuur_Producten => Factuur_Producten.Key)
-                .WithOne(Key => Key.FactuurProducten)
-                .HasForeignKey<Factuur_Producten>(Factuur_Producten => Factuur_Producten.Key_ID);
-
+            // Make relation between Order and Key
+            builder.Entity<Key>()
+                .HasOne(Key => Key.Order)
+                .WithMany(Order => Order.Keys)
+                .HasForeignKey(Key => Key.OrderID);
         }
     }
 }
