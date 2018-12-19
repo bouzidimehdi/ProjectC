@@ -175,6 +175,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("Street");
 
+                    b.Property<int>("TPunten");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -235,6 +237,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("OrderID");
+
                     b.Property<bool>("Payed");
 
                     b.Property<string>("Streetname");
@@ -245,6 +249,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("OrderID");
+
                     b.ToTable("Factuur");
                 });
 
@@ -253,7 +259,11 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("FactuurID");
+
                     b.Property<int>("Factuur_ID");
+
+                    b.Property<int?>("KeyID");
 
                     b.Property<int>("Key_ID");
 
@@ -263,10 +273,9 @@ namespace WebApplication1.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Factuur_ID");
+                    b.HasIndex("FactuurID");
 
-                    b.HasIndex("Key_ID")
-                        .IsUnique();
+                    b.HasIndex("KeyID");
 
                     b.ToTable("Factuur_Producten");
                 });
@@ -280,6 +289,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
+                    b.Property<int>("OrderID");
+
                     b.Property<float>("Price");
 
                     b.Property<int>("ProductID");
@@ -289,6 +300,8 @@ namespace WebApplication1.Data.Migrations
                     b.Property<string>("UserID");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
 
                     b.HasIndex("ProductID");
 
@@ -300,14 +313,15 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Factuur_ID");
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<int>("PointsGain");
+
+                    b.Property<int>("PointsSpend");
 
                     b.Property<string>("User_ID");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("Factuur_ID")
-                        .IsUnique();
 
                     b.HasIndex("User_ID");
 
@@ -319,15 +333,19 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("KeyID");
+
                     b.Property<int>("Key_ID");
+
+                    b.Property<int?>("OrderID");
 
                     b.Property<int>("Order_ID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Key_ID");
+                    b.HasIndex("KeyID");
 
-                    b.HasIndex("Order_ID");
+                    b.HasIndex("OrderID");
 
                     b.ToTable("Orderd_Product");
                 });
@@ -617,21 +635,31 @@ namespace WebApplication1.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("WebApplication1.Data.Factuur", b =>
+                {
+                    b.HasOne("WebApplication1.Data.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderID");
+                });
+
             modelBuilder.Entity("WebApplication1.Data.Factuur_Producten", b =>
                 {
                     b.HasOne("WebApplication1.Data.Factuur", "Factuur")
                         .WithMany("FactuurProductens")
-                        .HasForeignKey("Factuur_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FactuurID");
 
                     b.HasOne("WebApplication1.Data.Key", "Key")
-                        .WithOne("FactuurProducten")
-                        .HasForeignKey("WebApplication1.Data.Factuur_Producten", "Key_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("KeyID");
                 });
 
             modelBuilder.Entity("WebApplication1.Data.Key", b =>
                 {
+                    b.HasOne("WebApplication1.Data.Order", "Order")
+                        .WithMany("Keys")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("WebApplication1.Data.Product", "Products")
                         .WithMany("Keys")
                         .HasForeignKey("ProductID")
@@ -640,11 +668,6 @@ namespace WebApplication1.Data.Migrations
 
             modelBuilder.Entity("WebApplication1.Data.Order", b =>
                 {
-                    b.HasOne("WebApplication1.Data.Factuur", "Factuur")
-                        .WithOne("Order")
-                        .HasForeignKey("WebApplication1.Data.Order", "Factuur_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("WebApplication1.Data.ApplicationUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("User_ID");
@@ -653,14 +676,12 @@ namespace WebApplication1.Data.Migrations
             modelBuilder.Entity("WebApplication1.Data.Orderd_Product", b =>
                 {
                     b.HasOne("WebApplication1.Data.Key", "Key")
-                        .WithMany("OrderdProducts")
-                        .HasForeignKey("Key_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("KeyID");
 
                     b.HasOne("WebApplication1.Data.Order", "Order")
-                        .WithMany("OrderdProducts")
-                        .HasForeignKey("Order_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("OrderID");
                 });
 
             modelBuilder.Entity("WebApplication1.Data.Role", b =>
