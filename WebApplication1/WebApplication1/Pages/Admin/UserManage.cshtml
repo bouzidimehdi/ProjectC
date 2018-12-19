@@ -19,12 +19,13 @@
         @{
             foreach (var item in Model.Users)
             {
-                <tr>
-                    <td>@item.Email</td>
-                    <td>@item.Name @item.LastName</td>
-                    <td><a asp-page="AdminEditUser" asp-route-UserID="@item.Id">read/edit</a></td>
-                    <td><a asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a></td>
-                </tr>
+        <tr>
+            <td>@item.Email</td>
+            <td>@item.Name @item.LastName</td>
+            <td><a asp-page="AdminEditUser" asp-route-UserID="@item.Id">edit</a> |
+            <a asp-page="AdminReadUser" asp-route-UserID="@item.Id">read</a></td>
+            <td><a asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a></td>
+        </tr>
             }
         }
     </table>
