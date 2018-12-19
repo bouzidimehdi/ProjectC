@@ -53,7 +53,7 @@ namespace WebApplication1.Pages.Admin
             [Required]
             [Display(Name = "Price of the product *")]
             //[RegularExpression(@"^[1-9]+$", ErrorMessage ="No negative numbers")]
-            [Range(0, 9999, ErrorMessage = "Price has to be between 0 and 9.999")]
+            //[Range(0, 9999, ErrorMessage = "Price has to be between 0 and 9.999")]
             public float PriceFinal { get; set; }
 
 
