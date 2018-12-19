@@ -23,12 +23,26 @@
                 <li class="nav-item">
                     <a asp-page="../Index" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
             </ul>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            <form method="post" id="JaarFilter">
+                <label asp-for="Input.jaar"></label>
+                <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
+                    @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
+                    {
+                        if (Model.Input.jaar == i)
+                        {
+                            <option value="@i" selected>@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+            </form>
+        </div>
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
@@ -52,51 +66,27 @@
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-3">
+            <label>Total registerd users:</label>
             <canvas id="UsersGraph" width="100" height="100"></canvas>
         </div>
         <div class="col-6">
-            <canvas id="MonthlyOrders" style="width:100%; height:100%;"></canvas>
+            <label>Monthly orders selected per year:</label>
+            <canvas id="MonthlyOrders" style="width: 100%; height: 100%;"></canvas>
         </div>
         <div class="col-md-6"></div>
         <div class="col-md-6">
+            <label>Monthly salales selected per year:</label>
             <canvas id="MonthlySales" width="300" height="100"></canvas>
         </div>
-
-
-        @*<form method="post" id="JaarFilter">
-            <label asp-for="Input.jaar"></label>
-            <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
-                @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
-                {
-                    if (Model.Input.jaar == i)
-                    {
-                        <option value="@i" selected>@i</option>
-                    }
-                    else
-                    {
-                        <option value="@i">@i</option>
-                    }
-                }
-            </select>
-        </form>*@
-
-
     </div>
-
-
-
-
-
-
-
-    </div>   
+</div>   
 
     <script>
         var ctx = document.getElementById("UsersGraph").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ["Unregistered Users", "Registered Users"],
+                labels: ["Unconfirmed Users", "Confirmed Users"],
                 datasets: [{
 
                     data: [@Model.UnregisteredUsers.Count(),@Model.RegisteredUsers.Count()],

@@ -103,15 +103,14 @@ namespace WebApplication1.Pages.Admin
 
         public async Task OnGetAsync()
         {
-            // Zet het standaard jaar neer.
-            Input = new InputModel()
-            {
-                jaar = DateTime.Now.Year
-            };
-
             // Check if the user is logged in and authorised
             if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
+                // Zet het standaard jaar neer.
+                Input = new InputModel()
+                {
+                    jaar = DateTime.Now.Year
+                };
 
                 // Haalt alle registered users op 
                 RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true).ToListAsync();
