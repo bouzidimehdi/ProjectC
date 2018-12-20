@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WebApplication1.Pages.Admin
 {
+    //date time moet nog weer veranderd worden om input te laten beslissen wat je laat zien op grafieken en cards
+
     public class AdminModel : PageModel
     {
         public AdminModel(ApplicationDbContext context)
@@ -27,17 +29,6 @@ namespace WebApplication1.Pages.Admin
         // all unregistered users
         public IList<ApplicationUser> UnregisteredUsers { get; private set; }
 
-        // Grafiek voor genres
-        //public IList<Product> ActionGenre { get; set; }
-        //public IList<Product> MMO { get; set; }
-        //public IList<Product> Adven { get; set; }
-        //public IList<Product> Racer { get; set; }
-
-        // Count total products
-        // public int TotalProducts { get; set; }
-        // Grafiek voor Top 5 duurste producten
-        //public IList<Product> Top5HighestPrice { get; set; }
-
 
         // Alle orders die ooit zijn gemaakt in de database ( alle keys)
         public IList<Key> AllOrders { get; set; }
@@ -45,7 +36,7 @@ namespace WebApplication1.Pages.Admin
 
         public List<Key>[] AllOrdersAll { get; set; }
         public List<float>[] AllOrdersSales { get; set; }
-        public List<float>[] AllOrdersSalesWeek { get; set; }
+
 
         [BindProperty] public InputModel Input { get; set; }
 
@@ -78,7 +69,7 @@ namespace WebApplication1.Pages.Admin
                         .ToListAsync();
 
                     // Haal de totale ordered producten op uit de database
-                    AllOrders = await _context.Key.Where(k => k.OrderDate.Year == Input.jaar)
+                    AllOrders = await _context.Key.Where(k => k.OrderDate.Year == DateTime.Now.Year)
                         .ToListAsync();
                     // Sum products price from key
                     SumOfOrders = AllOrders.Sum(t => t.Price);
@@ -87,22 +78,22 @@ namespace WebApplication1.Pages.Admin
 
                     for (int i = 0; i < 12; i++)
                     {
+                    
                         AllOrdersAll[i] = (from key in _context.Key
-                            where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
-                            select key).ToList();
+                            where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
+                                           select key).ToList();
                     }
 
                     AllOrdersSales = new List<float>[12];
                     for (int i = 0; i < 12; i++)
                     {
                         AllOrdersSales[i] = (from key in _context.Key
-                            where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
-                            select key.Price).ToList();
+                            where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
+                                             select key.Price).ToList();
                     }
 
-                    var test = 1;
+                   
                 }
-
             }
 
             public async Task OnGetAsync()
@@ -123,7 +114,7 @@ namespace WebApplication1.Pages.Admin
                         .ToListAsync();
 
                     // Haal de totale ordered producten op uit de database
-                    AllOrders = await _context.Key.Where(k => k.OrderDate.Year == Input.jaar)
+                    AllOrders = await _context.Key.Where(k => k.OrderDate.Year == DateTime.Now.Year) 
                         .ToListAsync();
                     // Sum products price from key
                     SumOfOrders = AllOrders.Sum(t => t.Price);
@@ -132,24 +123,29 @@ namespace WebApplication1.Pages.Admin
 
                     for (int i = 0; i < 12; i++)
                     {
-                        AllOrdersAll[i] = (from key in _context.Key
-                            where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
-                            select key).ToList();
-                    }
+                    //AllOrdersAll[i] = (from key in _context.Key
+                    //    where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                    //    select key).ToList();
+                    AllOrdersAll[i] = (from key in _context.Key
+                                       where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
+                                       select key).ToList();
+                }
 
                     AllOrdersSales = new List<float>[12];
                     for (int i = 0; i < 12; i++)
                     {
-                        AllOrdersSales[i] = (from key in _context.Key
-                            where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
-                            select key.Price).ToList();
-                    }
-
-                    var test = 1;
+                    //AllOrdersSales[i] = (from key in _context.Key
+                    //    where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                    //    select key.Price).ToList();
+                    AllOrdersSales[i] = (from key in _context.Key
+                                         where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
+                                         select key.Price).ToList();
                 }
 
-              
+                    
+                }
 
+                
             }
         }
     }

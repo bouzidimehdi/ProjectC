@@ -42,7 +42,7 @@ namespace WebApplication1.Pages
         [BindProperty]
         public Key Key { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(string email, string firstname, string lastname, int pointsSpend)
+        public async Task<IActionResult> OnPostAsync(string email, string firstname, string lastname, int? PointsSpend)
         {
 
             var id = _userManager.GetUserId(User);
@@ -68,11 +68,17 @@ namespace WebApplication1.Pages
                             select shoppingProducts;
                 proptabtab = query.FirstOrDefault();
 
+                if (PointsSpend > gebruiker.TPunten || PointsSpend == null)
+                {
+                    PointsSpend = 0;
+                }
+
                 Order Order = new Order()
                 {
                     User_ID = id,
                     PointsGain = 0,
-                    PointsSpend = 0,
+                    Paid = 0,
+                    PointsSpend = (int)PointsSpend,
                     OrderDate = DateTime.Now,
                     Keys = new List<Key>(),
                 };
@@ -97,8 +103,15 @@ namespace WebApplication1.Pages
                     i = 0;
                 }
 
+                if (PointsSpend != null && PointsSpend != 0)
+                {
+                    double Discount = Math.Round((Math.Pow(((int)PointsSpend + TotalPrice), 1.8) / 1000) * 100) / 100;
+                    TotalPrice = (float) Math.Round((TotalPrice - Discount) * 100) / 100;
+                }
+
                 Order.PointsGain = (int)Math.Round(TotalPrice);
-                gebruiker.TPunten = gebruiker.TPunten + (int)Math.Round(TotalPrice) - pointsSpend;
+                Order.Paid = TotalPrice;
+                gebruiker.TPunten = gebruiker.TPunten + (int)Math.Round(TotalPrice) - (int)PointsSpend;
 
                 _context.Users.Update(gebruiker);
                 _context.Order.Add(Order);
