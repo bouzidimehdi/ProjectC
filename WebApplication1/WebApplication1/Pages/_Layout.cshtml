@@ -175,16 +175,16 @@
             padding-top: 2px !important;
         }
 
-    .formsearch:hover {
+    .formsearch {
         width: 200px;
         cursor: pointer;
     }
 
-        .formsearch:hover input {
+        .formsearch input {
             display: block;
         }
 
-        .formsearch:hover .fa {
+        .formsearch:hover  .fa {
             background: #66615B;
             color: white;
         }
@@ -270,4 +270,8 @@
     $.validator.methods.number = function (value, element) {
         return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
     }
+    $.validator.methods.range = function (value, element, param) {
+        var globalizedValue = value.replace(",", ".");
+        return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+    } 
 </script>
