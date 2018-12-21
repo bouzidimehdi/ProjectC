@@ -42,10 +42,11 @@ namespace WebApplication1.Pages
         [BindProperty]
         public Key Key { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(string email, string firstname, string lastname)
+        public async Task<IActionResult> OnPostAsync(string email, string firstname, string lastname, int? PointsSpend)
         {
 
             var id = _userManager.GetUserId(User);
+            ApplicationUser gebruiker = await _userManager.GetUserAsync(User);
             mehdiid = id;
             if (User.Identity.IsAuthenticated)
             {
@@ -67,36 +68,63 @@ namespace WebApplication1.Pages
                             select shoppingProducts;
                 proptabtab = query.FirstOrDefault();
 
-                List<Key> keys = new List<Key>();
+                if (PointsSpend > gebruiker.TPunten || PointsSpend == null)
+                {
+                    PointsSpend = 0;
+                }
+
+                Order Order = new Order()
+                {
+                    User_ID = id,
+                    PointsGain = 0,
+                    Paid = 0,
+                    PointsSpend = (int)PointsSpend,
+                    OrderDate = DateTime.Now,
+                    Keys = new List<Key>(),
+                };
+
+                float TotalPrice = 0;
 
                 foreach (var item in proptabtab)
                 {
                     while (i < item.quantity)
                     {
-                        Key keyz = new Key()
+                        TotalPrice = TotalPrice + item.product.PriceFinal;
+                        Order.Keys.Add(new Key()
                         {
                             UserID = id,
                             License = Guid.NewGuid().ToString(),
                             ProductID = item.product.ID,
                             Price = item.product.PriceFinal,
                             OrderDate = DateTime.Now
-                        };
-                        _context.Key.Add(keyz);
-                        keys.Add(keyz);
+                        });
                         i = i + 1;
                     }
                     i = 0;
                 }
 
-                // From List keys to only key array
-                EmailKeyArray[] EmailKey = new EmailKeyArray[keys.Count];
+                if (PointsSpend != null && PointsSpend != 0)
+                {
+                    double Discount = Math.Round((Math.Pow(((int)PointsSpend + TotalPrice), 1.8) / 1000) * 100) / 100;
+                    TotalPrice = (float) Math.Round((TotalPrice - Discount) * 100) / 100;
+                }
 
-                for (int j = 0; j < keys.Count; j++)
+                Order.PointsGain = (int)Math.Round(TotalPrice);
+                Order.Paid = TotalPrice;
+                gebruiker.TPunten = gebruiker.TPunten + (int)Math.Round(TotalPrice) - (int)PointsSpend;
+
+                _context.Users.Update(gebruiker);
+                _context.Order.Add(Order);
+
+                // From List keys to only key array
+                EmailKeyArray[] EmailKey = new EmailKeyArray[Order.Keys.Count];
+
+                for (int j = 0; j < Order.Keys.Count; j++)
                 {
                     EmailKey[j] = new EmailKeyArray();
-                    EmailKey[j].Key = keys[j].License;
+                    EmailKey[j].Key = Order.Keys[j].License;
                     EmailKey[j].ProductName = (from p in _context.Product
-                        where p.ID == keys[j].ProductID
+                        where p.ID == Order.Keys[j].ProductID
                         select p.ResponseName).FirstOrDefault();
                 }
 
