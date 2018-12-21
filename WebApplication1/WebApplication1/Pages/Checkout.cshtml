@@ -1,9 +1,9 @@
 ﻿@page
 @model CheckoutModel
+@using System.Xml.Schema
 @using static AddKeyModel
 @{
     float totalz = 0;
-    
 }
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -121,7 +121,10 @@
                     <select id="PointsSpend" name="PointsSpend" onchange="UpdatePoints()">
                         @for (int j = 0; j < 1000; j += 100)
                         {
-                            if (Model._User.TPunten >= j)
+                            double Discount = Math.Round((Math.Pow(j + totalz, 1.8) / 1000) * 100) / 100;
+                            double PercentDiscount = (Discount / totalz) * 100;
+
+                            if (Model._User.TPunten >= j && PercentDiscount <= 25)
                             {
                                 <option value="@j">@j</option>
                             }
@@ -136,8 +139,8 @@
                     var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
                     var Total = parseFloat("@totalz.ToString()");
 
-                    var Discount = Math.round((Math.pow((PointsSpend + Total), 1.8) / 1000) * 100) / 100;
-                    var Total = Math.round((Total - Discount) * 100 ) / 100
+                    var Discount = Math.round((Math.pow(PointsSpend + Total, 1.8) / 1000) * 100) / 100;
+                    var Total = Math.round((Total - Discount) * 100) / 100;
 
                     if (PointsSpend == 0) {
                         document.getElementById("Discount").innerHTML = 0;
