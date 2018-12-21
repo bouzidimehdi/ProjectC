@@ -9,13 +9,19 @@
 {
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2" style="height:100%; padding-left:0px; min-height:500px;" id="panel">
-                <nav class="navbar flex-column" style="min-height:500px; box-shadow:none; background-color:#2f5162;">
-                    <a class="navbar-brand" href="#">MONKEY.</a>
-                    <a class="navbar-brand" href="#" > Dashboard</a>
-                    <a class="navbar-brand" href="#"> User Manager</a>
-                    <a class="navbar-brand" href="#"> Orders</a>
-                </nav>
+            <div class="col-md-2" id="navigation">
+                <div class="logo">
+                    <a class="navbar-brand" style=" font-size:1rem; padding:20px 0px 20px 0px;"> MONKEY. ADMIN.
+                    </a>
+                </div>
+                <div class="navi" >
+                    <ul id="navi">
+                        <li class="textnavi active"><a href="Admin">Dashboard</a></li>
+                        <li class="textnavi"><a href="UserManage">User manager</a></li>
+                        <li class="textnavi"><a href="#">Product manager</a></li>
+                        <li class="textnavi"><a href="#">Orders</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-md-1" style="padding-right:0px !important; padding-left:0px !important;"></div>
 
@@ -60,20 +66,116 @@ else
         </div>
     </div>
     <script>
-        window.location.replace("https://localhost:44358")
+
+        // Get the container element
+        var btnContainer = document.getElementById("navi");
+
+        // Get all buttons with class="btn" inside the container
+        var btns = btnContainer.getElementsByClassName("textnavi");
+
+        // Loop through the buttons and add the active class to the current/clicked button
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+
     </script>
 }
 
     <style>
-    #content {
-        margin-top: 1.5rem !important;
-    }
+#content {
+    margin-top: 1.5rem !important;
+}
 
-    #panel {
-        margin-top: 0rem !important;
-    }
+#panel {
+    margin-top: 0rem !important;
+}
 
-    .navbar.flex-column a {
-        color:white !important;
-    }
+a:focus,a:hover,a{
+    outline:none;
+    text-decoration: none;
+}
+
+li,ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#navigation {
+    background: #fff;
+    padding: 0;
+}
+
+.display-table {
+    display: table;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.display-table-row {
+    display: table-row;
+    height: 100%;
+}
+
+.display-table-cell {
+    display: table-cell;
+    float: none;
+    height: 100%;
+}
+
+.v-align {
+    vertical-align: top;
+}
+
+.navi i {
+    font-size: 20px;
+}
+
+
+.logo {
+    text-align: center;
+}
+
+.navi a {
+    color: #212529;
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 28px 20px;
+    text-decoration: none;
+}
+        
+.navi i {
+    margin-right: 15px;
+    color: #5584ff;
+}
+
+.navi .active a {
+    background: #e7f2ff;
+    border-left: 5px solid #007bff;
+    padding-left: 15px;
+}
+
+        .navi .active li {
+            background: #e7f2ff;
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+        }
+
+.navi a:hover {
+    background: #e7f2ff none repeat scroll 0 0;
+    border-left: 5px solid #007bff;
+    display: block;
+    padding-left: 15px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
     </style>
+
