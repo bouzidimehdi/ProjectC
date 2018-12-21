@@ -25,14 +25,14 @@
                 </ul>
             </div>
             <div class="col-md-1">
-                <form method="post" id="JaarFilter">
+                @*<form method="post" id="JaarFilter">
                     <label asp-for="Input.jaar"></label>
-                    <select asp-for="Input.jaar" onchange="document.getElementById('JaarFilter').submit();">
+                    <select asp-for="Input.jaar">
                         @for (int i = DateTime.Now.Year - 15; i <= DateTime.Now.Year; i++)
                         {
                             if (Model.Input.jaar == i)
                             {
-                                <option value="@i" selected>@i</option>
+                                <option id="@i" value="@i" selected>@i</option>
                             }
                             else
                             {
@@ -40,9 +40,18 @@
                             }
                         }
                     </select>
-                </form>
+                </form>*@
+                <label>Filter for months</label>
+                <select id="Yearvalue">
+                    <option value="@DateTime.Now.Year">@DateTime.Now.Year</option>
+                    <option value="@DateTime.Now.AddYears(-1).Year">@DateTime.Now.AddYears(-1).Year</option>
+                    <option value="@DateTime.Now.AddYears(-2).Year">@DateTime.Now.AddYears(-2).Year</option>
+                </select>
 
-                <button id="ChangeThis">CLick to change</button>
+                @*<button id="OrderThisYear">See orders @DateTime.Now.Year</button>
+                <button id="OrderLastYear">See orders @DateTime.Now.AddYears(-1).Year</button>
+                <button id="Order2Years">See orders @DateTime.Now.AddYears(-2).Year</button>*@
+                
             </div>
             <div class="col-md-3">
                 <div class="card">
@@ -54,14 +63,14 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <p>Orders selected year : @Model.AllOrders.Count()  </p>
+                        <p id="OrderCard">Orders selected year : <text id="DataOrderCard">@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Count()</text> </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <p>Sales selected year: @Model.SumOfOrders  </p>
+                        <p id="SalesCard">Sales selected year: <text id="DataSalesCard">@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Sum(t => t.Price)</text>  </p>
                     </div>
                 </div>
             </div>
@@ -71,17 +80,51 @@
                 <canvas id="UsersGraph" width="100" height="100"></canvas>
             </div>
             <div class="col-6">
-                <label>Monthly orders selected per year:</label>
-                <canvas id="MonthlyOrders" width= "100" height= "50"></canvas>
+                <canvas id="MonthlyOrders" width="100" height="50"></canvas>
             </div>
             <div class="col-md-6"></div>
             <div class="col-md-6">
-                <label>Monthly salales selected per year:</label>
                 <canvas id="MonthlySales" width="300" height="100"></canvas>
             </div>
         </div>
     </div>
 
+    // Background kleur en border die overal hetzelfde zijn
+    <script>
+        var BackgroundColourBarYear = [
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(124, 100, 86, 0.2)',
+            'rgba(50, 240, 192, 0.2)',
+
+            'rgba(254, 206, 86, 0.2)',
+            'rgba(73, 192, 192, 0.2)',
+            'rgba(123, 100, 86, 0.2)',
+            'rgba(49, 240, 192, 0.2)',
+
+            'rgba(253, 206, 86, 0.2)',
+            'rgba(76, 192, 192, 0.2)',
+            'rgba(125, 100, 86, 0.2)',
+            'rgba(51, 240, 192, 0.2)'
+        ];
+        var BorderColourYear = [
+
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(124, 100, 86, 1)',
+            'rgba(50, 240, 192, 1)',
+
+            'rgba(254, 206, 86, 1)',
+            'rgba(74, 192, 192, 1)',
+            'rgba(123, 100, 86, 1)',
+            'rgba(49, 240, 192, 1)',
+
+            'rgba(253, 206, 86, 1)',
+            'rgba(76, 192, 192, 1)',
+            'rgba(125, 100, 86, 1)',
+            'rgba(51, 240, 192, 1)'
+        ];
+    </script>
     <script>
         var ctxUsers = document.getElementById("UsersGraph").getContext('2d');
         var myUsersChart = new Chart(ctxUsers, {
@@ -104,7 +147,7 @@
                     borderWidth: 1
                 }]
             }
-           
+
         });
     </script>
     <script>
@@ -113,69 +156,36 @@
             type: 'bar',
 
             data: {
-                labels: [   "@DateTime.Now.AddMonths(-11).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-10).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-9).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-8).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-7).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-6).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-5).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-4).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-3).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-2).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-1).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(0).ToString("yyyy-MMM")"],
+                labels: [   "@DateTime.Now.AddMonths(-11).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-10).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-9 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-8 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-7 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-6 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-5 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-4 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-3 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-2 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-1 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths( 0 ).ToString("MMM")"],
                 datasets: [{
-                    label: "Monthly Orders #",
+                    label: "Monthly Orders # in @DateTime.Now.Year.ToString()",
                     data:
                     [@Model.AllOrdersAll[11].Count(),
-                    @Model.AllOrdersAll[10].Count(),
-                    @Model.AllOrdersAll[9].Count(),
-                    @Model.AllOrdersAll[8].Count(),
-                    @Model.AllOrdersAll[7].Count(),
-                    @Model.AllOrdersAll[6].Count(),
-                    @Model.AllOrdersAll[5].Count(),
-                    @Model.AllOrdersAll[4].Count(),
-                    @Model.AllOrdersAll[3].Count(),
-                    @Model.AllOrdersAll[2].Count(),
-                    @Model.AllOrdersAll[1].Count(),
-                    @Model.AllOrdersAll[0].Count()     ],
+                     @Model.AllOrdersAll[10].Count(),
+                     @Model.AllOrdersAll[9 ].Count(),
+                     @Model.AllOrdersAll[8 ].Count(),
+                     @Model.AllOrdersAll[7 ].Count(),
+                     @Model.AllOrdersAll[6 ].Count(),
+                     @Model.AllOrdersAll[5 ].Count(),
+                     @Model.AllOrdersAll[4 ].Count(),
+                     @Model.AllOrdersAll[3 ].Count(),
+                     @Model.AllOrdersAll[2 ].Count(),
+                     @Model.AllOrdersAll[1 ].Count(),
+                     @Model.AllOrdersAll[0 ].Count()     ],
 
-                    backgroundColor: [
-
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(124, 100, 86, 0.2)',
-                        'rgba(50, 240, 192, 0.2)',
-
-                        'rgba(254, 206, 86, 0.2)',
-                        'rgba(73, 192, 192, 0.2)',
-                        'rgba(123, 100, 86, 0.2)',
-                        'rgba(49, 240, 192, 0.2)',
-
-                        'rgba(253, 206, 86, 0.2)',
-                        'rgba(76, 192, 192, 0.2)',
-                        'rgba(125, 100, 86, 0.2)',
-                        'rgba(51, 240, 192, 0.2)'
-
-                    ],
-                    borderColor: [
-
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(124, 100, 86, 1)',
-                        'rgba(50, 240, 192, 1)',
-
-                        'rgba(254, 206, 86, 1)',
-                        'rgba(74, 192, 192, 1)',
-                        'rgba(123, 100, 86, 1)',
-                        'rgba(49, 240, 192, 1)',
-
-                        'rgba(253, 206, 86, 1)',
-                        'rgba(76, 192, 192, 1)',
-                        'rgba(125, 100, 86, 1)',
-                        'rgba(51, 240, 192, 1)'
-                    ],
+                    backgroundColor: BackgroundColourBarYear,
+                    borderColor: BorderColourYear,
                     borderWidth: 1
                 }]
             },
@@ -197,55 +207,34 @@
             type: 'line',
 
             data: {
-                labels: [   "@DateTime.Now.AddMonths(-11).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-10).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-9).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-8).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-7).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-6).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-5).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-4).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-3).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-2).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(-1).ToString("yyyy-MMM")",
-                            "@DateTime.Now.AddMonths(0).ToString("yyyy-MMM")"
+                labels: [   "@DateTime.Now.AddMonths(-11).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-10).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-9 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-8 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-7 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-6 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-5 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-4 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-3 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-2 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths(-1 ).ToString("MMM")",
+                            "@DateTime.Now.AddMonths( 0 ).ToString("MMM")"
                 ],
                 datasets: [{
-                    label: "Monthly Sales €",
+                    label: "Monthly Sales € in @DateTime.Now.Year.ToString()",
                     data:      [Math.round(@Model.AllOrdersSales[11].Sum()),
-                            Math.round(@Model.AllOrdersSales[10].Sum()),
-                            Math.round(@Model.AllOrdersSales[9].Sum()),
-                            Math.round(@Model.AllOrdersSales[8].Sum()),
-                            Math.round(@Model.AllOrdersSales[7].Sum()),
-                            Math.round(@Model.AllOrdersSales[6].Sum()),
-                            Math.round(@Model.AllOrdersSales[5].Sum()),
-                            Math.round(@Model.AllOrdersSales[4].Sum()),
-                            Math.round(@Model.AllOrdersSales[3].Sum()),
-                            Math.round(@Model.AllOrdersSales[2].Sum()),
-                            Math.round(@Model.AllOrdersSales[1].Sum()),
-                            Math.round(@Model.AllOrdersSales[0].Sum())],
+                                Math.round(@Model.AllOrdersSales[10].Sum()),
+                                Math.round(@Model.AllOrdersSales[9 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[8 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[7 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[6 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[5 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[4 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[3 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[2 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[1 ].Sum()),
+                                Math.round(@Model.AllOrdersSales[0 ].Sum())],
                     backgroundColor: "rgba(255, 206, 86, 0.2)"
-
-
-                    //backgroundColor: [
-
-                    //    'rgba(255, 206, 86, 0.2)',
-                    //    'rgba(75, 192, 192, 0.2)',
-                    //    'rgba(124, 100, 86, 0.2)',
-                    //    'rgba(50, 240, 192, 0.2)',
-
-                    //    'rgba(254, 206, 86, 0.2)',
-                    //    'rgba(73, 192, 192, 0.2)',
-                    //    'rgba(123, 100, 86, 0.2)',
-                    //    'rgba(49, 240, 192, 0.2)',
-
-                    //    'rgba(253, 206, 86, 0.2)',
-                    //    'rgba(76, 192, 192, 0.2)',
-                    //    'rgba(125, 100, 86, 0.2)',
-                    //    'rgba(51, 240, 192, 0.2)'
-
-                    //],
-
                 }]
             },
             options: {
@@ -263,54 +252,232 @@
 
 
 
+    // Dit is voor de dropdown en veranderen van grafieken voor Maanden
     <script type="text/javascript">
-        document.getElementById('ChangeThis').addEventListener('click', function () {
+        $("#Yearvalue").change(function () {
+            // dit is voor dit jaar
+            if ($(this).val() === '@DateTime.Now.Year') {
+        @*@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Count()*@
+                $("#DataOrderCard").text('@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Count()');
+                $("#DataSalesCard").text('@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Sum(t=>t.Price)');
+                 myOrdersChart.data.datasets[0].data = [
+                 @Model.AllOrdersAll[11].Count(),
+                 @Model.AllOrdersAll[10].Count(),
+                 @Model.AllOrdersAll[9 ].Count(),
+                 @Model.AllOrdersAll[8 ].Count(),
+                 @Model.AllOrdersAll[7 ].Count(),
+                 @Model.AllOrdersAll[6 ].Count(),
+                 @Model.AllOrdersAll[5 ].Count(),
+                 @Model.AllOrdersAll[4 ].Count(),
+                 @Model.AllOrdersAll[3 ].Count(),
+                 @Model.AllOrdersAll[2 ].Count(),
+                 @Model.AllOrdersAll[1 ].Count(),
+                 @Model.AllOrdersAll[0 ].Count()
+             ];
+            myOrdersChart.data.datasets[0].label = "Monthly Orders # in @DateTime.Now.Year.ToString()";
+            myOrdersChart.data.labels = [
+                "@DateTime.Now.AddMonths(-11).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-10).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-9 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-8 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-7 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-6 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-5 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-4 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-3 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-2 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-1 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths( 0 ).ToString("MMM")"
+            ];
 
-            myUsersChart.destroy();
-            var ctx = document.getElementById("UsersGraph").getContext('2d');
-        var Newgraph = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: [" 2 Users", "3 Users"],
-                datasets: [{
+            // hier verander je de data van de Sales Chart
+            mySalesChart.data.datasets[0].data = [
+                Math.round(@Model.AllOrdersSales[11 ].Sum()),
+                Math.round(@Model.AllOrdersSales[10 ].Sum()),
+                Math.round(@Model.AllOrdersSales[9  ].Sum()),
+                Math.round(@Model.AllOrdersSales[8  ].Sum()),
+                Math.round(@Model.AllOrdersSales[7  ].Sum()),
+                Math.round(@Model.AllOrdersSales[6  ].Sum()),
+                Math.round(@Model.AllOrdersSales[5  ].Sum()),
+                Math.round(@Model.AllOrdersSales[4  ].Sum()),
+                Math.round(@Model.AllOrdersSales[3  ].Sum()),
+                Math.round(@Model.AllOrdersSales[2  ].Sum()),
+                Math.round(@Model.AllOrdersSales[1  ].Sum()),
+                Math.round(@Model.AllOrdersSales[0  ].Sum())
+            ];
+            mySalesChart.data.datasets[0].label = "Monthly Sales € in @DateTime.Now.Year.ToString()";
+            mySalesChart.data.labels = [
+                Math.round(@Model.AllOrdersSales[11 ].Sum()),
+                Math.round(@Model.AllOrdersSales[10 ].Sum()),
+                Math.round(@Model.AllOrdersSales[9  ].Sum()),
+                Math.round(@Model.AllOrdersSales[8  ].Sum()),
+                Math.round(@Model.AllOrdersSales[7  ].Sum()),
+                Math.round(@Model.AllOrdersSales[6  ].Sum()),
+                Math.round(@Model.AllOrdersSales[5  ].Sum()),
+                Math.round(@Model.AllOrdersSales[4  ].Sum()),
+                Math.round(@Model.AllOrdersSales[3  ].Sum()),
+                Math.round(@Model.AllOrdersSales[2  ].Sum()),
+                Math.round(@Model.AllOrdersSales[1  ].Sum()),
+                Math.round(@Model.AllOrdersSales[0  ].Sum())
+            ];
 
-                    data: [2,3],
-                    backgroundColor: [
-
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
-                    ],
-                    borderColor: [
-
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+            // Vergeet niet te updaten anders zie je niks
+            mySalesChart.update();
+            myOrdersChart.update();
             }
-            });
-            Newgraph.update();
-            
-            
 
+            // Dit is 1 jaar geleden vergeleken met huidige jaar
+            if ($(this).val() === '@DateTime.Now.AddYears(-1).Year') {
+                $("#DataOrderCard").html('@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-1).Year).Count()')
+                $("#DataSalesCard").text('@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-1).Year).Sum(t=>t.Price)');
+                myOrdersChart.data.datasets[0].data = [
+                 @Model.AllOrdersAll[23].Count(),
+                 @Model.AllOrdersAll[22].Count(),
+                 @Model.AllOrdersAll[21].Count(),
+                 @Model.AllOrdersAll[20].Count(),
+                 @Model.AllOrdersAll[19].Count(),
+                 @Model.AllOrdersAll[18].Count(),
+                 @Model.AllOrdersAll[17].Count(),
+                 @Model.AllOrdersAll[16].Count(),
+                 @Model.AllOrdersAll[15].Count(),
+                 @Model.AllOrdersAll[14].Count(),
+                 @Model.AllOrdersAll[13].Count(),
+                 @Model.AllOrdersAll[12].Count()
+             ];
+            myOrdersChart.data.datasets[0].label = "Monthly Orders # in @DateTime.Now.AddYears(-1).Year.ToString()";
+            myOrdersChart.data.labels = [
+                "@DateTime.Now.AddMonths(-23).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-22).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-21 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-20 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-19 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-18 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-17 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-16 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-15 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-14 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-13 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-12 ).ToString("MMM")"
+            ];
+            // Sales chart Data
+            mySalesChart.data.datasets[0].data = [
+                Math.round(@Model.AllOrdersSales[23].Sum()),
+                Math.round(@Model.AllOrdersSales[22].Sum()),
+                Math.round(@Model.AllOrdersSales[21].Sum()),
+                Math.round(@Model.AllOrdersSales[20].Sum()),
+                Math.round(@Model.AllOrdersSales[19].Sum()),
+                Math.round(@Model.AllOrdersSales[18].Sum()),
+                Math.round(@Model.AllOrdersSales[17].Sum()),
+                Math.round(@Model.AllOrdersSales[16].Sum()),
+                Math.round(@Model.AllOrdersSales[15].Sum()),
+                Math.round(@Model.AllOrdersSales[14].Sum()),
+                Math.round(@Model.AllOrdersSales[13].Sum()),
+                Math.round(@Model.AllOrdersSales[12].Sum())
+            ];
+            mySalesChart.data.datasets[0].label = "Monthly Sales € in @DateTime.Now.AddYears(-1).Year.ToString()";
+            mySalesChart.data.labels = [
+                "@DateTime.Now.AddMonths(-23).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-22).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-21 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-20 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-19 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-18 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-17 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-16 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-15 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-14 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-13 ).ToString("MMM")",
+                "@DateTime.Now.AddMonths(-12 ).ToString("MMM")"
+            ];
 
-        });
+            mySalesChart.update();
+            myOrdersChart.update();
+        }
+            // Dit is 2 jaar geleden vergeleken met huidige jaar
+            if ($(this).val() === '@DateTime.Now.AddYears(-2).Year') {
+                $("#DataOrderCard").html('@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-2).Year).Count()')
+                $("#DataSalesCard").text('@Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-2).Year).Sum(t=>t.Price)');
+                myOrdersChart.data.datasets[0].data = [
+                             @Model.AllOrdersAll[35].Count(),
+                             @Model.AllOrdersAll[34].Count(),
+                             @Model.AllOrdersAll[33].Count(),
+                             @Model.AllOrdersAll[32].Count(),
+                             @Model.AllOrdersAll[31].Count(),
+                             @Model.AllOrdersAll[30].Count(),
+                             @Model.AllOrdersAll[29].Count(),
+                             @Model.AllOrdersAll[28].Count(),
+                             @Model.AllOrdersAll[27].Count(),
+                             @Model.AllOrdersAll[26].Count(),
+                             @Model.AllOrdersAll[25].Count(),
+                             @Model.AllOrdersAll[24].Count()
+                ];
+                myOrdersChart.data.datasets[0].label = "Monthly Orders # in @DateTime.Now.AddYears(-2).Year.ToString()";
+                myOrdersChart.data.labels = [
+                    "@DateTime.Now.AddMonths(-35).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-34).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-33 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-32 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-31 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-30 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-29 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-28 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-27 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-26 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-25 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-24 ).ToString("MMM")"
+                ];
+
+                mySalesChart.data.datasets[0].data = [
+                    Math.round(@Model.AllOrdersSales[35].Sum()),
+                    Math.round(@Model.AllOrdersSales[34].Sum()),
+                    Math.round(@Model.AllOrdersSales[33].Sum()),
+                    Math.round(@Model.AllOrdersSales[32].Sum()),
+                    Math.round(@Model.AllOrdersSales[31].Sum()),
+                    Math.round(@Model.AllOrdersSales[30].Sum()),
+                    Math.round(@Model.AllOrdersSales[29].Sum()),
+                    Math.round(@Model.AllOrdersSales[28].Sum()),
+                    Math.round(@Model.AllOrdersSales[27].Sum()),
+                    Math.round(@Model.AllOrdersSales[26].Sum()),
+                    Math.round(@Model.AllOrdersSales[25].Sum()),
+                    Math.round(@Model.AllOrdersSales[24].Sum())
+                ];
+                mySalesChart.data.datasets[0].label = "Monthly Sales € in @DateTime.Now.AddYears(-2).Year.ToString()";
+                mySalesChart.data.labels = [
+                    "@DateTime.Now.AddMonths(-35).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-34).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-33 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-32 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-31 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-30 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-29 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-28 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-27 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-26 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-25 ).ToString("MMM")",
+                    "@DateTime.Now.AddMonths(-24 ).ToString("MMM")"
+                ];
+
+                mySalesChart.update();
+                myOrdersChart.update();
+            }
+            
+                    });
     </script>
 
 
 
 
-}
-else
-{
-    <div class="container">
-        <div class="row">
-            <div class="col-6" style="margin-top:10em;margin-bottom:10em;">
-                <p>You are lost go to <a asp-page="/Index" class="btn btn-info">Home</a></p>
-            </div>
-        </div>
-    </div>
-    <script>
-        window.location.replace("https://localhost:44358")
-    </script>
-}
+                }
+                else
+                {
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10em;margin-bottom:10em;">
+                                <p>You are lost go to <a asp-page="/Index" class="btn btn-info">Home</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        window.location.replace("https://localhost:44358")
+                    </script>
+                }

@@ -38,13 +38,13 @@ namespace WebApplication1.Pages.Admin
         public List<float>[] AllOrdersSales { get; set; }
 
 
-        [BindProperty] public InputModel Input { get; set; }
+        //[BindProperty] public InputModel Input { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            public int jaar { get; set; }
-        }
+        //public class InputModel
+        //{
+        //    [Required]
+        //    public int jaar { get; set; }
+        //}
 
         public string Message { get; set; }
 
@@ -56,56 +56,17 @@ namespace WebApplication1.Pages.Admin
             // create
             [TempData] public string StatusMessage2 { get; set; }
 
-            public async Task OnPostAsync()
-            {
-                // Check if the user is logged in and authorised
-                if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                {
-
-                    // Haalt alle registered users op 
-                    RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true)
-                        .ToListAsync();
-                    UnregisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == false)
-                        .ToListAsync();
-
-                    // Haal de totale ordered producten op uit de database
-                    AllOrders = await _context.Key.Where(k => k.OrderDate.Year == DateTime.Now.Year)
-                        .ToListAsync();
-                    // Sum products price from key
-                    SumOfOrders = AllOrders.Sum(t => t.Price);
-
-                    AllOrdersAll = new List<Key>[12];
-
-                    for (int i = 0; i < 12; i++)
-                    {
-                    
-                        AllOrdersAll[i] = (from key in _context.Key
-                            where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
-                                           select key).ToList();
-                    }
-
-                    AllOrdersSales = new List<float>[12];
-                    for (int i = 0; i < 12; i++)
-                    {
-                        AllOrdersSales[i] = (from key in _context.Key
-                            where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
-                                             select key.Price).ToList();
-                    }
-
-                   
-                }
-            }
-
+            
             public async Task OnGetAsync()
             {
                 // Check if the user is logged in and authorised
                 if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
                     // Zet het standaard jaar neer.
-                    Input = new InputModel()
-                    {
-                        jaar = DateTime.Now.Year
-                    };
+                    //Input = new InputModel()
+                    //{
+                    //    jaar = DateTime.Now.Year
+                    //};
 
                     // Haalt alle registered users op 
                     RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true)
@@ -114,35 +75,52 @@ namespace WebApplication1.Pages.Admin
                         .ToListAsync();
 
                     // Haal de totale ordered producten op uit de database
-                    AllOrders = await _context.Key.Where(k => k.OrderDate.Year == DateTime.Now.Year) 
+                    AllOrders = await _context.Key
                         .ToListAsync();
-                    // Sum products price from key
-                    SumOfOrders = AllOrders.Sum(t => t.Price);
-
-                    AllOrdersAll = new List<Key>[12];
-
-                    for (int i = 0; i < 12; i++)
-                    {
-                    //AllOrdersAll[i] = (from key in _context.Key
-                    //    where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
-                    //    select key).ToList();
-                    AllOrdersAll[i] = (from key in _context.Key
-                                       where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
-                                       select key).ToList();
-                }
-
-                    AllOrdersSales = new List<float>[12];
-                    for (int i = 0; i < 12; i++)
-                    {
-                    //AllOrdersSales[i] = (from key in _context.Key
-                    //    where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
-                    //    select key.Price).ToList();
-                    AllOrdersSales[i] = (from key in _context.Key
-                                         where (key.OrderDate.Month.ToString() == (DateTime.Now.AddMonths(-i).ToString("MM")) && (key.OrderDate.Year.ToString() == (DateTime.Now.AddYears(-i).ToString("yyyy"))))
-                                         select key.Price).ToList();
-                }
-
                     
+                    AllOrdersAll = new List<Key>[36];
+                    AllOrdersSales = new List<float>[36];
+                    
+                    for (int i = 0; i < 12; i++)
+                    {
+                        //AllOrdersAll[i] = (from key in _context.Key
+                        //    where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                        //    select key).ToList();
+                        AllOrdersAll[i] = (from key in _context.Key
+                                               where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                     (key.OrderDate.Year == (DateTime.Now.Year)))
+                                               select key).ToList();
+                        AllOrdersAll[i+12] = (from key in _context.Key
+                                               where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                     (key.OrderDate.Year == (DateTime.Now.AddYears(-1).Year)))
+                                               select key).ToList();
+                        AllOrdersAll[i+24] = (from key in _context.Key
+                                                where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                      (key.OrderDate.Year == (DateTime.Now.AddYears(-2).Year)))
+                                                select key).ToList();
+                }
+
+                    for (int i = 0; i < 12; i++)
+                    {
+                        //AllOrdersSales[i] = (from key in _context.Key
+                        //    where key.OrderDate.Month == (i + 1) && key.OrderDate.Year == Input.jaar
+                        //    select key.Price).ToList();
+                        AllOrdersSales[i] = (from key in _context.Key
+                                                 where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                       (key.OrderDate.Year == (DateTime.Now.Year)))
+                                                 select key.Price).ToList();
+                        AllOrdersSales[i+12] = (from key in _context.Key
+                                                 where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                       (key.OrderDate.Year == (DateTime.Now.AddYears(-1).Year)))
+                                                 select key.Price).ToList();
+                        AllOrdersSales[i+24] = (from key in _context.Key
+                                                  where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                        (key.OrderDate.Year == (DateTime.Now.AddYears(-2).Year)))
+                                                  select key.Price).ToList();
+                }
+                    
+
+                
                 }
 
                 
