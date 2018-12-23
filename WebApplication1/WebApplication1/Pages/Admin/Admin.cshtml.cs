@@ -12,13 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WebApplication1.Pages.Admin
 {
-    //date time moet nog weer veranderd worden om input te laten beslissen wat je laat zien op grafieken en cards
-    //TODO
-    // 1. Maak grafiek voor jaar(sales en orders) en een knop of in dropdown "Total years" en pas de cards ook aan
-    // 2. Maak niew object om data voor jaar orders op te slaan
-    // 3. Maak niew object om data voor jaar Sales op te slaan
-    // 4. Maak grafiek in script met nieuwe dataset over de grafiek die al bestaat voor order en sales
-    public class AdminModel : PageModel
+      public class AdminModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
@@ -43,6 +37,9 @@ namespace WebApplication1.Pages.Admin
         // Array met een list van keys in AllOrdersAll en prijs van de keys in AllOrdersSales voor alle jaren
         public List<Key>[] AllOrdersYears { get; set; }
         public List<float>[] AllOrdersSalesYears { get; set; }
+
+        public List<Key>[, ,] AllOrdersDays { get; set; }
+        public List<float>[, ,] AllOrdersSalesDays { get; set; }
 
         public AdminModel(ApplicationDbContext context)
         {
@@ -115,12 +112,11 @@ namespace WebApplication1.Pages.Admin
                                                   select key.Price).ToList();
                     }
 
-
                 // Orders en Sales per jaar voor de laatste 10 jaar
-                AllOrdersYears = new List<Key>[12];
-                AllOrdersSalesYears = new List<float>[12];
+                AllOrdersYears = new List<Key>[11];
+                AllOrdersSalesYears = new List<float>[11];
 
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 11; i++)
                 {
                     AllOrdersYears[i] = (from key in _context.Key
                                            where key.OrderDate.Year == DateTime.Now.AddYears(-i).Year
@@ -128,6 +124,27 @@ namespace WebApplication1.Pages.Admin
                     AllOrdersSalesYears[i] = (from key in _context.Key
                                              where key.OrderDate.Year == DateTime.Now.AddYears(-i).Year
                                              select key.Price).ToList();
+                }
+
+
+                // Super lelijk maar het werkt voor de view. onthoud in de array [0,0,0] = 1 januari 2018 , [0,9,30] = 31 oktober 2018  en [1,1,1] = 2 februari 2019 enz
+                AllOrdersDays = new List<Key>[2,12,31];
+                AllOrdersSalesDays = new List<float>[2, 12, 31];
+                for (int year = 0; year < 2; year++)
+                {
+                    for (int month = 0; month < 12; month++)
+                    {
+                        for (int day = 0; day < 31; day++)
+                        {
+                            AllOrdersDays[year,month,day] = (from key in _context.Key
+                                                where key.OrderDate.Year == (year+2018) && key.OrderDate.Month == (month+1) && key.OrderDate.Day == (day+1)
+                                                select key).ToList();
+
+                            AllOrdersSalesDays[year, month, day] = (from key in _context.Key
+                                                               where key.OrderDate.Year == (year + 2018) && key.OrderDate.Month == (month + 1) && key.OrderDate.Day == (day + 1)
+                                                               select key.Price).ToList();
+                        }
+                    }
                 }
 
                 // einde van de OnGet
