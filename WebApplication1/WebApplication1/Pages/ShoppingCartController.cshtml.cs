@@ -165,11 +165,11 @@ namespace WebApplication1.Pages
                         Response.Cookies.Append("ShoppingCart", cookieshoping_update, cookieOptions);
                     }
                 }
+                // Redirect back to Product info
+                Response.Redirect("ProductInfo?id=" + productid + "&ProductAdded=ShoppingCard");
             }
-            // Redirect naar de shoppingcart
-            Response.Redirect("/shoppingCart");
+
+            Response.Redirect("ProductInfo");
         }
     }
-
-    
 }
