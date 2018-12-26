@@ -29,6 +29,7 @@ namespace WebApplication1.Pages
         public Shopping_card YourCart { get; set; }
         public void OnGet()
         {
+
             if (User.Identity.IsAuthenticated)
             {
                 string id = _userManager.GetUserId(User);
@@ -86,10 +87,11 @@ namespace WebApplication1.Pages
                 _context.Shopping_Card_Products.Remove(products);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToPage();
+            return Page();
 
 
         }
+
 
     }
 

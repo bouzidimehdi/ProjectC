@@ -4,30 +4,51 @@
     ViewData["Title"] = "UserManage";
 }
 
+
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <h2>UserManage</h2>
-    <a asp-page="AdminCreateUser" class="btn" id="AdminCreateUserButton">Create User</a>
-    <a asp-page="Admin" class="btn">Back</a>
-    <table class="table">
-        <tr>
-            <th>Email</th>
-            <th>Lastname</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @{
-            foreach (var item in Model.Users)
-            {
-                <tr>
-                    <td>@item.Email</td>
-                    <td>@item.LastName</td>
-                    <td><a asp-page="AdminEditUser" asp-route-UserID="@item.Id">edit</a></td>
-                    <td><a asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a></td>
-                </tr>
-            }
-        }
-    </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" style="height:100%; padding-left:0px; min-height:500px;" id="panel">
+                <nav class="navbar flex-column" style="min-height:500px; box-shadow:none; background-color:#2f5162;">
+                    <a class="navbar-brand" href="#">MONKEY.</a>
+                    <a class="navbar-brand" href="#" > Dashboard</a>
+                    <a class="navbar-brand" href="#"> User Manager</a>
+                    <a class="navbar-brand" href="#"> Orders</a>
+                </nav>
+            </div>
+            <div class="col-md-1" style="padding-right:0px !important; padding-left:0px !important;"></div>
+
+            <div class="col-md-8" style="height:100%; padding-left:0px !important;" id="content">
+                <div class="userManagerHeader">
+                    <h3 style="display:inline-block;">User Manager</h3>
+                    <a asp-page="AdminCreateUser" class="align-self-end btn btn-sm btn-primary " id="AdminCreateUserButton" style="float:right; bottom:0;">Create User</a>
+                </div>
+                <table class="table">
+                    <tr>
+                        <th>Email</th>
+                        <th>Full name</th>
+                        <th style="text-align:center;">Actions</th>
+                    </tr>
+                    @{
+                        foreach (var item in Model.Users)
+                        {
+                            <tr>
+                                <td>@item.Email</td>
+                                <td>@item.Name @item.LastName</td>
+                                <td style="text-align:center;">
+                                    <a asp-page="AdminEditUser" asp-route-UserID="@item.Id">Edit</a> |
+                                    <a asp-page="AdminReadUser" asp-route-UserID="@item.Id">Read</a> |
+                                    <a asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+            @*<div class="col-md-1" ></div>*@
+        </div>
+        </div>
 }
 else
 {
@@ -42,3 +63,17 @@ else
         window.location.replace("https://localhost:44358")
     </script>
 }
+
+    <style>
+    #content {
+        margin-top: 1.5rem !important;
+    }
+
+    #panel {
+        margin-top: 0rem !important;
+    }
+
+    .navbar.flex-column a {
+        color:white !important;
+    }
+    </style>

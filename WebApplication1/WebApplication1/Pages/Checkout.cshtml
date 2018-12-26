@@ -3,8 +3,7 @@
 @using static AddKeyModel
 @{
     float totalz = 0;
-    int i = 0;
-    bool completed = false;
+    
 }
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -31,7 +30,7 @@
         funding: {
             allowed: [
                 paypal.FUNDING.CARD,
-                paypal.FUNDING.CREDIT
+                //paypal.FUNDING.CREDIT
             ],
             disallowed: []
         },
@@ -44,6 +43,7 @@
         },
 
         payment: function (data, actions) {
+            var totaal = document.getElementById('Subtotal').innerHTML.replace(',', '.');
             return actions.payment.create({
                 payment: {
                     transactions: [
@@ -85,52 +85,75 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    @*<th>Your key(s)</th>*@
                 </tr>
             </thead>
             <tbody>
-                <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
-
                     @foreach (var item in Model._Products)
                     {
-                        totalz = totalz += (item.product.PriceFinal * item.quantity);
-
-                        @*@while (i < item.quantity)
-                            {*@
+                        totalz += (item.product.PriceFinal * item.quantity);
+                        
 
                         <tr>
                             <td>@item.product.ResponseName</td>
                             <td>@(item.product.PriceFinal * item.quantity)</td>
                             <td>@item.quantity</td>
-                            @*<td>@Guid.NewGuid()</td>*@
-                            @*<input type="hidden" name="productid" value="@item.product.ID" />*@
-                            @*<input type="hidden" name="license" value="@Guid.NewGuid()" />*@
-                            @*<input type="hidden" name="userid" value="@Model.id)" />*@
-                            <input type="hidden" name="email" value="@Model.EmailKey.Email" />
-                            <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
-                            <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
 
                         </tr>
-
-                        @*i = i + 1;
-                            }
-                            i = 0;*@
                     }
-                    <input type="submit" value="Add to DB" name="myForm" class="btn btn-default" />
-
-                </form>
             </tbody>
         </table>
     </div>
-
-
-
     <div class="row" style="padding-top:50px;">
-        <div class="col-md-6">
-            <h2>Apply code</h2>
-            <p>Apply your coupon code for a nice discount!</p>
-            <input type="text" name="name" value="" class="form-control" style="width:75%;" placeholder="Enter your code"/>
-        </div>
+
+        @if (User.Identity.IsAuthenticated && Model._User.TPunten >= 0)
+        {
+            <div class="col-md-6">
+                <h2>Points Discount</h2>
+                <p>Spend your points for a nice discount!</p>
+                <p>Youre current ammount of points are: @Model._User.TPunten</p>
+                
+                <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+
+                    <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                    <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                    <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+
+                    <select id="PointsSpend" name="PointsSpend" onchange="UpdatePoints()">
+                        @for (int j = 0; j < 1000; j += 100)
+                        {
+                            if (Model._User.TPunten >= j)
+                            {
+                                <option value="@j">@j</option>
+                            }
+                        }
+                    </select>
+                </form>
+            </div>
+
+            <script>
+                function UpdatePoints() {
+
+                    var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
+                    var Total = parseFloat("@totalz.ToString()");
+
+                    var Discount = Math.round((Math.pow((PointsSpend + Total), 1.8) / 1000) * 100) / 100;
+                    var Total = Math.round((Total - Discount) * 100 ) / 100
+
+                    if (PointsSpend == 0) {
+                        document.getElementById("Discount").innerHTML = 0;
+                    } else {
+                        document.getElementById("Discount").innerHTML = Discount;
+                    }
+
+                    if (PointsSpend != 0) {
+                        document.getElementById("Subtotal").innerHTML = Total;
+                    }
+                    else {
+                        document.getElementById("Subtotal").innerHTML = "@totalz";
+                    }
+                }
+            </script>
+        }
 
         <div class="col-md-6" style="padding-bottom: 10px">
             <h2>Order summary</h2>
@@ -141,14 +164,18 @@
                         <td>@totalz</td>
                     </tr>
                     <tr>
+                        <th>Discount</th>
+                        <td> <div id="Discount">0</div></td>
+                    </tr>
+                    <tr>
                         <th>Subtotal</th>
-                        <td> @totalz</td>
+                        <td> <div id="Subtotal">@totalz</div></td>
                     </tr>
                     <tr>
                         <td><div id="paypal-button-container"></div></td>
                         <td>
 
-                                <a class="btn btn-primary float-right" asp-page="ShoppingCart" id="Cart_Checkout">Return to cart</a>
+                            <a class="btn btn-primary float-right" asp-page="ShoppingCart" id="Cart_Checkout">Return to cart</a>
                         </td>
                     </tr>
                 </tbody>
@@ -158,14 +185,14 @@
         </div>
     </div>
 
-        @*@if (!User.Identity.IsAuthenticated)
-            {
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-            }*@
+    @*@if (!User.Identity.IsAuthenticated)
+        {
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+        }*@
 
 </div>
 

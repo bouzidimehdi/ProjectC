@@ -5,11 +5,12 @@
 }
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
+<div class="container" style="margin-top:1em;margin-bottom:1em;width:50%;">
     @Html.Partial("_StatusMessage", Model.StatusMessage)
     <h2>AdminEditUser</h2>
     <a asp-page="UserManage" class="btn">Back</a>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <form method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -325,36 +326,38 @@
                         </div>
                     </div>
                 }
-            <div class="form-group">
-                <label asp-for="Input.ConfirmEmail"></label>
-                <div class="input-group">
-                    @if (Model.gebruiker.EmailConfirmed)
-                    {
-                        <input asp-for="Input.ConfirmEmail" checked class="form-control" />
-                    }
-                    else
-                    {
-                        <input asp-for="Input.ConfirmEmail" class="form-control" />
-                    }
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmEmail"></label>
+                    <div class="input-group">
+                        @if (Model.gebruiker.EmailConfirmed)
+                        {
+                            <input asp-for="Input.ConfirmEmail" checked class="checkbox" style="width:2em;height:2em;" />
+                        }
+                        else
+                        {
+                            <input asp-for="Input.ConfirmEmail" class="checkbox" style="width:2em;height:2em;" />
+                        }
 
-                    <span asp-validation-for="Input.ConfirmEmail" class="text-danger"></span>
+                        <span asp-validation-for="Input.ConfirmEmail" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="form-group">
                     <label asp-for="Input.AdminRole"></label>
-                    @if (Model.IsInRoleAdmin)
-                    {
-                        <input asp-for="Input.AdminRole" checked class="form-control" />
-                    }
-                    else
-                    {
-                        <input asp-for="Input.AdminRole" class="form-control" />
-                    }
+                    <div class="input-group">
+                        @if (Model.IsInRoleAdmin)
+                        {
+                            <input asp-for="Input.AdminRole" checked class="checkbox" style="width:2em;height:2em;" />
+                        }
+                        else
+                        {
+                            <input asp-for="Input.AdminRole" class="checkbox" style="width:2em;height:2em;" />
+                        }
 
-                    <span asp-validation-for="Input.AdminRole" class="text-danger"></span>
+                        <span asp-validation-for="Input.AdminRole" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
+
 
                 <div class="form-group">
                     <label asp-for="Input.PhoneNumber"></label>
@@ -371,6 +374,7 @@
             </form>
         </div>
     </div>
+</div>
 
     @section Scripts {
         @await Html.PartialAsync("_ValidationScriptsPartial")

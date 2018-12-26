@@ -31,7 +31,7 @@
 
                     <tr>
                         <td>
-                            <img src="@item.product.HeaderImage" style="width:170px; height:90px;" alt="No Image" />
+                            <img src="@item.product.HeaderImage" style="width:170px; height:90px;" alt="" />
                             @item.product.ResponseName
                         </td>
                         <td> € @item.product.PriceFinal</td>
@@ -97,7 +97,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <button onclick="openPopup()">Spend Points!</button>
+            @*<button onclick="openPopup()">Spend Points!</button>*@
         </div>
 
         <div class="col-md-6" style="padding-bottom: 10px">
@@ -128,13 +128,13 @@
 
 
 
-<div id="myPopup" class="overlay">
+@*<div id="myPopup" class="overlay">   misschien nog handig voor later iets
     <a href="javascript:void(0)" class="closebtn" onclick="closePopup()">&times;</a>
     <div class="inner-overlay">
 
         <div class="row" style="margin-bottom:50px;">
             <div class="col">
-                <Label type="number" id="Points">Your Points: 100</label>
+                <Label type="number" id="Points">Your Points: 0</label>
             </div>
         </div>
         <div class="row" style="margin-bottom:50px;">
@@ -142,7 +142,7 @@
                something
             </div>
             <div class="col-3">
-                <button>spend points here</button>
+                <button>Should have something to buy</button>
             </div>
             <div class="col-3">
                 some stuff here
@@ -179,12 +179,8 @@
                 <button>spend points here</button>
             </div>
         </div>
-
-
-
-
     </div>
-</div>
+</div>*@
 
 
 
