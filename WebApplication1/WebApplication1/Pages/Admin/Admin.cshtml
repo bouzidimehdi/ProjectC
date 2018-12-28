@@ -49,7 +49,7 @@
                     <option value="@DateTime.Now.AddYears(-2).Year">@DateTime.Now.AddYears(-2).Year</option>
                     <option value="AllYears">All Years</option>
                 </select>
-                <label>Filter for Days</label>
+                @*<label>Filter for Days</label>
                 <select id="Dayvalue">
                     <option></option>
                     <option value="month1year2018">@DateTime.Now.Year January</option>
@@ -76,7 +76,7 @@
                     <option value="month10year2019">@DateTime.Now.AddYears(-1).Year Oktober</option>
                     <option value="month11year2019">@DateTime.Now.AddYears(-1).Year November</option>
                     <option value="month12year2019">@DateTime.Now.AddYears(-1).Year December</option>
-                </select>
+                </select>*@
 
             </div>
             <div class="col-md-3">
@@ -370,7 +370,7 @@ else
         $("#Yearvalue").change(function () {
             // dit is voor dit jaar
             if ($(this).val() === '@DateTime.Now.Year') {
-                $("#Dayvalue").val("");
+                //$("#Dayvalue").val("");
                 $("#OrderCard").text('Orders in year @DateTime.Now.Year : @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Count()');
                 $("#SalesCard").text('Sales in  year @DateTime.Now.Year : € @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Sum(t=>t.Price)');
                  myOrdersChart.data.datasets[0].data = [
@@ -441,7 +441,7 @@ else
 
             // Dit is 1 jaar geleden vergeleken met huidige jaar
             if ($(this).val() === '@DateTime.Now.AddYears(-1).Year') {
-                $("#Dayvalue").val("");
+                //$("#Dayvalue").val("");
                 $("#OrderCard").text('Orders in year @DateTime.Now.AddYears(-1).Year : @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-1).Year).Count()');
                 $("#SalesCard").text('Sales in  year @DateTime.Now.AddYears(-1).Year : € @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-1).Year).Sum(t=>t.Price)');
                 myOrdersChart.data.datasets[0].data = [
@@ -509,7 +509,7 @@ else
         }
             // Dit is 2 jaar geleden vergeleken met huidige jaar
             if ($(this).val() === '@DateTime.Now.AddYears(-2).Year') {
-                $("#Dayvalue").val("");
+                //$("#Dayvalue").val("");
                 $("#OrderCard").text('Orders in year @DateTime.Now.AddYears(-2).Year : @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-2).Year).Count()')
                 $("#SalesCard").text('Sales in  year @DateTime.Now.AddYears(-2).Year : € @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-2).Year).Sum(t=>t.Price)');
                 myOrdersChart.data.datasets[0].data = [
@@ -582,7 +582,7 @@ else
 <script type="text/javascript">
         $("#Yearvalue").change(function () {
             if ($(this).val() === 'AllYears') {
-                $("#Dayvalue").val("");
+                //$("#Dayvalue").val("");
                 $("#OrderCard").text('Total Orders: @Model.AllOrders.Where(t=>t.OrderDate.Year <= DateTime.Now.Year).Count()');
                 $("#SalesCard").text('Total Sales: € @Model.AllOrders.Where(t => t.OrderDate.Year <= DateTime.Now.Year).Sum(t=>t.Price)');
                 myOrdersChart.data.datasets[0].data = [
@@ -649,7 +649,7 @@ else
         });
 </script>
 <!-- Dit is voor grafiek veranderen naar Alle dagen (DANGER HARDCODED!)-->
-<script type="text/javascript">
+@*<script type="text/javascript">
         $("#Dayvalue").change(function () {
             if ($(this).val() === 'month1year2018') {
                 $("#Yearvalue").val("");
@@ -4113,4 +4113,4 @@ else
             }
 
         });
-</script>
+</script>*@
