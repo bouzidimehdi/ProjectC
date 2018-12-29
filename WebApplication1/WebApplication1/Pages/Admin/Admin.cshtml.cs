@@ -42,72 +42,72 @@ namespace WebApplication1.Pages.Admin
         public List<Key>[]   AllOrdersDaysYear1Jan      { get; set; }
         public List<float>[] AllOrdersSalesDaysYear1Jan { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Feb      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Feb { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Feb      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Feb { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Mar      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Mar { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Mar      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Mar { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Apr        { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Apr { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Apr        { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Apr { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1May       { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1May { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1May       { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1May { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Jun      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Jun { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Jun      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Jun { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Jul      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Jul { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Jul      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Jul { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Aug       { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Aug { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Aug       { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Aug { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Sep      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Sep { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Sep      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Sep { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Okt      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Okt { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Okt      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Okt { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Nov      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Nov { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Nov      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Nov { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear1Dec      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear1Dec { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear1Dec      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear1Dec { get; set; }
 
-        // for Days filter last year
-        public List<Key>[]   AllOrdersDaysYear2Jan      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Jan { get; set; }
+        //// for Days filter last year
+        //public List<Key>[]   AllOrdersDaysYear2Jan      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Jan { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Feb       { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Feb { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Feb       { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Feb { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Mar       { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Mar { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Mar       { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Mar { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Apr      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Apr { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Apr      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Apr { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2May      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2May { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2May      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2May { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Jun      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Jun { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Jun      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Jun { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Jul      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Jul { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Jul      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Jul { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Aug      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Aug { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Aug      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Aug { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Sep       { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Sep { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Sep       { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Sep { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Okt      { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Okt { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Okt      { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Okt { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Nov       { get; set; }
-        public List<float>[] AllOrdersSalesDaysYear2Nov { get; set; }
+        //public List<Key>[]   AllOrdersDaysYear2Nov       { get; set; }
+        //public List<float>[] AllOrdersSalesDaysYear2Nov { get; set; }
 
         public List<Key>[]   AllOrdersDaysYear2Dec      { get; set; }
         public List<float>[] AllOrdersSalesDaysYear2Dec { get; set; }
@@ -221,8 +221,8 @@ namespace WebApplication1.Pages.Admin
                 //}
 
                 //// poging om sneller te maken van de laad tijd
-                //AllOrdersDaysYear1Jan       = new List<Key>[31];
-                //AllOrdersSalesDaysYear1Jan  = new List<float>[31];
+                AllOrdersDaysYear1Jan = new List<Key>[31];
+                AllOrdersSalesDaysYear1Jan = new List<float>[31];
                 //AllOrdersDaysYear1Feb       = new List<Key>[31];
                 //AllOrdersSalesDaysYear1Feb  = new List<float>[31];
                 //AllOrdersDaysYear1Mar       = new List<Key>[31];
@@ -268,180 +268,180 @@ namespace WebApplication1.Pages.Admin
                 //AllOrdersSalesDaysYear2Okt = new List<float>[31];
                 //AllOrdersDaysYear2Nov = new List<Key>[31];
                 //AllOrdersSalesDaysYear2Nov = new List<float>[31];
-                //AllOrdersDaysYear2Dec = new List<Key>[31];
-                //AllOrdersSalesDaysYear2Dec = new List<float>[31];
+                AllOrdersDaysYear2Dec = new List<Key>[31];
+                AllOrdersSalesDaysYear2Dec = new List<float>[31];
 
-                //for (int day = 0; day < 31; day++)
-                //{
-                //    // January this year
-                //    AllOrdersDaysYear1Jan[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Jan[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Februari this year
-                //    AllOrdersDaysYear1Feb[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Feb[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Maart this year
-                //    AllOrdersDaysYear1Mar[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Mar[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // April this year
-                //    AllOrdersDaysYear1Apr[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Apr[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Mei this year
-                //    AllOrdersDaysYear1May[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1May[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Juni this year
-                //    AllOrdersDaysYear1Jun[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Jun[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Juli this year
-                //    AllOrdersDaysYear1Jul[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Jul[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Augustus this year
-                //    AllOrdersDaysYear1Aug[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Aug[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // September this year
-                //    AllOrdersDaysYear1Sep[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Sep[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // Oktober this year
-                //    AllOrdersDaysYear1Okt[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Okt[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // November this year
-                //    AllOrdersDaysYear1Nov[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Nov[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    // December this year
-                //    AllOrdersDaysYear1Dec[day] = (from key in _context.Key
-                //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
-                //                                  select key).ToList();
-                //    AllOrdersSalesDaysYear1Dec[day] = (from key in _context.Key
-                //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
-                //                                       select key.Price).ToList();
-                //    //// January last year
-                //    //AllOrdersDaysYear2Jan[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Jan[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Februari last year
-                //    //AllOrdersDaysYear2Feb[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Feb[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Maart last year
-                //    //AllOrdersDaysYear2Mar[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Mar[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// April last year
-                //    //AllOrdersDaysYear2Apr[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Apr[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Mei last year
-                //    //AllOrdersDaysYear2May[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2May[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Juni last year
-                //    //AllOrdersDaysYear2Jun[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Jun[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Juli last year
-                //    //AllOrdersDaysYear2Jul[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Jul[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Augustus last year
-                //    //AllOrdersDaysYear2Aug[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Aug[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// September last year
-                //    //AllOrdersDaysYear2Sep[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Sep[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// Oktober last year
-                //    //AllOrdersDaysYear2Okt[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Okt[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// November last year
-                //    //AllOrdersDaysYear2Nov[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Nov[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //    //// December last year
-                //    //AllOrdersDaysYear2Dec[day] = (from key in _context.Key
-                //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
-                //    //                              select key).ToList();
-                //    //AllOrdersSalesDaysYear2Dec[day] = (from key in _context.Key
-                //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
-                //    //                                   select key.Price).ToList();
-                //}
+                for (int day = 0; day < 31; day++)
+                {
+                    // January this year
+                    AllOrdersDaysYear1Jan[day] = (from key in _context.Key
+                                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
+                                                  select key).ToList();
+                    AllOrdersSalesDaysYear1Jan[day] = (from key in _context.Key
+                                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
+                                                       select key.Price).ToList();
+                    //    // Februari this year
+                    //    AllOrdersDaysYear1Feb[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Feb[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // Maart this year
+                    //    AllOrdersDaysYear1Mar[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Mar[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // April this year
+                    //    AllOrdersDaysYear1Apr[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Apr[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // Mei this year
+                    //    AllOrdersDaysYear1May[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1May[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // Juni this year
+                    //    AllOrdersDaysYear1Jun[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Jun[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // Juli this year
+                    //    AllOrdersDaysYear1Jul[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Jul[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // Augustus this year
+                    //    AllOrdersDaysYear1Aug[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Aug[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // September this year
+                    //    AllOrdersDaysYear1Sep[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Sep[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // Oktober this year
+                    //    AllOrdersDaysYear1Okt[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Okt[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // November this year
+                    //    AllOrdersDaysYear1Nov[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Nov[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    // December this year
+                    //    AllOrdersDaysYear1Dec[day] = (from key in _context.Key
+                    //                                  where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
+                    //                                  select key).ToList();
+                    //    AllOrdersSalesDaysYear1Dec[day] = (from key in _context.Key
+                    //                                       where key.OrderDate.Year == DateTime.Now.Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
+                    //                                       select key.Price).ToList();
+                    //    //// January last year
+                    //    //AllOrdersDaysYear2Jan[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Jan[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 1 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Februari last year
+                    //    //AllOrdersDaysYear2Feb[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Feb[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 2 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Maart last year
+                    //    //AllOrdersDaysYear2Mar[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Mar[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 3 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// April last year
+                    //    //AllOrdersDaysYear2Apr[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Apr[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 4 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Mei last year
+                    //    //AllOrdersDaysYear2May[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2May[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 5 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Juni last year
+                    //    //AllOrdersDaysYear2Jun[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Jun[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 6 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Juli last year
+                    //    //AllOrdersDaysYear2Jul[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Jul[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 7 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Augustus last year
+                    //    //AllOrdersDaysYear2Aug[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Aug[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 8 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// September last year
+                    //    //AllOrdersDaysYear2Sep[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Sep[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 9 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// Oktober last year
+                    //    //AllOrdersDaysYear2Okt[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Okt[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 10 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    //    //// November last year
+                    //    //AllOrdersDaysYear2Nov[day] = (from key in _context.Key
+                    //    //                              where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
+                    //    //                              select key).ToList();
+                    //    //AllOrdersSalesDaysYear2Nov[day] = (from key in _context.Key
+                    //    //                                   where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 11 && key.OrderDate.Day == (day + 1)
+                    //    //                                   select key.Price).ToList();
+                    // December last year
+                    AllOrdersDaysYear2Dec[day] = (from key in _context.Key
+                                                  where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
+                                                  select key).ToList();
+                    AllOrdersSalesDaysYear2Dec[day] = (from key in _context.Key
+                                                       where key.OrderDate.Year == DateTime.Now.AddYears(-1).Year && key.OrderDate.Month == 12 && key.OrderDate.Day == (day + 1)
+                                                       select key.Price).ToList();
+                }
                 // einde van de OnGet
             }
             }
