@@ -49,11 +49,11 @@
                     <option value="@DateTime.Now.AddYears(-2).Year">@DateTime.Now.AddYears(-2).Year</option>
                     <option value="AllYears">All Years</option>
                 </select>
-                @*<label>Filter for Days</label>
+                <label>Filter for Days</label>
                 <select id="Dayvalue">
                     <option></option>
                     <option value="month1year2018">@DateTime.Now.Year January</option>
-                    <option value="month2year2018">@DateTime.Now.Year Februari</option>
+                    @*<option value="month2year2018">@DateTime.Now.Year Februari</option>
                     <option value="month3year2018">@DateTime.Now.Year March</option>
                     <option value="month4year2018">@DateTime.Now.Year April</option>
                     <option value="month5year2018">@DateTime.Now.Year May</option>
@@ -74,9 +74,9 @@
                     <option value="month8year2019">@DateTime.Now.AddYears(-1).Year August</option>
                     <option value="month9year2019">@DateTime.Now.AddYears(-1).Year September</option>
                     <option value="month10year2019">@DateTime.Now.AddYears(-1).Year Oktober</option>
-                    <option value="month11year2019">@DateTime.Now.AddYears(-1).Year November</option>
+                    <option value="month11year2019">@DateTime.Now.AddYears(-1).Year November</option>*@
                     <option value="month12year2019">@DateTime.Now.AddYears(-1).Year December</option>
-                </select>*@
+                </select>
 
             </div>
             <div class="col-md-3">
@@ -370,7 +370,7 @@ else
         $("#Yearvalue").change(function () {
             // dit is voor dit jaar
             if ($(this).val() === '@DateTime.Now.Year') {
-                //$("#Dayvalue").val("");
+                $("#Dayvalue").val("");
                 $("#OrderCard").text('Orders in year @DateTime.Now.Year : @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Count()');
                 $("#SalesCard").text('Sales in  year @DateTime.Now.Year : € @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.Year).Sum(t=>t.Price)');
                  myOrdersChart.data.datasets[0].data = [
@@ -441,7 +441,7 @@ else
 
             // Dit is 1 jaar geleden vergeleken met huidige jaar
             if ($(this).val() === '@DateTime.Now.AddYears(-1).Year') {
-                //$("#Dayvalue").val("");
+                $("#Dayvalue").val("");
                 $("#OrderCard").text('Orders in year @DateTime.Now.AddYears(-1).Year : @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-1).Year).Count()');
                 $("#SalesCard").text('Sales in  year @DateTime.Now.AddYears(-1).Year : € @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-1).Year).Sum(t=>t.Price)');
                 myOrdersChart.data.datasets[0].data = [
@@ -509,7 +509,7 @@ else
         }
             // Dit is 2 jaar geleden vergeleken met huidige jaar
             if ($(this).val() === '@DateTime.Now.AddYears(-2).Year') {
-                //$("#Dayvalue").val("");
+                $("#Dayvalue").val("");
                 $("#OrderCard").text('Orders in year @DateTime.Now.AddYears(-2).Year : @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-2).Year).Count()')
                 $("#SalesCard").text('Sales in  year @DateTime.Now.AddYears(-2).Year : € @Model.AllOrders.Where(k => k.OrderDate.Year == DateTime.Now.AddYears(-2).Year).Sum(t=>t.Price)');
                 myOrdersChart.data.datasets[0].data = [
@@ -582,7 +582,7 @@ else
 <script type="text/javascript">
         $("#Yearvalue").change(function () {
             if ($(this).val() === 'AllYears') {
-                //$("#Dayvalue").val("");
+                $("#Dayvalue").val("");
                 $("#OrderCard").text('Total Orders: @Model.AllOrders.Where(t=>t.OrderDate.Year <= DateTime.Now.Year).Count()');
                 $("#SalesCard").text('Total Sales: € @Model.AllOrders.Where(t => t.OrderDate.Year <= DateTime.Now.Year).Sum(t=>t.Price)');
                 myOrdersChart.data.datasets[0].data = [
@@ -646,6 +646,302 @@ else
                 mySalesChart.update();
                 myOrdersChart.update();
             }
+        });
+</script>
+// Jaar nu Januari
+<script type="text/javascript">
+    $("#Dayvalue").change(function () {
+            if ($(this).val() === 'month1year2018') {
+                $("#Yearvalue").val("");
+                $("#OrderCard").text('Total Orders in January @DateTime.Now.Year: @Model.AllOrders.Where(t=> t.OrderDate.Month == 1 && t.OrderDate.Year == DateTime.Now.Year).Count()');
+                $("#SalesCard").text('Total Sales in January @DateTime.Now.Year: € @Model.AllOrders.Where(t => t.OrderDate.Month == 1 && t.OrderDate.Year == DateTime.Now.Year).Sum(t=>t.Price)');
+                myOrdersChart.data.datasets[0].data = [
+                 @Model.AllOrdersDaysYear1Jan[0 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[1 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[2 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[3 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[4 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[5 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[6 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[7 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[8 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[9 ].Count(),
+                 @Model.AllOrdersDaysYear1Jan[10].Count(),
+                 @Model.AllOrdersDaysYear1Jan[11].Count(),
+                 @Model.AllOrdersDaysYear1Jan[12].Count(),
+                 @Model.AllOrdersDaysYear1Jan[13].Count(),
+                 @Model.AllOrdersDaysYear1Jan[14].Count(),
+                 @Model.AllOrdersDaysYear1Jan[15].Count(),
+                 @Model.AllOrdersDaysYear1Jan[16].Count(),
+                 @Model.AllOrdersDaysYear1Jan[17].Count(),
+                 @Model.AllOrdersDaysYear1Jan[18].Count(),
+                 @Model.AllOrdersDaysYear1Jan[19].Count(),
+                 @Model.AllOrdersDaysYear1Jan[20].Count(),
+                 @Model.AllOrdersDaysYear1Jan[21].Count(),
+                 @Model.AllOrdersDaysYear1Jan[22].Count(),
+                 @Model.AllOrdersDaysYear1Jan[23].Count(),
+                 @Model.AllOrdersDaysYear1Jan[24].Count(),
+                 @Model.AllOrdersDaysYear1Jan[25].Count(),
+                 @Model.AllOrdersDaysYear1Jan[26].Count(),
+                 @Model.AllOrdersDaysYear1Jan[27].Count(),
+                 @Model.AllOrdersDaysYear1Jan[28].Count(),
+                 @Model.AllOrdersDaysYear1Jan[29].Count(),
+                 @Model.AllOrdersDaysYear1Jan[30].Count()
+                                                           ];
+                myOrdersChart.data.datasets[0].label = "Daily Orders in January @DateTime.Now.Year #";
+                myOrdersChart.data.labels = [
+                    "1  jan @DateTime.Now.Year",
+                    "2  jan @DateTime.Now.Year",
+                    "3  jan @DateTime.Now.Year",
+                    "4  jan @DateTime.Now.Year",
+                    "5  jan @DateTime.Now.Year",
+                    "6  jan @DateTime.Now.Year",
+                    "7  jan @DateTime.Now.Year",
+                    "8  jan @DateTime.Now.Year",
+                    "9  jan @DateTime.Now.Year",
+                    "10 jan @DateTime.Now.Year",
+                    "11 jan @DateTime.Now.Year",
+                    "12 jan @DateTime.Now.Year",
+                    "13 jan @DateTime.Now.Year",
+                    "14 jan @DateTime.Now.Year",
+                    "15 jan @DateTime.Now.Year",
+                    "16 jan @DateTime.Now.Year",
+                    "17 jan @DateTime.Now.Year",
+                    "18 jan @DateTime.Now.Year",
+                    "19 jan @DateTime.Now.Year",
+                    "20 jan @DateTime.Now.Year",
+                    "21 jan @DateTime.Now.Year",
+                    "22 jan @DateTime.Now.Year",
+                    "23 jan @DateTime.Now.Year",
+                    "24 jan @DateTime.Now.Year",
+                    "25 jan @DateTime.Now.Year",
+                    "26 jan @DateTime.Now.Year",
+                    "27 jan @DateTime.Now.Year",
+                    "28 jan @DateTime.Now.Year",
+                    "29 jan @DateTime.Now.Year",
+                    "30 jan @DateTime.Now.Year",
+                    "31 jan @DateTime.Now.Year"
+                                    ];
+                // hier verander je de data van de Sales Chart
+                mySalesChart.data.datasets[0].data =[
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[0 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[1 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[2 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[3 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[4 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[5 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[6 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[7 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[8 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[9 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[10].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[11].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[12].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[13].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[14].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[15].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[16].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[17].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[18].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[19].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[20].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[21].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[22].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[23].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[24].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[25].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[26].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[27].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[28].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[29].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear1Jan[30].Sum())               ];
+
+                mySalesChart.data.datasets[0].label = "Daily Sales in January @DateTime.Now.Year €";
+                mySalesChart.data.labels = [
+                    "1  jan @DateTime.Now.Year",
+                    "2  jan @DateTime.Now.Year",
+                    "3  jan @DateTime.Now.Year",
+                    "4  jan @DateTime.Now.Year",
+                    "5  jan @DateTime.Now.Year",
+                    "6  jan @DateTime.Now.Year",
+                    "7  jan @DateTime.Now.Year",
+                    "8  jan @DateTime.Now.Year",
+                    "9  jan @DateTime.Now.Year",
+                    "10 jan @DateTime.Now.Year",
+                    "11 jan @DateTime.Now.Year",
+                    "12 jan @DateTime.Now.Year",
+                    "13 jan @DateTime.Now.Year",
+                    "14 jan @DateTime.Now.Year",
+                    "15 jan @DateTime.Now.Year",
+                    "16 jan @DateTime.Now.Year",
+                    "17 jan @DateTime.Now.Year",
+                    "18 jan @DateTime.Now.Year",
+                    "19 jan @DateTime.Now.Year",
+                    "20 jan @DateTime.Now.Year",
+                    "21 jan @DateTime.Now.Year",
+                    "22 jan @DateTime.Now.Year",
+                    "23 jan @DateTime.Now.Year",
+                    "24 jan @DateTime.Now.Year",
+                    "25 jan @DateTime.Now.Year",
+                    "26 jan @DateTime.Now.Year",
+                    "27 jan @DateTime.Now.Year",
+                    "28 jan @DateTime.Now.Year",
+                    "29 jan @DateTime.Now.Year",
+                    "30 jan @DateTime.Now.Year",
+                    "31 jan @DateTime.Now.Year"
+                ];
+
+                // Vergeet niet te updaten anders zie je niks
+                mySalesChart.update();
+                myOrdersChart.update();
+        }
+        if ($(this).val() === 'month12year2019') {
+                $("#Yearvalue").val("");
+                $("#OrderCard").text('Total Orders in December @DateTime.Now.AddYears(-1).Year: @Model.AllOrders.Where(t=> t.OrderDate.Month ==    12 && t.OrderDate.Year == @DateTime.Now.AddYears(-1).Year).Count()');
+                $("#SalesCard").text('Total Sales in  December @DateTime.Now.AddYears(-1).Year: € @Model.AllOrders.Where(t => t.OrderDate.Month == 12 && t.OrderDate.Year == @DateTime.Now.AddYears(-1).Year).Sum(t=>t.Price)');
+                myOrdersChart.data.datasets[0].data = [
+                 @Model.AllOrdersDaysYear2Dec[0 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[1 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[2 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[3 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[4 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[5 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[6 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[7 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[8 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[9 ].Count(),
+                 @Model.AllOrdersDaysYear2Dec[10].Count(),
+                 @Model.AllOrdersDaysYear2Dec[11].Count(),
+                 @Model.AllOrdersDaysYear2Dec[12].Count(),
+                 @Model.AllOrdersDaysYear2Dec[13].Count(),
+                 @Model.AllOrdersDaysYear2Dec[14].Count(),
+                 @Model.AllOrdersDaysYear2Dec[15].Count(),
+                 @Model.AllOrdersDaysYear2Dec[16].Count(),
+                 @Model.AllOrdersDaysYear2Dec[17].Count(),
+                 @Model.AllOrdersDaysYear2Dec[18].Count(),
+                 @Model.AllOrdersDaysYear2Dec[19].Count(),
+                 @Model.AllOrdersDaysYear2Dec[20].Count(),
+                 @Model.AllOrdersDaysYear2Dec[21].Count(),
+                 @Model.AllOrdersDaysYear2Dec[22].Count(),
+                 @Model.AllOrdersDaysYear2Dec[23].Count(),
+                 @Model.AllOrdersDaysYear2Dec[24].Count(),
+                 @Model.AllOrdersDaysYear2Dec[25].Count(),
+                 @Model.AllOrdersDaysYear2Dec[26].Count(),
+                 @Model.AllOrdersDaysYear2Dec[27].Count(),
+                 @Model.AllOrdersDaysYear2Dec[28].Count(),
+                 @Model.AllOrdersDaysYear2Dec[29].Count(),
+                 @Model.AllOrdersDaysYear2Dec[30].Count()
+
+                                                           ];
+                myOrdersChart.data.datasets[0].label = "Daily Orders in December @DateTime.Now.AddYears(-1).Year #";
+                myOrdersChart.data.labels = [
+                    "1  dec @DateTime.Now.AddYears(-1).Year",
+                    "2  dec @DateTime.Now.AddYears(-1).Year",
+                    "3  dec @DateTime.Now.AddYears(-1).Year",
+                    "4  dec @DateTime.Now.AddYears(-1).Year",
+                    "5  dec @DateTime.Now.AddYears(-1).Year",
+                    "6  dec @DateTime.Now.AddYears(-1).Year",
+                    "7  dec @DateTime.Now.AddYears(-1).Year",
+                    "8  dec @DateTime.Now.AddYears(-1).Year",
+                    "9  dec @DateTime.Now.AddYears(-1).Year",
+                    "10 dec @DateTime.Now.AddYears(-1).Year",
+                    "11 dec @DateTime.Now.AddYears(-1).Year",
+                    "12 dec @DateTime.Now.AddYears(-1).Year",
+                    "13 dec @DateTime.Now.AddYears(-1).Year",
+                    "14 dec @DateTime.Now.AddYears(-1).Year",
+                    "15 dec @DateTime.Now.AddYears(-1).Year",
+                    "16 dec @DateTime.Now.AddYears(-1).Year",
+                    "17 dec @DateTime.Now.AddYears(-1).Year",
+                    "18 dec @DateTime.Now.AddYears(-1).Year",
+                    "19 dec @DateTime.Now.AddYears(-1).Year",
+                    "20 dec @DateTime.Now.AddYears(-1).Year",
+                    "21 dec @DateTime.Now.AddYears(-1).Year",
+                    "22 dec @DateTime.Now.AddYears(-1).Year",
+                    "23 dec @DateTime.Now.AddYears(-1).Year",
+                    "24 dec @DateTime.Now.AddYears(-1).Year",
+                    "25 dec @DateTime.Now.AddYears(-1).Year",
+                    "26 dec @DateTime.Now.AddYears(-1).Year",
+                    "27 dec @DateTime.Now.AddYears(-1).Year",
+                    "28 dec @DateTime.Now.AddYears(-1).Year",
+                    "29 dec @DateTime.Now.AddYears(-1).Year",
+                    "30 dec @DateTime.Now.AddYears(-1).Year",
+                    "31 dec @DateTime.Now.AddYears(-1).Year"
+                                    ];
+                // hier verander je de data van de Sales Chart
+                mySalesChart.data.datasets[0].data =[
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[0 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[1 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[2 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[3 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[4 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[5 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[6 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[7 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[8 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[9 ].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[10].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[11].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[12].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[13].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[14].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[15].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[16].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[17].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[18].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[19].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[20].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[21].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[22].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[23].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[24].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[25].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[26].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[27].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[28].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[29].Sum()),
+                 Math.round(@Model.AllOrdersSalesDaysYear2Dec[30].Sum())
+
+                ];
+                mySalesChart.data.datasets[0].label = "Daily Sales in December @DateTime.Now.AddYears(-1).Year €";
+                mySalesChart.data.labels = [
+                    "1  dec @DateTime.Now.AddYears(-1).Year",
+                    "2  dec @DateTime.Now.AddYears(-1).Year",
+                    "3  dec @DateTime.Now.AddYears(-1).Year",
+                    "4  dec @DateTime.Now.AddYears(-1).Year",
+                    "5  dec @DateTime.Now.AddYears(-1).Year",
+                    "6  dec @DateTime.Now.AddYears(-1).Year",
+                    "7  dec @DateTime.Now.AddYears(-1).Year",
+                    "8  dec @DateTime.Now.AddYears(-1).Year",
+                    "9  dec @DateTime.Now.AddYears(-1).Year",
+                    "10 dec @DateTime.Now.AddYears(-1).Year",
+                    "11 dec @DateTime.Now.AddYears(-1).Year",
+                    "12 dec @DateTime.Now.AddYears(-1).Year",
+                    "13 dec @DateTime.Now.AddYears(-1).Year",
+                    "14 dec @DateTime.Now.AddYears(-1).Year",
+                    "15 dec @DateTime.Now.AddYears(-1).Year",
+                    "16 dec @DateTime.Now.AddYears(-1).Year",
+                    "17 dec @DateTime.Now.AddYears(-1).Year",
+                    "18 dec @DateTime.Now.AddYears(-1).Year",
+                    "19 dec @DateTime.Now.AddYears(-1).Year",
+                    "20 dec @DateTime.Now.AddYears(-1).Year",
+                    "21 dec @DateTime.Now.AddYears(-1).Year",
+                    "22 dec @DateTime.Now.AddYears(-1).Year",
+                    "23 dec @DateTime.Now.AddYears(-1).Year",
+                    "24 dec @DateTime.Now.AddYears(-1).Year",
+                    "25 dec @DateTime.Now.AddYears(-1).Year",
+                    "26 dec @DateTime.Now.AddYears(-1).Year",
+                    "27 dec @DateTime.Now.AddYears(-1).Year",
+                    "28 dec @DateTime.Now.AddYears(-1).Year",
+                    "29 dec @DateTime.Now.AddYears(-1).Year",
+                    "30 dec @DateTime.Now.AddYears(-1).Year",
+                    "31 dec @DateTime.Now.AddYears(-1).Year"
+                ];
+
+                // Vergeet niet te updaten anders zie je niks
+                mySalesChart.update();
+                myOrdersChart.update();
+            }
+
         });
 </script>
 <!-- Dit is voor grafiek veranderen naar Alle dagen (DANGER HARDCODED!)-->
