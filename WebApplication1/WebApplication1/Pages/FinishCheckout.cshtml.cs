@@ -21,10 +21,18 @@ namespace WebApplication1.Pages
         }
         public IList<Key> Key { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? id)
         {
-            Key = await _context.Key
-                    .Include(k => k.Products).Where(k => k.OrderDate > DateTime.Now.AddMinutes(-1)).ToListAsync();
+            if (id != null)
+            {
+                Key = await _context.Key
+                    .Include(k => k.Products).Where(k => k.TMPID == id).ToListAsync();
+            }
+            else
+            {
+                Key = await _context.Key
+                    .Include(k => k.Products).Where(k => k.OrderDate > DateTime.Now.AddMinutes(-10)).ToListAsync();
+            }
         }
     }
 }

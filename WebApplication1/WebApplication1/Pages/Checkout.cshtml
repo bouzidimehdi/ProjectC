@@ -157,6 +157,15 @@
                 }
             </script>
         }
+        else
+        {
+            <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+
+                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+            </form>
+        }
 
         <div class="col-md-6" style="padding-bottom: 10px">
             <h2>Order summary</h2>
