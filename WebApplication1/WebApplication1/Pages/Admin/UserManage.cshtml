@@ -85,18 +85,33 @@ else
         </div>
     </div>
     <script>
-        window.location.replace("https://localhost:44358")
+
+        // Get the container element
+        var btnContainer = document.getElementById("navi");
+
+        // Get all buttons with class="btn" inside the container
+        var btns = btnContainer.getElementsByClassName("textnavi");
+
+        // Loop through the buttons and add the active class to the current/clicked button
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+
     </script>
 }
 
     <style>
-    #content {
-        margin-top: 1.5rem !important;
-    }
+#content {
+    margin-top: 1.5rem !important;
+}
 
-    #panel {
-        margin-top: 0rem !important;
-    }
+#panel {
+    margin-top: 0rem !important;
+}
 
     .navbar.flex-column a {
         color:white !important;
@@ -166,3 +181,4 @@ li,ul{
         }
 
     </style>
+
