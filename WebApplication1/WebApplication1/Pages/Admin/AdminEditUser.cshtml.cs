@@ -107,7 +107,7 @@ namespace WebApplication1.Pages.Admin
             [Required]
             public string userid { get; set; }
 
-            [Display(Name = "Does this user have an Admin Role?")]
+            [Display(Name = "")]
             public bool AdminRole { get; set; }
 
             [Phone]

@@ -14,54 +14,52 @@
                 <h3 class="display-5" style="text-decoration:white; color:#16262E!important; ">@Model.product.ResponseName</h3>
                 <p class="ellipsis lead" style="font-size:0.8em; color:#16262E!important; ">@Model.product.AboutText</p>
                 <hr class="my-4">
-                <p style="color:#16262E!important;" >Price: € @Model.product.PriceFinal</p> @*<br />Recommendation count:  @Model.product.RecommendationCount</p>*@
+                <p style="color:#16262E!important;">Price: € @Model.product.PriceFinal</p> @*<br />Recommendation count:  @Model.product.RecommendationCount</p>*@
 
                 <form asp-page="ShoppingCartController" method="post">
                     <input type="hidden" name="productid" value="@Model.product.ID" />
-                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddToCart" onclick="this.disabled = true;this.form.submit()"/>
+                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg float-left" role="button" id="Prodinf_AddToCart" onclick="this.disabled = true;this.form.submit()" />
                 </form>
-
-                <br />
 
                 @{ if (Model.Wishlistitems != null)
                     {
 
-                    <form asp-page="Wishlist/DeleteItemWishList" method="post" asp-page-handler="Delete">
-                        <input type="hidden" name="wish" value="@Model.Wishlistitems.Product_ID" />
-                        <input type="hidden" name="id" value="@Model.Wishlistitems.User_ID" />
+                        <form asp-page="Wishlist/DeleteItemWishList" method="post" asp-page-handler="Delete">
+                            <input type="hidden" name="wish" value="@Model.Wishlistitems.Product_ID" />
+                            <input type="hidden" name="id" value="@Model.Wishlistitems.User_ID" />
 
-                        <input type="submit" value="Remove from Favorites" class="btn btn-danger btn-lg" role="button" id="Prodinf_RemoveFav" onclick="this.disabled = true;this.form.submit()" style="margin-bottom:25px;"/>
-                    </form>
-                }
-                else
-                {
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        <form asp-page="Wishlist/MakeWishList" method="post">
-                            <input type="hidden" name="productid" value="@Model.product.ID" />
-                            <input type="submit" value="Add to Favorites" class="btn btn-primary btn-lg" role="button" id="Prodinf_AddFav" onclick="this.disabled = true;this.form.submit()" style="margin-bottom:25px;"/>
-                        </form>
+                            <input type="submit" value="Remove from Favorites" class="btn btn-outline-danger float-right" role="button" id="Prodinf_RemoveFav" onclick="this.disabled = true;this.form.submit()" style="margin-bottom:25px;" />
+                        </form><br /><br /><br />
                     }
+                    else
+                    {
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-page="Wishlist/MakeWishList" method="post">
+                                <input type="hidden" name="productid" value="@Model.product.ID" />
+                                <input type="submit" value="Add to Favorites" class="btn btn-outline-primary btn-lg float-right" role="button" id="Prodinf_AddFav" onclick="this.disabled = true;this.form.submit()" style="margin-bottom:25px;" />
+                            </form><br /><br /><br />
+                        }
 
+                    }
                 }
-            }
 
-            @* Verander style *@
-            @{
-                if (Model.IsAdmin)
-                {  // let op method="get" en niet meer post
-                    <form asp-page="/Admin/AdminEditProduct" method="get" class="d-inline align-middle">
-                        <input type="hidden" name="productid" value="@Model.product.ID" />
-                        <input type="submit" value="Admin-Edit" class="btn btn-primary" />
-                    </form>
+                @* Verander style *@
+                @{
+                    if (Model.IsAdmin)
+                    {  // let op method="get" en niet meer post
+                        <form asp-page="/Admin/AdminEditProduct" method="get" class="d-inline align-middle">
+                            <input type="hidden" name="productid" value="@Model.product.ID" />
+                            <input type="submit" value="Edit" class="btn btn-primary btn-sm float-left" />
+                        </form>
 
-                    <form asp-page="/Admin/AdminDeleteProduct" method="get" class="d-inline align-middle  ">
-                        <input type="hidden" name="productid" value="@Model.product.ID" />
-                        <input type="submit" value="Admin-Delete" class="btn btn-danger" />
-                    </form>
+                        <form asp-page="/Admin/AdminDeleteProduct" method="get" class="d-inline align-middle  ">
+                            <input type="hidden" name="productid" value="@Model.product.ID" />
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm" style="margin-left:5px;" />
+                        </form>
 
+                    }
                 }
-            }
 
 
             </div>

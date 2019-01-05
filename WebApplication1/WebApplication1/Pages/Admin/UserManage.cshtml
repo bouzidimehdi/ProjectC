@@ -10,12 +10,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2" style="height:100%; padding-left:0px; min-height:500px;" id="panel">
-                <nav class="navbar flex-column" style="min-height:500px; box-shadow:none; background-color:#2f5162;">
-                    <a class="navbar-brand" href="#">MONKEY.</a>
-                    <a class="navbar-brand" href="#" > Dashboard</a>
-                    <a class="navbar-brand" href="#"> User Manager</a>
-                    <a class="navbar-brand" href="#"> Orders</a>
-                </nav>
+                <div class="navi">
+                    <ul>
+                        <li class="active disabled" id="headernavi"><a href="#"><span class="hidden-xs hidden-sm">Monkey Admin</span></a></li>
+                        <li><a href="./Admin"><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
+                        <li><a href="./Usermanage"><span class="hidden-xs hidden-sm">Users</span></a></li>
+                        <li><a href="../OrderHistory"><span class="hidden-xs hidden-sm">Orders</span></a></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-md-1" style="padding-right:0px !important; padding-left:0px !important;"></div>
 
@@ -29,6 +31,7 @@
                         <th>Email</th>
                         <th>Full name</th>
                         <th style="text-align:center;">Actions</th>
+                        
                     </tr>
                     @{
                         foreach (var item in Model.Users)
@@ -37,9 +40,28 @@
                                 <td>@item.Email</td>
                                 <td>@item.Name @item.LastName</td>
                                 <td style="text-align:center;">
-                                    <a asp-page="AdminEditUser" asp-route-UserID="@item.Id">Edit</a> |
-                                    <a asp-page="AdminReadUser" asp-route-UserID="@item.Id">Read</a> |
-                                    <a asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a>
+                                    <a class="btn btn-primary" asp-page="AdminEditUser" asp-route-UserID="@item.Id" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-primary" asp-page="AdminReadUser" asp-route-UserID="@item.Id" title="Read"><i class="far fa-eye"></i></a>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" asp-route-UserID="@item.Id" title="Delete"><i class="fas fa-times"></i></a>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this user? 🐒
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-danger" asp-page-handler="delete" asp-route-UserID="@item.Id">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -47,6 +69,9 @@
                 </table>
             </div>
             @*<div class="col-md-1" ></div>*@
+
+
+
         </div>
         </div>
 }
@@ -76,4 +101,68 @@ else
     .navbar.flex-column a {
         color:white !important;
     }
+
+
+
+
+a:focus,a:hover,a{
+    outline:none;
+    text-decoration: none;
+}
+li,ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+        .navi a {
+            color: #212529;
+            display: block;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 28px 20px;
+            text-decoration: none;
+        }
+
+.navi i {
+    margin-right: 15px;
+    color: #5584ff;
+}
+
+        .navi .active a {
+            background: #16262e;
+            border-left: 5px solid #007bff;
+            color: #fff;
+            padding-left: 15px;
+        }
+
+        .navi a:hover {
+            background: #fff none repeat scroll 0 0;
+            border-left: 5px solid #007bff;
+            display: block;
+            padding-left: 15px;
+        }
+
+.navbar-default {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.navbar-toggle {
+    border: none;
+}
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #0e1a35;
+}
+
+        #headernavi {
+            pointer-events: none;
+        }
+
     </style>
