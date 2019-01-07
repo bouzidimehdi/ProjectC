@@ -54,13 +54,9 @@ namespace WebApplication1.Pages.Wishlist
                 }
                   
             }
-            else
-            {
-
-            }
 
 
-            Response.Redirect("../Productinfo?id=" + productid.ToString());
+            Response.Redirect("../Productinfo?id=" + productid + "&ProductAdded=FavoriteAdd");
         }
     }
 }

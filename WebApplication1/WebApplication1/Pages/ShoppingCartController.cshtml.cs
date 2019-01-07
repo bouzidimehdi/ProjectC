@@ -31,7 +31,7 @@ namespace WebApplication1.Pages
 
         public string cookie;
 
-        public void OnPost(/*[FromBody]*/ int productid)
+        public void OnPost(/*[FromBody]*/ int productid, string WichPage = "True")
         {
             // Controlleert of de gebruiker is ingelogd.
             if (User.Identity.IsAuthenticated) // Wordt uitgevoerd als de gebruiker is ingelogd.
@@ -166,10 +166,14 @@ namespace WebApplication1.Pages
                     }
                 }
             }
-            // Redirect naar de shoppingcart
-            Response.Redirect("/shoppingCart");
+
+            if (WichPage == "True")
+            {
+                // Redirect back to Product info
+                Response.Redirect("ProductInfo?id=" + productid + "&ProductAdded=ShoppingCard");
+            }
+            // Redirect to shoppingcard
+            Response.Redirect("ShoppingCart");
         }
     }
-
-    
 }

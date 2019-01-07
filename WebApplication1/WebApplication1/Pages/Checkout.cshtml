@@ -107,18 +107,26 @@
 
         @if (User.Identity.IsAuthenticated && Model._User.TPunten >= 0)
         {
-            <div class="col-md-6">
-                <h2>Points Discount</h2>
-                <p>Spend your points for a nice discount!</p>
-                <p>Youre current ammount of points are: @Model._User.TPunten</p>
-                
-                <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+        <div class="col-md-6">
 
-                    <input type="hidden" name="email" value="@Model.EmailKey.Email" />
-                    <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
-                    <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
 
-                    <select id="PointsSpend" name="PointsSpend" onchange="UpdatePoints()">
+            <h2 class="text-center"> Grab your discount!</h2><hr />
+
+            <p class="text-center">Spend your saved diamonds for a discount!</p>
+
+            <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+
+                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+
+                <div class="dropdown text-center">
+                    <a href="#" class="btn btn-primary dropdown-toggle text-center" data-toggle="dropdown" style="text-transform:none;">
+                        Gimme a discount!
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li class="dropdown-header">Your points:  @Model._User.TPunten </li>
                         @for (int j = 0; j < 1000; j += 100)
                         {
                             double Discount = Math.Round((Math.Pow(j + totalz, 1.8) / 1000) * 100) / 100;
@@ -126,12 +134,66 @@
 
                             if (Model._User.TPunten >= j && PercentDiscount <= 25)
                             {
-                                <option value="@j">@j</option>
+                                <a class="dropdown-item" href="#pk">@j</a>
                             }
+
                         }
-                    </select>
-                </form>
-            </div>
+                    </ul>
+                </div>
+            </form><br />
+            <p style="border-bottom:1px solid #e5e5e5;  line-height:0.1em; margin:10px 0 20px;  text-align:center;"><span style=" background:#fff; padding:0 10px; ">or</span></p>
+            <p class="text-center">Spend your saved diamonds for exclusive products!</p>
+            <div class="text-center">
+                @if (Model._User.TPunten >= 100)
+                {
+                    <button type="button" class="btn btn-outline-primary" style="text-transform:none;" data-toggle="modal" data-target="#myModal">
+                        Open the diamond shop
+                    </button>
+                }
+                else
+                {
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="To access the diamond shop, you need atleast 100 diamonds! 💎">
+                        <button type="button" class="btn btn-outline-primary" style="text-transform:none; pointer-events: none;" disabled >
+                            Open the diamond shop
+                        </button>
+                        </span>
+
+                        }
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-center" id="exampleModalLabel">Hi there! 🐒</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">Your diamonds amount: <span class="text-success"> @Model._User.TPunten </span><br /> Grab for free!</div>
+                                            </div>
+                                            <div class="row">&nbsp;</div>
+                                            <div class="row text-center">
+                                                <div class="col-md-12 "><h3> Tekken 7</h3>  <br /><img src="https://i2.wp.com/thelootgaming.com/wp-content/uploads/tekken7-1.png?zoom=2&resize=1210%2C642&ssl=1" width="300" style="border-radius:5px"/><hr /><button type="button" class="btn btn-primary" style="text-transform:none;">Add to cart!</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="left-side">
+                                            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Never mind</button>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="right-side">
+                                            <button type="button" style="text-transform:none!important;" class="btn btn-default btn-link">Never mind</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+        </div>
 
             <script>
                 function UpdatePoints() {
@@ -156,6 +218,15 @@
                     }
                 }
             </script>
+        }
+        else
+        {
+            <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+
+                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+            </form>
         }
 
         <div class="col-md-6" style="padding-bottom: 10px">
@@ -211,6 +282,24 @@
     paypal-button-logo-color-black{
         display:none !important;
     }
+
+.floating {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+@@keyframes floating {
+    from { transform: translate(0,  0px); }
+    65%  { transform: translate(0, 15px); }
+    to   { transform: translate(0, -0px); }
+}
+
+
+
 </style>
 
 

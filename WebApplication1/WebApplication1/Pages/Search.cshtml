@@ -159,8 +159,8 @@
                                                 @{
                                                     if (Model.IsAdmin)
                                                     {
-                                                        <a asp-page="/Admin/AdminEditProduct" asp-route-productid="@item.ID" id="Search_AdminEdit">edit</a>
-                                                        <a asp-page="/Admin/AdminDeleteProduct" asp-route-productid="@item.ID" id="Search_AdminDelete">delete product</a>
+                                                        <a class="btn btn-primary" asp-page="/Admin/AdminEditProduct" asp-route-productid="@item.ID" id="Products_AdminEdit" title="Edit"><i class="fas fa-edit"></i></a>
+                                                        <a class="btn btn-danger" asp-page="/Admin/AdminDeleteProduct" asp-route-productid="@item.ID" id="Products_AdminDelete" title="Delete"><i class="fas fa-times"></i></a>
                                                     }
                                                 }
                                             </div>

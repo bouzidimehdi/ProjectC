@@ -9,10 +9,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2 style="font-family: 'Rubik', sans-serif; font-weight:900;">CART <i class="fas fa-shopping-cart"></i></h2>
+            <h2>My Cart 🛒</h2>
         </div>
         <div class="col">
-            <a class="btn btn-warning float-right" style="margin-top:10px; margin-bottom:10px; padding-left:15px;" asp-page="./Shopping" id="Cart_ToShopping">Continue Shopping</a>
+            <a class="btn btn-success float-right" style="margin-top:10px; margin-bottom:10px; padding-left:15px;" asp-page="./Shopping" id="Cart_ToShopping">Continue Shopping</a>
         </div>
         <table class="table">
             <thead>
@@ -46,6 +46,7 @@
                                     <span style="padding:1px 10px"> @item.quantity</span>
                                     <form asp-page="ShoppingCartController" method="post" class="d-inline align-middle  ">
                                         <input type="hidden" name="productid" value="@item.product.ID" />
+                                        <input type="hidden" name="WichPage" value="False"/>
                                         <input type="submit" value="+" class="btn btn-light btn-sm" id="Cart_Add_Quantity" />
 
                                     </form>
@@ -97,11 +98,11 @@
 
     <div class="row">
         <div class="col-md-6">
-            <button onclick="openPopup()">Spend Points!</button>
+            @*<button onclick="openPopup()">Spend Points!</button>*@
         </div>
 
         <div class="col-md-6" style="padding-bottom: 10px">
-            <h2 style="font-family: 'Rubik', sans-serif; font-weight:900;">CART TOTALS</h2>
+            <h2>Cart total</h2>
             <table class="table">
                 <tbody>
                     <tr>
@@ -128,7 +129,7 @@
 
 
 
-<div id="myPopup" class="overlay">
+@*<div id="myPopup" class="overlay">   misschien nog handig voor later iets
     <a href="javascript:void(0)" class="closebtn" onclick="closePopup()">&times;</a>
     <div class="inner-overlay">
 
@@ -179,12 +180,8 @@
                 <button>spend points here</button>
             </div>
         </div>
-
-
-
-
     </div>
-</div>
+</div>*@
 
 
 
