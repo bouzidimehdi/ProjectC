@@ -39,7 +39,7 @@ namespace WebApplication1.Pages.Admin
         public List<float>[] AllOrdersSalesYears { get; set; }
 
         // for Days filter this year
-        public List<Key>[]   AllOrdersDaysYear1Jan      { get; set; }
+        public List<Key>[] AllOrdersDaysYear1Jan { get; set; }
         public List<float>[] AllOrdersSalesDaysYear1Jan { get; set; }
 
         //public List<Key>[]   AllOrdersDaysYear1Feb      { get; set; }
@@ -109,7 +109,7 @@ namespace WebApplication1.Pages.Admin
         //public List<Key>[]   AllOrdersDaysYear2Nov       { get; set; }
         //public List<float>[] AllOrdersSalesDaysYear2Nov { get; set; }
 
-        public List<Key>[]   AllOrdersDaysYear2Dec      { get; set; }
+        public List<Key>[] AllOrdersDaysYear2Dec { get; set; }
         public List<float>[] AllOrdersSalesDaysYear2Dec { get; set; }
 
 
@@ -125,65 +125,65 @@ namespace WebApplication1.Pages.Admin
         //    [Required]
         //    public int jaar { get; set; }
         //}
-            
-            public async Task OnGetAsync()
+
+        public async Task OnGetAsync()
+        {
+            // Check if the user is logged in and authorised
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
-                // Check if the user is logged in and authorised
-                if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                {
-                    // Zet het standaard jaar neer.
-                    //Input = new InputModel()
-                    //{
-                    //    jaar = DateTime.Now.Year
-                    //};
+                // Zet het standaard jaar neer.
+                //Input = new InputModel()
+                //{
+                //    jaar = DateTime.Now.Year
+                //};
 
-                    // Haalt alle registered en niet registered users op voor grafiek UsersGraph
-                    RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true)
-                        .ToListAsync();
-                    UnregisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == false)
-                        .ToListAsync();
+                // Haalt alle registered en niet registered users op voor grafiek UsersGraph
+                RegisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == true)
+                    .ToListAsync();
+                UnregisteredUsers = await _context.Users.AsNoTracking().Where(t => t.EmailConfirmed == false)
+                    .ToListAsync();
 
-                    // Haal de totale ordered producten op uit de database 
-                    AllOrders = await _context.Key
-                        .ToListAsync();
-                    
-                   
-                   // Orders en Sales per maand voor de laatste 3 jaren
-                    AllOrdersAll = new List<Key>[36];
-                    AllOrdersSales = new List<float>[36];
+                // Haal de totale ordered producten op uit de database 
+                AllOrders = await _context.Key
+                    .ToListAsync();
+
+
+                // Orders en Sales per maand voor de laatste 3 jaren
+                AllOrdersAll = new List<Key>[36];
+                AllOrdersSales = new List<float>[36];
 
                 // Dit zet de keys van dit jaar,vorig jaar, en 2 jaar geleden in 1 array die wordt gebruikt voor 3 grafieken
                 for (int i = 0; i < 12; i++)
-                    {
-                        AllOrdersAll[i] = (from key in _context.Key
-                                               where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
-                                                     (key.OrderDate.Year == (DateTime.Now.Year)))
-                                               select key).ToList();
-                        AllOrdersAll[i+12] = (from key in _context.Key
-                                               where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
-                                                     (key.OrderDate.Year == (DateTime.Now.AddYears(-1).Year)))
-                                               select key).ToList();
-                        AllOrdersAll[i+24] = (from key in _context.Key
-                                                where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
-                                                      (key.OrderDate.Year == (DateTime.Now.AddYears(-2).Year)))
-                                                select key).ToList();
-                    }
+                {
+                    AllOrdersAll[i] = (from key in _context.Key
+                                       where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                             (key.OrderDate.Year == (DateTime.Now.Year)))
+                                       select key).ToList();
+                    AllOrdersAll[i + 12] = (from key in _context.Key
+                                            where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                  (key.OrderDate.Year == (DateTime.Now.AddYears(-1).Year)))
+                                            select key).ToList();
+                    AllOrdersAll[i + 24] = (from key in _context.Key
+                                            where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                  (key.OrderDate.Year == (DateTime.Now.AddYears(-2).Year)))
+                                            select key).ToList();
+                }
                 // Dit zet de prijs van de keys van dit jaar,vorig jaar, en 2 jaar geleden in 1 array die wordt gebruikt voor 3 grafieken
-                    for (int i = 0; i < 12; i++)
-                    {
-                        AllOrdersSales[i] = (from key in _context.Key
-                                                 where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
-                                                       (key.OrderDate.Year == (DateTime.Now.Year)))
-                                                 select key.Price).ToList();
-                        AllOrdersSales[i+12] = (from key in _context.Key
-                                                 where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
-                                                       (key.OrderDate.Year == (DateTime.Now.AddYears(-1).Year)))
-                                                 select key.Price).ToList();
-                        AllOrdersSales[i+24] = (from key in _context.Key
-                                                  where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
-                                                        (key.OrderDate.Year == (DateTime.Now.AddYears(-2).Year)))
-                                                  select key.Price).ToList();
-                    }
+                for (int i = 0; i < 12; i++)
+                {
+                    AllOrdersSales[i] = (from key in _context.Key
+                                         where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                               (key.OrderDate.Year == (DateTime.Now.Year)))
+                                         select key.Price).ToList();
+                    AllOrdersSales[i + 12] = (from key in _context.Key
+                                              where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                    (key.OrderDate.Year == (DateTime.Now.AddYears(-1).Year)))
+                                              select key.Price).ToList();
+                    AllOrdersSales[i + 24] = (from key in _context.Key
+                                              where (key.OrderDate.Month == (DateTime.Now.AddMonths(-i).Month) &&
+                                                    (key.OrderDate.Year == (DateTime.Now.AddYears(-2).Year)))
+                                              select key.Price).ToList();
+                }
 
                 // Orders en Sales per jaar voor de laatste 10 jaar
                 AllOrdersYears = new List<Key>[11];
@@ -192,11 +192,11 @@ namespace WebApplication1.Pages.Admin
                 for (int i = 0; i < 11; i++)
                 {
                     AllOrdersYears[i] = (from key in _context.Key
-                                           where key.OrderDate.Year == DateTime.Now.AddYears(-i).Year
-                                           select key).ToList();
+                                         where key.OrderDate.Year == DateTime.Now.AddYears(-i).Year
+                                         select key).ToList();
                     AllOrdersSalesYears[i] = (from key in _context.Key
-                                             where key.OrderDate.Year == DateTime.Now.AddYears(-i).Year
-                                             select key.Price).ToList();
+                                              where key.OrderDate.Year == DateTime.Now.AddYears(-i).Year
+                                              select key.Price).ToList();
                 }
 
                 // Dit zorgde ervoor dat het laden 1minuut duurde op laptop ookal was het 10s op mn desktop
@@ -444,6 +444,6 @@ namespace WebApplication1.Pages.Admin
                 }
                 // einde van de OnGet
             }
-            }
         }
     }
+}
