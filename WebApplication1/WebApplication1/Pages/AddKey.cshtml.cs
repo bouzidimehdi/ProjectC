@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,17 @@ namespace WebApplication1.Pages
 
             var id = _userManager.GetUserId(User);
             ApplicationUser gebruiker = await _userManager.GetUserAsync(User);
+            
+            // Select an new highest TMPID.
+            int currentTMPID = 0;
+            bool UniqueTMPCheck = true;
+            Random rnd = new Random();
+            while (UniqueTMPCheck)
+            {
+                currentTMPID = rnd.Next(1, 2000000000);
+                UniqueTMPCheck = _context.Key.Any(item => item.TMPID == currentTMPID);
+            }
+
             mehdiid = id;
             if (User.Identity.IsAuthenticated)
             {
@@ -93,6 +105,7 @@ namespace WebApplication1.Pages
                         Order.Keys.Add(new Key()
                         {
                             UserID = id,
+                            TMPID = currentTMPID,
                             License = Guid.NewGuid().ToString(),
                             ProductID = item.product.ID,
                             Price = item.product.PriceFinal,
@@ -134,30 +147,43 @@ namespace WebApplication1.Pages
                 _context.Shopping_Card_Products.RemoveRange(fullcart);
 
             }
-            else
+            else // Voor cookie shoppingCard
             {
                 string cookieshoping = Request.Cookies["ShoppingCart"];
                 List<shoppingCart_cookie> shoppingcartlist = Cookie.Cookiereader_shoppingcart(cookieshoping);
                 List<Key> keys = new List<Key>();
 
+                Order Order = new Order()
+                {
+                    PointsGain = 0,
+                    Paid = 0,
+                    PointsSpend = 0,
+                    OrderDate = DateTime.Now,
+                    Keys = new List<Key>(),
+                };
+
+                float TotalPrice = 0;
+
                 foreach (shoppingCart_cookie item in shoppingcartlist)
                 {
                     while (i < item.Quantity)
                     {
-                        Key keyz = new Key()
+                        TotalPrice = TotalPrice + _context.Product.Where(x => x.ID == item.ProductID).Select(x => x.PriceFinal).FirstOrDefault();
+                        Order.Keys.Add(new Key()
                         {
-                            //UserID = id,
+                            TMPID = currentTMPID,
                             License = Guid.NewGuid().ToString(),
                             ProductID = item.ProductID,
-                            Price = 0,
+                            Price = _context.Product.Where(x => x.ID == item.ProductID).Select(x => x.PriceFinal).FirstOrDefault(),
                             OrderDate = DateTime.Now
-                        };
-                        _context.Key.Add(keyz);
-                        keys.Add(keyz);
+                        });
                         i = i + 1;
                     }
                     i = -1;
                 }
+
+                Order.Paid = TotalPrice;
+                _context.Order.Add(Order);
 
                 // From List keys to only key array
                 EmailKeyArray[] EmailKey = new EmailKeyArray[keys.Count];
@@ -195,7 +221,7 @@ namespace WebApplication1.Pages
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("FinishCheckout");
+            return Redirect("FinishCheckout?id=" + currentTMPID);
         }
     }
 

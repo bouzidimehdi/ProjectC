@@ -46,6 +46,7 @@
                                     <span style="padding:1px 10px"> @item.quantity</span>
                                     <form asp-page="ShoppingCartController" method="post" class="d-inline align-middle  ">
                                         <input type="hidden" name="productid" value="@item.product.ID" />
+                                        <input type="hidden" name="WichPage" value="False"/>
                                         <input type="submit" value="+" class="btn btn-light btn-sm" id="Cart_Add_Quantity" />
 
                                     </form>

@@ -73,7 +73,7 @@ namespace WebApplication1.Pages.Wishlist
                 await _context.SaveChangesAsync();
             }
 
-            return Redirect("../Productinfo?id=" + wish.ToString());
+            return Redirect("../Productinfo?id=" + wish + "&ProductAdded=FavoriteDelete");
         }
     }
 }
