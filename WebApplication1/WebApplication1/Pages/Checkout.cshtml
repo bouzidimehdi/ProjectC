@@ -1,9 +1,9 @@
 ﻿@page
 @model CheckoutModel
+@using System.Xml.Schema
 @using static AddKeyModel
 @{
     float totalz = 0;
-    
 }
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -129,7 +129,10 @@
                         <li class="dropdown-header">Your points:  @Model._User.TPunten </li>
                         @for (int j = 0; j < 1000; j += 100)
                         {
-                            if (Model._User.TPunten >= j)
+                            double Discount = Math.Round((Math.Pow(j + totalz, 1.8) / 1000) * 100) / 100;
+                            double PercentDiscount = (Discount / totalz) * 100;
+
+                            if (Model._User.TPunten >= j && PercentDiscount <= 25)
                             {
                                 <a class="dropdown-item" href="#pk">@j</a>
                             }
@@ -198,8 +201,8 @@
                     var PointsSpend = parseInt(document.getElementById("PointsSpend").value);
                     var Total = parseFloat("@totalz.ToString()");
 
-                    var Discount = Math.round((Math.pow((PointsSpend + Total), 1.8) / 1000) * 100) / 100;
-                    var Total = Math.round((Total - Discount) * 100 ) / 100
+                    var Discount = Math.round((Math.pow(PointsSpend + Total, 1.8) / 1000) * 100) / 100;
+                    var Total = Math.round((Total - Discount) * 100) / 100;
 
                     if (PointsSpend == 0) {
                         document.getElementById("Discount").innerHTML = 0;
@@ -215,6 +218,15 @@
                     }
                 }
             </script>
+        }
+        else
+        {
+            <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+
+                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
+                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
+                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+            </form>
         }
 
         <div class="col-md-6" style="padding-bottom: 10px">

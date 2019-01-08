@@ -18,6 +18,9 @@ namespace WebApplication1.Pages
         // Product
         public Product product;
 
+        public string StatusMessage;
+        public string StatusMessageError;
+
         // wishlist van de user
         public User_Wishlist Wishlistitems { get; set; }
 
@@ -32,7 +35,7 @@ namespace WebApplication1.Pages
         }
 
         // OnGet inintialsise the page.
-        public void OnGet(int id)
+        public void OnGet(int id, string ProductAdded)
         {
             // check if user is an admin ( if not then Admin = false)
             var Admin = User.IsInRole("Admin");
@@ -60,7 +63,20 @@ namespace WebApplication1.Pages
 
             Wishlistitems = query1.FirstOrDefault();
 
+            if (ProductAdded == "ShoppingCard")
+            {
+                StatusMessage = "Youre Product has been added to youre shoppingCard";
+            }
 
+            if (ProductAdded == "FavoriteAdd")
+            {
+                StatusMessage = "Youre Product has been added to youre Favorites";
+            }
+
+            if (ProductAdded == "FavoriteDelete")
+            {
+                StatusMessageError = "Youre Product has been deleted from youre Favorites";
+            }
         }
     }
 }

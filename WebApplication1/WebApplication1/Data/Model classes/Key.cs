@@ -6,6 +6,7 @@ namespace WebApplication1.Data
     public class Key
     {
         public int ID { get; set; }
+        public int TMPID { get; set; }
         public string License { get; set; }
         public bool Sold { get; set; }
         public int ProductID { get; set; }

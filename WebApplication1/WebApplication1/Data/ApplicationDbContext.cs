@@ -68,7 +68,8 @@ namespace WebApplication1.Data
             builder.Entity<Order>()
                 .HasOne(Order => Order.User)
                 .WithMany(User => User.Orders)
-                .HasForeignKey(Order => Order.User_ID);
+                .HasForeignKey(Order => Order.User_ID)
+                .IsRequired(false);
 
             // Make relation between Order and Key
             builder.Entity<Key>()
