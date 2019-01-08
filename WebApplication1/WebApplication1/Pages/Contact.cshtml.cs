@@ -41,7 +41,7 @@ namespace WebApplication1.Pages
 
         public void OnPost()
         {
-            _emailSender.SendContactEmailAsync(Input.Message, Input.emailaddress);
+            //_emailSender.SendContactEmailAsync(Input.Message, Input.emailaddress);
 
             Message = "Your message has been send!";
 
