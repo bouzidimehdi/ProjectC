@@ -51,7 +51,8 @@
                             <option value="@DateTime.Now.AddYears(-2).Year">@DateTime.Now.AddYears(-2).Year</option>
                             <option value="AllYears">All Years</option>
                         </select>
-                        <label>Filter for Days</label>
+                        <div style="float:right;">
+                        <label >Filter for Days</label>
                         <select id="Dayvalue">
                             <option></option>
                             <option value="month1year2018">@DateTime.Now.Year January</option>
@@ -79,6 +80,7 @@
                     <option value="month11year2019">@DateTime.Now.AddYears(-1).Year November</option>*@
                             <option value="month12year2019">@DateTime.Now.AddYears(-1).Year December</option>
                         </select>
+                            </div>
                     </div>
                     <br />
                     <div class="card-body">
