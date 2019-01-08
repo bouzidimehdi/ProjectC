@@ -65,17 +65,17 @@ namespace WebApplication1.Pages
 
             if (ProductAdded == "ShoppingCard")
             {
-                StatusMessage = "Youre Product has been added to youre shoppingCard";
+                StatusMessage = "Added to cart! 🛒";
             }
 
             if (ProductAdded == "FavoriteAdd")
             {
-                StatusMessage = "Youre Product has been added to youre Favorites";
+                StatusMessage = "Added to favorites! ❤️";
             }
 
             if (ProductAdded == "FavoriteDelete")
             {
-                StatusMessageError = "Youre Product has been deleted from youre Favorites";
+                StatusMessageError = "Deleted from favorites 💔";
             }
         }
     }

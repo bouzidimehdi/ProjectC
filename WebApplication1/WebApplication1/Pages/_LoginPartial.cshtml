@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using WebApplication1.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -23,6 +23,8 @@
                         {
                             <a asp-page="/Admin/Admin" class="dropdown-item" id="NavAdmin">Admin</a>
                         }
+                            <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin:0 auto; border-radius:0px;"> @Model._User.TPunten</button>
+
                         <button class="btn btn-danger btn-lg btn-block" type="submit" style="margin:0 auto; border-radius:0px;"> Logout</button>
                     </ul>
                 </li>
@@ -45,6 +47,8 @@ else
                     <div class="dropdown-header" data-toggle="tab" href="#action">My profile</div>
                     <a asp-page="/Account/Login" class="dropdown-item" id="NavLogin">Login</a>
                     <a asp-page="/Account/Register" class="dropdown-item" id="NavRegister">Register</a>
+                    <div class="dropdown-header" data-toggle="tab">@Model._User.TPunten</div>
+
                 </ul>
             </li>
         </ul>
