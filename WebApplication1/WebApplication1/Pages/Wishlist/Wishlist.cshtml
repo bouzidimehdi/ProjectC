@@ -7,10 +7,10 @@
 
 <div class="container">
     <div class="row">
-        <h2 style="font-family: 'Rubik', sans-serif; font-weight:900;">FAVORITES <i class="fas fa-heart" style="color:red;"></i></h2>
+        <h2>Favorites 💖</h2>
         <span style="padding:0px 350px "></span>
         <div>
-            <a class="btn btn-warning float-right" style="margin-top:10px; margin-bottom:10px" asp-page="/Shopping" id="Fav_ToShopping">Continue Shopping</a>
+            <a class="btn btn-warning float-right" style="margin-top:10px; margin-bottom:10px; text-transform:none;" asp-page="/Shopping" id="Fav_ToShopping">Continue Shopping</a>
         </div>
 
         <table class="table">
@@ -43,7 +43,7 @@
                     <td>
                         <form asp-page="../ShoppingCartController" method="post">
                             <input type="hidden" name="productid" value="@item.Product.ID" />
-                            <input type="submit" value="Add to Cart" class="btn btn-success btn-sm" id="Fav_AddToCart" onclick="this.disabled = true;this.form.submit()"/>
+                            <input type="submit" style="text-transform:none;" value="Add to Cart" class="btn btn-success btn-sm" id="Fav_AddToCart" onclick="this.disabled = true;this.form.submit()"/>
                         </form>
                      </td>
                 </tr>
