@@ -88,7 +88,7 @@ namespace WebApplication1.Pages
             if (Adventure == "1")
             {
                 _Adventure = Adventure;
-                filterAdventure = P => P.GenreIsMassivelyMultiplayer;
+                filterAdventure = P => P.GenreIsAdventure;
             }
 
             if (Racing == "1")
