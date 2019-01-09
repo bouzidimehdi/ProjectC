@@ -28,11 +28,6 @@ namespace WebApplication1.Pages
                 Key = await _context.Key
                     .Include(k => k.Products).Where(k => k.TMPID == id).ToListAsync();
             }
-            else
-            {
-                Key = await _context.Key
-                    .Include(k => k.Products).Where(k => k.OrderDate > DateTime.Now.AddMinutes(-10)).ToListAsync();
-            }
         }
     }
 }

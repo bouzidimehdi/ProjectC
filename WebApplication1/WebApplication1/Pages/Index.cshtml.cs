@@ -10,6 +10,7 @@ namespace WebApplication1.Pages
 {
     public class IndexModel : PageModel
     {
+
         private readonly ApplicationDbContext _context;
         public IndexModel(ApplicationDbContext context)
         {
