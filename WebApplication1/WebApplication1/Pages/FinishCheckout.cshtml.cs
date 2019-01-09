@@ -31,7 +31,7 @@ namespace WebApplication1.Pages
             else
             {
                 Key = await _context.Key
-                    .Include(k => k.Products).Where(k => k.OrderDate > DateTime.Now.AddMinutes(-10)).ToListAsync();
+                    .Include(k => k.Products).Where(k => k.OrderDate > DateTime.Now.AddMinutes(-1)).ToListAsync();
             }
         }
     }
