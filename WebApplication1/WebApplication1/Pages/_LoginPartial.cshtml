@@ -29,7 +29,10 @@
                         {
                             <a asp-page="/Admin/Admin" class="dropdown-item" id="NavAdmin">Admin</a>
                         }
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin:0 auto; border-radius:0px;">@*Your points amount: @Model._User.TPunten*@</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin: 0 auto; border-radius: 0px;">
+                            <div id="DiamondPoints"></div>
+                            <script>GetPoints();</script>
+                        </button>
 
                         <button class="btn btn-danger btn-lg btn-block" type="submit" style="margin:0 auto; border-radius:0px;"> Logout</button>
                     </ul>

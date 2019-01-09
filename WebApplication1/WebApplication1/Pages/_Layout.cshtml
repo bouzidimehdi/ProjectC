@@ -49,13 +49,6 @@
                         <button style="visibility:hidden;" type="submit"></button><i class="fa fa-search"></i>
                     </form>
                 </li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <div id="DiamondPoints"></div>
-                        <script>GetPoints();</script>
-                    </li>
-                }
             </ul>
 
         </div>
