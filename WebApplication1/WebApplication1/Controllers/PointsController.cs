@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SQLitePCL;
+using WebApplication1.Data;
 
 namespace WebApplication1.Controllers
 {
@@ -11,36 +14,27 @@ namespace WebApplication1.Controllers
     [Route("api/Points")]
     public class PointsController : Controller
     {
-        // GET: api/Points
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public PointsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            return new string[] { "value1", "value2" };
+            _context = context;
+            _userManager = userManager;
         }
 
-        // GET: api/Points/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        //Main Functions
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        // GET: api/Points
+        [HttpGet()]
+        public int Get()
         {
-            return "value";
-        }
-        
-        // POST: api/Points
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-        
-        // PUT: api/Points/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (User.Identity.IsAuthenticated)
+            {
+                ApplicationUser Gebruiker = _userManager.GetUserAsync(User).Result;
+                return Gebruiker.TPunten;
+            }
+            // -1 is een error dit zijn niet het aantal punten.
+            return -1;
         }
     }
 }

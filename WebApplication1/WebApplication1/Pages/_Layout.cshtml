@@ -14,11 +14,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script type="text/javascript">
         $(document).ready(function () {
-            $("[data-toggle=tooltip]").tooltip()
+            $("[data-toggle=tooltip]").tooltip();
         })
     </script>
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="js/GetPoints.js"></script>
 
 </head>
 <body>
@@ -48,6 +49,13 @@
                         <button style="visibility:hidden;" type="submit"></button><i class="fa fa-search"></i>
                     </form>
                 </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <div id="DiamondPoints"></div>
+                        <script>GetPoints();</script>
+                    </li>
+                }
             </ul>
 
         </div>
