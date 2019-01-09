@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Schema;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +19,6 @@ namespace WebApplication1.Pages
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         public string mehdiid { get; set; }
-        int i = 0;
         //public IList<Shopping_card_Product> proptabtab { get; set; }
         public List<ResponseShopingCart> proptabtab { get; set; }
 
@@ -99,6 +97,7 @@ namespace WebApplication1.Pages
 
                 foreach (var item in proptabtab)
                 {
+                    int i = 0;
                     while (i < item.quantity)
                     {
                         TotalPrice = TotalPrice + item.product.PriceFinal;
@@ -113,7 +112,6 @@ namespace WebApplication1.Pages
                         });
                         i = i + 1;
                     }
-                    i = 0;
                 }
 
                 if (PointsSpend != null && PointsSpend != 0)
@@ -166,6 +164,7 @@ namespace WebApplication1.Pages
 
                 foreach (shoppingCart_cookie item in shoppingcartlist)
                 {
+                    int i = 0;
                     while (i < item.Quantity)
                     {
                         TotalPrice = TotalPrice + _context.Product.Where(x => x.ID == item.ProductID).Select(x => x.PriceFinal).FirstOrDefault();
@@ -179,7 +178,6 @@ namespace WebApplication1.Pages
                         });
                         i = i + 1;
                     }
-                    i = -1;
                 }
 
                 Order.Paid = TotalPrice;

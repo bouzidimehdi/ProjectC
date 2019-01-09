@@ -6,7 +6,6 @@
         contentType: "application/json;",
         dataType: "json",
         success: function (response) {
-            alert(response);
             document.getElementById("DiamondPoints").innerHTML = response;
         },
         failure: function (response) {
