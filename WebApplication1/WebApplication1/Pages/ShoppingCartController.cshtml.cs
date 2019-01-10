@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +31,7 @@ namespace WebApplication1.Pages
 
         public string cookie;
 
-        public void OnPost(/*[FromBody]*/ int productid)
+        public void OnPost(/*[FromBody]*/ int productid, string WichPage = "True")
         {
             // Controlleert of de gebruiker is ingelogd.
             if (User.Identity.IsAuthenticated) // Wordt uitgevoerd als de gebruiker is ingelogd.
@@ -62,17 +63,14 @@ namespace WebApplication1.Pages
                     _context.Shopping_card.Add(shoppingCard);
                     _context.SaveChanges();
                 }
-                else // Wordt uitgevoerd als het product al in de shopping cart zit.
+                else // Wordt uitgevoerd als gebruiker uit de shoppingcard al bestaat
                 {
-                    var query3 = from shoping in _context.Shopping_card
-                        let shopingProduct = (
+                    var query3 = (from shoping in _context.Shopping_card
                             from shopingProduct in _context.Shopping_Card_Products
                             where shopingProduct.Shopping_card_ID == shoping.ID && shoping.User_ID == id
-                            select shopingProduct
-                        ).ToList()
-                        select shopingProduct;
+                        select shopingProduct).ToList();
 
-                    List<Shopping_card_Product> shoppingCardProducts = query3.FirstOrDefault();
+                    List<Shopping_card_Product> shoppingCardProducts = query3;
                     bool checkProductExists = false;
 
                     foreach (var item in shoppingCardProducts)
@@ -101,7 +99,10 @@ namespace WebApplication1.Pages
                     }
                     else // Wordt uitgevoerd als het product al wel in de shopping cart zit.
                     {
-                        Shopping_card_Product shoppingCardProduct = _context.Shopping_Card_Products.SingleOrDefault(b => b.Product_ID == productid);
+                        var queryShoppingCardId = (from shoppingCard_I in _context.Shopping_card
+                            where shoppingCard_I.User_ID == id
+                            select shoppingCard).FirstOrDefault();
+                        Shopping_card_Product shoppingCardProduct = _context.Shopping_Card_Products.SingleOrDefault(b => b.Product_ID == productid && b.Shopping_card_ID == queryShoppingCardId.ID);
                         if (shoppingCardProduct != null)
                         {
                             shoppingCardProduct.quantity = shoppingCardProduct.quantity + 1;
@@ -165,10 +166,14 @@ namespace WebApplication1.Pages
                     }
                 }
             }
-            // Redirect naar de shoppingcart
-            Response.Redirect("/shoppingCart");
+
+            if (WichPage == "True")
+            {
+                // Redirect back to Product info
+                Response.Redirect("ProductInfo?id=" + productid + "&ProductAdded=ShoppingCard");
+            }
+            // Redirect to shoppingcard
+            Response.Redirect("ShoppingCart");
         }
     }
-
-    
 }

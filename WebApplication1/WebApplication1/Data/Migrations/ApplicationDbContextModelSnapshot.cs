@@ -175,6 +175,8 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("Street");
 
+                    b.Property<int>("TPunten");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -195,82 +197,6 @@ namespace WebApplication1.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WebApplication1.Data.Builder", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Logo");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Builder");
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Builder_Product", b =>
-                {
-                    b.Property<int>("Builder_ID");
-
-                    b.Property<int>("Product_ID");
-
-                    b.HasKey("Builder_ID", "Product_ID");
-
-                    b.HasIndex("Product_ID");
-
-                    b.ToTable("Builder_Product");
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Factuur", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Building_nummer");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("E_mail");
-
-                    b.Property<string>("Name");
-
-                    b.Property<bool>("Payed");
-
-                    b.Property<string>("Streetname");
-
-                    b.Property<string>("Surname");
-
-                    b.Property<string>("Zip_Code");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Factuur");
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Factuur_Producten", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Factuur_ID");
-
-                    b.Property<int>("Key_ID");
-
-                    b.Property<string>("Name");
-
-                    b.Property<float>("Price");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Factuur_ID");
-
-                    b.HasIndex("Key_ID")
-                        .IsUnique();
-
-                    b.ToTable("Factuur_Producten");
-                });
-
             modelBuilder.Entity("WebApplication1.Data.Key", b =>
                 {
                     b.Property<int>("ID")
@@ -278,11 +204,23 @@ namespace WebApplication1.Data.Migrations
 
                     b.Property<string>("License");
 
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<int>("OrderID");
+
+                    b.Property<float>("Price");
+
                     b.Property<int>("ProductID");
 
                     b.Property<bool>("Sold");
 
+                    b.Property<int>("TMPID");
+
+                    b.Property<string>("UserID");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
 
                     b.HasIndex("ProductID");
 
@@ -294,36 +232,21 @@ namespace WebApplication1.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Factuur_ID");
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<float>("Paid");
+
+                    b.Property<int>("PointsGain");
+
+                    b.Property<int>("PointsSpend");
 
                     b.Property<string>("User_ID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Factuur_ID")
-                        .IsUnique();
-
                     b.HasIndex("User_ID");
 
                     b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Orderd_Product", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Key_ID");
-
-                    b.Property<int>("Order_ID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Key_ID");
-
-                    b.HasIndex("Order_ID");
-
-                    b.ToTable("Orderd_Product");
                 });
 
             modelBuilder.Entity("WebApplication1.Data.Product", b =>
@@ -492,17 +415,6 @@ namespace WebApplication1.Data.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("WebApplication1.Data.Role", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("User_role");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Role");
-                });
-
             modelBuilder.Entity("WebApplication1.Data.Shopping_card", b =>
                 {
                     b.Property<int>("ID")
@@ -598,34 +510,13 @@ namespace WebApplication1.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("WebApplication1.Data.Builder_Product", b =>
-                {
-                    b.HasOne("WebApplication1.Data.Builder", "Builder")
-                        .WithMany("BuilderProducts")
-                        .HasForeignKey("Builder_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebApplication1.Data.Product", "Product")
-                        .WithMany("BuilderProducts")
-                        .HasForeignKey("Product_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Factuur_Producten", b =>
-                {
-                    b.HasOne("WebApplication1.Data.Factuur", "Factuur")
-                        .WithMany("FactuurProductens")
-                        .HasForeignKey("Factuur_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebApplication1.Data.Key", "Key")
-                        .WithOne("FactuurProducten")
-                        .HasForeignKey("WebApplication1.Data.Factuur_Producten", "Key_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("WebApplication1.Data.Key", b =>
                 {
+                    b.HasOne("WebApplication1.Data.Order", "Order")
+                        .WithMany("Keys")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("WebApplication1.Data.Product", "Products")
                         .WithMany("Keys")
                         .HasForeignKey("ProductID")
@@ -634,34 +525,9 @@ namespace WebApplication1.Data.Migrations
 
             modelBuilder.Entity("WebApplication1.Data.Order", b =>
                 {
-                    b.HasOne("WebApplication1.Data.Factuur", "Factuur")
-                        .WithOne("Order")
-                        .HasForeignKey("WebApplication1.Data.Order", "Factuur_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("WebApplication1.Data.ApplicationUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("User_ID");
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Orderd_Product", b =>
-                {
-                    b.HasOne("WebApplication1.Data.Key", "Key")
-                        .WithMany("OrderdProducts")
-                        .HasForeignKey("Key_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebApplication1.Data.Order", "Order")
-                        .WithMany("OrderdProducts")
-                        .HasForeignKey("Order_ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WebApplication1.Data.Role", b =>
-                {
-                    b.HasOne("WebApplication1.Data.ApplicationUser", "User")
-                        .WithOne("Roles")
-                        .HasForeignKey("WebApplication1.Data.Role", "UserId")
+                        .HasForeignKey("User_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -679,7 +545,7 @@ namespace WebApplication1.Data.Migrations
             modelBuilder.Entity("WebApplication1.Data.Shopping_card_Product", b =>
                 {
                     b.HasOne("WebApplication1.Data.Product", "Product")
-                        .WithMany()
+                        .WithMany("ShoppingCardProducts")
                         .HasForeignKey("ProductID");
 
                     b.HasOne("WebApplication1.Data.Shopping_card", "ShoppingCard")

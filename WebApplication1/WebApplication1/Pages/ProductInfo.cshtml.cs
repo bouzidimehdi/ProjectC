@@ -18,8 +18,14 @@ namespace WebApplication1.Pages
         // Product
         public Product product;
 
+        public string StatusMessage;
+        public string StatusMessageError;
+
         // wishlist van de user
         public User_Wishlist Wishlistitems { get; set; }
+
+        //check if user is admin
+        public bool IsAdmin { get; set; }
 
         // Constructor
         public ProductInfoModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
@@ -29,8 +35,12 @@ namespace WebApplication1.Pages
         }
 
         // OnGet inintialsise the page.
-        public void OnGet(int id)
+        public void OnGet(int id, string ProductAdded)
         {
+            // check if user is an admin ( if not then Admin = false)
+            var Admin = User.IsInRole("Admin");
+            IsAdmin = Admin;
+
             // Query the product.
             var query = from p in _context.Product
                 where p.ID == id
@@ -53,7 +63,20 @@ namespace WebApplication1.Pages
 
             Wishlistitems = query1.FirstOrDefault();
 
+            if (ProductAdded == "ShoppingCard")
+            {
+                StatusMessage = "Added to cart! 🛒";
+            }
 
+            if (ProductAdded == "FavoriteAdd")
+            {
+                StatusMessage = "Added to favorites! ❤️";
+            }
+
+            if (ProductAdded == "FavoriteDelete")
+            {
+                StatusMessageError = "Deleted from favorites 💔";
+            }
         }
     }
 }

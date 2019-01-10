@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SQLitePCL;
 using WebApplication1.Data;
 using WebApplication1.Resource;
 
@@ -28,6 +29,7 @@ namespace WebApplication1.Pages
         public Shopping_card YourCart { get; set; }
         public void OnGet()
         {
+
             if (User.Identity.IsAuthenticated)
             {
                 string id = _userManager.GetUserId(User);
@@ -35,6 +37,13 @@ namespace WebApplication1.Pages
                     where shop.User_ID == id
                     select shop;
                 YourCart = query2.FirstOrDefault();
+
+                if (YourCart == null)
+                {
+                    YourCart = new Shopping_card() {User_ID = id};
+                    _context.Add(YourCart);
+                    _context.SaveChanges();
+                }
 
                 var query = from shopping in _context.Shopping_card
                     where shopping.User_ID == id
@@ -78,10 +87,11 @@ namespace WebApplication1.Pages
                 _context.Shopping_Card_Products.Remove(products);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToPage();
+            return Page();
 
 
         }
+
 
     }
 

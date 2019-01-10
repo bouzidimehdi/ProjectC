@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using WebApplication1.Data;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using WebApplication1.Resource.Pagination;
+using WebApplication1.Resource.Option;
 
 namespace WebApplication1.Searchengine
 {
@@ -57,32 +58,19 @@ namespace WebApplication1.Searchengine
         }
 
         /// <summary>
-        /// De main zoek functie.
+        /// Filter all the stop words out of the search filter.
         /// </summary>
-        /// <param name="searchquery"></param>
-        /// <param name="page_size"></param>
-        /// <param name="Page_index"></param>
+        /// <param name="words"></param>
         /// <returns></returns>
-        public Search_Page<Product_search> search(string searchquery, int page_size, int Page_index)
+        private SearchQuery[] FilterStopWords(SearchQuery[] words)
         {
-            // Maak de zoek item tekst kleiner.
-            searchquery = searchquery.ToLower();
+            List<SearchQuery> listWords = new List<SearchQuery>();
 
-            // Split de zoek term op in woorden.
-            string[] words_count = this.stringsplitter(searchquery);
-            SearchQuery[] words = new SearchQuery[words_count.Length];
-
-            for (int i = 0; i < words_count.Length; i++)
-            {
-                words[i] = new SearchQuery();
-                words[i].search_query = words_count[i];
-            }
-
-
-            // Filteren van de stop woorden.
-            int k = 0;
             foreach (SearchQuery word in words)
             {
+                // Filteren van de stop woorden.
+                int k = 0;
+
                 // Filter alle nummers als niet querable.
                 double num;
                 if (double.TryParse(word.search_query, out num)) words[k].queryable = false;
@@ -98,8 +86,73 @@ namespace WebApplication1.Searchengine
                 if (word.search_query == "to") words[k].search_query = "";
                 if (word.search_query == "on") words[k].search_query = "";
 
+                if (word.search_query != "")
+                {
+                    listWords.Add(word);
+                }
+
                 k++;
             }
+
+            return listWords.ToArray();
+        }
+
+        /// <summary>
+        /// Filter and order all the information
+        /// </summary>
+        /// <param name="descending"></param>
+        /// <param name="results"></param>
+        /// <param name="filter_by_selector"></param>
+        /// <param name="order_by_selector"></param>
+        private IOrderedEnumerable<Product_search> FilterAndOrderProductData(bool descending, List<Product_search> results, Func<Product_search, bool> filter_by_selector, Func<Product_search, object> order_by_selector)
+        {
+            IOrderedEnumerable<Product_search> array_results_tmp;
+            // Zet de producten op volgorde van 
+            if (descending)
+            {
+                array_results_tmp = results
+                    .Where(filter_by_selector)
+                    .OrderByDescending(order_by_selector);
+            }
+            else
+            {
+                array_results_tmp = results
+                    .Where(filter_by_selector)
+                    .OrderBy(order_by_selector);
+            }
+
+            return array_results_tmp;
+        }
+
+        /// <summary>
+        /// De main zoek functie.
+        /// </summary>
+        /// <param name="searchquery"></param>
+        /// <param name="page_size"></param>
+        /// <param name="Page_index"></param>
+        /// <returns></returns>
+        public Option<Search_Page<Product_search>> search(string searchquery, int page_size, int Page_index, Func<Product_search, object> order_by_selector, Func<Product_search, bool> filter_by_selector, bool descending)
+        {
+            if (searchquery == null || searchquery == "")
+            {
+                return new Empty<Search_Page<Product_search>>();
+            }
+            // Maak de zoek item tekst kleiner.
+            searchquery = searchquery.ToLower();
+
+            // Split de zoek term op in woorden.
+            string[] words_count = this.stringsplitter(searchquery);
+            SearchQuery[] words = new SearchQuery[words_count.Length];
+
+            for (int i = 0; i < words_count.Length; i++)
+            {
+                words[i] = new SearchQuery();
+                words[i].search_query = words_count[i];
+            }
+
+
+            // Filteren van de stop woorden.
+            words = FilterStopWords(words);
 
             // Zoek alle producten op die in een word bevat dat in de title staat.
             List<IQueryable> result_query_list = new List<IQueryable>();
@@ -107,7 +160,7 @@ namespace WebApplication1.Searchengine
             foreach (SearchQuery word in words)
             {
                 // Als de word veld niet leeg is of queryable is dan wordt er gezocht op dat word.
-                if (word.search_query != "" && word.queryable)
+                if (word.queryable)
                 {
                     var query = from p in _context.Product
                         where p.QueryName.Contains(word.search_query)
@@ -160,20 +213,24 @@ namespace WebApplication1.Searchengine
                 }
             }
 
-            // Zet de producten op volgorde van 
-            Product_search[] array_results = results
+            // Order and filter all the list.
+            IOrderedEnumerable<Product_search> array_results_tmp = FilterAndOrderProductData(descending, results, filter_by_selector, order_by_selector);
+
+            Product_search[] array_results = array_results_tmp
                                                 .Skip(Page_index * page_size)
                                                 .Take(page_size)
-                                                .OrderByDescending(p => p.points)
                                                 .ToArray();
 
-            var tot_items = results.Count();
+            var tot_items = array_results_tmp.Count();
             var tot_pages = tot_items / page_size;
 
 
             // Return een pagina met een array van product_search
-            return new Search_Page<Product_search>() { Index = Page_index, Items = array_results, TotalPages = tot_pages, SearchQuery = searchquery};
-
+            if (array_results.Length <= 0)
+            {
+                return new Empty<Search_Page<Product_search>>();
+            }
+            return new Some<Search_Page<Product_search>>() { data = new Search_Page<Product_search>() {Index = Page_index, Items = array_results, TotalPages = tot_pages, SearchQuery = searchquery}};
         }
     }
 
