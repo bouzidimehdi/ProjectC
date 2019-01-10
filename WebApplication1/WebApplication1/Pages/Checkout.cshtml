@@ -115,11 +115,11 @@
             <p class="text-center">Spend your saved diamonds for a discount!</p>
             <p style="text-align:center; margin: 0 auto; font-size:14px; padding-bottom:10px;"> Your points amount: @Model._User.TPunten</p>
 
-            <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
+            @*<form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
 
                 <input type="hidden" name="email" value="@Model.EmailKey.Email" />
                 <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
-                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
+                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />*@
 
                 <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
 
@@ -133,14 +133,14 @@
                             double Discount = Math.Round((Math.Pow(j + totalz, 1.8) / 1000) * 100) / 100;
                             double PercentDiscount = (Discount / totalz) * 100;
 
-                            if (Model._User.TPunten >= j && PercentDiscount <= 25)
+                            if (Model._User.TPunten >= j && PercentDiscount <= 100)
                             {
                                 <option value="@j">@j</option>
                             }
                         }
                     </select>
                 </form>
-            </form><br />
+            @*</form>*@<br />
             <p style="border-bottom:1px solid #e5e5e5;  line-height:0.1em; margin:10px 0 20px;  text-align:center;"><span style=" background:#fff; padding:0 10px; ">or</span></p>
             <p class="text-center">Spend your saved diamonds for exclusive products!</p>
             <div class="text-center">
