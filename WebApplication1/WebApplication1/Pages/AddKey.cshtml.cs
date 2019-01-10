@@ -184,14 +184,14 @@ namespace WebApplication1.Pages
                 _context.Order.Add(Order);
 
                 // From List keys to only key array
-                EmailKeyArray[] EmailKey = new EmailKeyArray[keys.Count];
+                EmailKeyArray[] EmailKey = new EmailKeyArray[Order.Keys.Count];
 
-                for (int j = 0; j < keys.Count; j++)
+                for (int j = 0; j < Order.Keys.Count; j++)
                 {
                     EmailKey[j] = new EmailKeyArray();
-                    EmailKey[j].Key = keys[j].License;
+                    EmailKey[j].Key = Order.Keys[j].License;
                     EmailKey[j].ProductName = (from p in _context.Product
-                                                where p.ID == keys[j].ProductID
+                                                where p.ID == Order.Keys[j].ProductID
                                                 select p.ResponseName).FirstOrDefault();
                 }
 
