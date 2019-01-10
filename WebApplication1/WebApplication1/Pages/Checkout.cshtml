@@ -115,12 +115,6 @@
             <p class="text-center">Spend your saved diamonds for a discount!</p>
             <p style="text-align:center; margin: 0 auto; font-size:14px; padding-bottom:10px;"> Your points amount: @Model._User.TPunten</p>
 
-            @*<form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
-
-                <input type="hidden" name="email" value="@Model.EmailKey.Email" />
-                <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
-                <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />*@
-
                 <form asp-page="AddKey" method="post" asp-page-handler="AddKey" id="aform">
 
                     <input type="hidden" name="email" value="@Model.EmailKey.Email" />
@@ -140,57 +134,26 @@
                         }
                     </select>
                 </form>
-            @*</form>*@<br />
+                <br />
             <p style="border-bottom:1px solid #e5e5e5;  line-height:0.1em; margin:10px 0 20px;  text-align:center;"><span style=" background:#fff; padding:0 10px; ">or</span></p>
             <p class="text-center">Spend your saved diamonds for exclusive products!</p>
             <div class="text-center">
                 @if (Model._User.TPunten >= 100)
                 {
-                    <button type="button" class="btn btn-outline-primary"data-toggle="modal" data-target="#myModal" style="text-transform:none; margin-bottom:30px;">
-                        Open the diamond shop
-                    </button>
+                <a  class="btn btn-outline-primary" asp-page="Diamondshop" style=" margin-bottom:30px;" >
+                    Open the diamond shop
+                </a>
                 }
                 else
                 {
-                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="To access the diamond shop, you need atleast 100 diamonds! 💎">
-                        <button type="button" class="btn btn-outline-primary" style="text-transform:none; pointer-events: none; margin-bottom:30px;" disabled >
-                            Open the diamond shop
-                        </button>
-                        </span>
+                    
+                        <a asp-page="Diamondshop" class="btn btn-outline-primary"  style="text-transform:none; pointer-events:none ; margin-bottom:30px;" disabled >
+                            Open the diamond shop (after 100 points)
+                        </a>
+                        
 
                         }
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-center" id="exampleModalLabel">Hi there! 🐒</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-md-12">Your diamonds amount: <span class="text-success"> @Model._User.TPunten </span><br /> Grab for free!</div>
-                                            </div>
-                                            <div class="row">&nbsp;</div>
-                                            <div class="row text-center">
-                                                <div class="col-md-12 "><h3> Tekken 7</h3>  <br /><img src="https://i2.wp.com/thelootgaming.com/wp-content/uploads/tekken7-1.png?zoom=2&resize=1210%2C642&ssl=1" width="300" style="border-radius:5px"/><hr /><button type="button" class="btn btn-primary" style="text-transform:none;">Add to cart!</button></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="left-side">
-                                            <button type="button" class="btn btn-default btn-link" data-dismiss="modal">Never mind</button>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="right-side">
-                                            <button type="button" style="text-transform:none!important;" class="btn btn-default btn-link">Never mind</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                 </div>
 
         </div>

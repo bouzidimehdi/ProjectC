@@ -20,6 +20,7 @@ namespace WebApplication1.Pages
         private readonly WebApplication1.Data.ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        public ApplicationUser _User;
 
         public DiamondshopModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
@@ -32,7 +33,10 @@ namespace WebApplication1.Pages
         public void OnGet(string FirstName, string LastName, string Email)
         {
             EmailKey = new FirstnameLastnameEmail() { Email = "mehdiiseenbaas@gmail.com", Firstname = "ja", Lastname = "jaaa" };
+            _User = _userManager.GetUserAsync(User).Result;
         }
+
+        
 
         [BindProperty]
         public Key Key { get; set; }
