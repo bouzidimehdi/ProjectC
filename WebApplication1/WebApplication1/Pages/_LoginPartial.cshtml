@@ -6,6 +6,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <script src="/js/GetPoints.js"></script>
     <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <div class="collapse navbar-collapse" id="navbar-primary">
             <ul class="navbar-nav ml-auto">
@@ -29,7 +30,7 @@
                         {
                             <a asp-page="/Admin/Admin" class="dropdown-item" id="NavAdmin">Admin</a>
                         }
-                        <label class="btn btn-primary btn-lg btn-block"  style="margin: 0 auto; border-radius: 0px;">
+                        <label class="btn btn-primary btn-lg btn-block" style="margin: 0 auto; border-radius: 0px;">
                             <div id="DiamondPoints"></div>
                             <script>GetPoints();</script>
                         </label>
