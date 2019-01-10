@@ -23,15 +23,22 @@
                 <img class="card-img-top" src="https://cdn.uploadvr.com/wp-content/uploads/2017/11/skyrim-dragonborn-wallpaper-1200x675.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h4 class="card-title">Skyrim</h4>
-                    <p class="card-text">Your points:</p>
+                    <p class="card-text">Your points: @Model._User.TPunten</p>
                     <form method="post">
 
                         <input type="hidden" name="email" value="@Model.EmailKey.Email" />
                         <input type="hidden" name="firstname" value="@Model.EmailKey.Firstname" />
                         <input type="hidden" name="lastname" value="@Model.EmailKey.Lastname" />
 
-                        <input type="hidden" name="productid" value="1311" />
-                        <input type="submit" value="250 💎 " class="btn btn-primary btn-lg" role="button" id="Prodinf_AddToCart" onclick="this.disabled = true;this.form.submit()" />
+                        <input type="hidden" name="productid" value="1348" />
+                        @if(Model._User.TPunten >= 250)
+                        { 
+                             <input type="submit" value="250 💎 " class="btn btn-primary btn-lg" role="button" id="Prodinf_AddToCart" onclick="this.disabled = true;this.form.submit()" />
+                        }
+                        else
+                        {
+                             <input type="submit" value="250 💎 " class="btn btn-primary btn-lg" role="button" id="Prodinf_AddToCart" onclick="this.disabled = true;this.form.submit()" disabled />
+                        }
 
                         @*<a class="btn btn-primary">250 💎</a>*@
                     </form>

@@ -20,6 +20,7 @@ namespace WebApplication1.Pages
         private readonly WebApplication1.Data.ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        public ApplicationUser _User;
 
         public DiamondshopModel(WebApplication1.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
@@ -32,7 +33,10 @@ namespace WebApplication1.Pages
         public void OnGet(string FirstName, string LastName, string Email)
         {
             EmailKey = new FirstnameLastnameEmail() { Email = "mehdiiseenbaas@gmail.com", Firstname = "ja", Lastname = "jaaa" };
+            _User = _userManager.GetUserAsync(User).Result;
         }
+
+        
 
         [BindProperty]
         public Key Key { get; set; }
@@ -53,44 +57,50 @@ namespace WebApplication1.Pages
                 currentTMPID = rnd.Next(1, 2000000000);
                 UniqueTMPCheck = _context.Key.Any(item => item.TMPID == currentTMPID);
             }
-
+             
             if (PointsSpend > gebruiker.TPunten || PointsSpend == null)
             {
                 PointsSpend = 0;
             }
-
-            Order Order = new Order()
+            if (gebruiker.TPunten < 250)
             {
-                User_ID = id,
-                PointsGain = 0,
-                Paid = 0,
-                PointsSpend = (int)PointsSpend,
-                OrderDate = DateTime.Now,
-                Keys = new List<Key>(),
-            };
-
-
-            if (productid == 1366)
-            {
-               
-                Order.Keys.Add(new Key()
-                {
-                    UserID = id,
-                    TMPID = currentTMPID,
-                    License = Guid.NewGuid().ToString(),
-                    ProductID = 1366,
-                    Price = 0,
-                    OrderDate = DateTime.Now
-                });
-
-                PointsSpend = PointsSpend + (int)250;
-                Order.PointsSpend = (int)PointsSpend;
+                return RedirectToPage();
             }
+            else
+            {
+                Order Order = new Order()
+                {
+                    User_ID = id,
+                    PointsGain = 0,
+                    Paid = 0,
+                    PointsSpend = (int)PointsSpend,
+                    OrderDate = DateTime.Now,
+                    Keys = new List<Key>(),
+                };
 
-            gebruiker.TPunten = gebruiker.TPunten - (int)PointsSpend;
 
-            _context.Users.Update(gebruiker);
-            _context.Order.Add(Order);
+                if (productid != 0)
+                {
+
+                    Order.Keys.Add(new Key()
+                    {
+                        UserID = id,
+                        TMPID = currentTMPID,
+                        License = Guid.NewGuid().ToString(),
+                        ProductID = productid,
+                        Price = 0,
+                        OrderDate = DateTime.Now
+                    });
+
+                    PointsSpend = PointsSpend + (int)250;
+                    Order.PointsSpend = (int)PointsSpend;
+                }
+
+                gebruiker.TPunten = gebruiker.TPunten - (int)PointsSpend;
+
+                _context.Users.Update(gebruiker);
+                _context.Order.Add(Order);
+            }
 
             // From List keys to only key array
             //EmailKeyArray[] EmailKey = new EmailKeyArray[Order.Keys.Count];
