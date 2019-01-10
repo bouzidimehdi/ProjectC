@@ -69,6 +69,7 @@ namespace WebApplication1.Data
                 .HasOne(Order => Order.User)
                 .WithMany(User => User.Orders)
                 .HasForeignKey(Order => Order.User_ID)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             // Make relation between Order and Key
