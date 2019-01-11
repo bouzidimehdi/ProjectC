@@ -34,6 +34,7 @@
                         
                     </tr>
                     @{
+                        int i = 0;
                         foreach (var item in Model.Users)
                         {
                             <tr>
@@ -42,8 +43,8 @@
                                 <td style="text-align:center;">
                                     <a class="btn btn-primary" asp-page="AdminEditUser" asp-route-UserID="@item.Id" title="Edit"><i class="fas fa-edit"></i></a>
                                     <a class="btn btn-primary" asp-page="AdminReadUser" asp-route-UserID="@item.Id" title="Read"><i class="far fa-eye"></i></a>
-                                    <a class="btn btn-danger" data-toggle="modal" data-target="#@item.Id" asp-route-UserID="@item.Id" title="Delete"><i class="fas fa-times"></i></a>
-                                    <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <a class="btn btn-danger" asp-route-UserID="@item.Id" asp-page-handler="delete" title="Delete"><i class="fas fa-times"></i></a>
+                                    @*<div class="modal fade" id="Kilo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -61,9 +62,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </td>
                             </tr>
+                            i = i + 1;
                         }
                     }
                 </table>
